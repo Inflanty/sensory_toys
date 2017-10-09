@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/BATCH_BUILD/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/BATCH_BUILD/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/BATCH_BUILD/value=1
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/PATH/value=/usr/lib64/qt-3.3/bin\:/usr/local/bin\:/usr/local/sbin\:/usr/bin\:/usr/sbin\:/home/JG/.local/bin\:/home/JG/bin\:/home/JG/Downloads/eclipse\:/home/JG/Worksapce/esp/xtensa-esp32-elf/bin\:${PATH}
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.base.31451455/appendContributed=true
