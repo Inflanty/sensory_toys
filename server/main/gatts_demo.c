@@ -204,7 +204,7 @@ moduleState module;
 
 conn_params connection;
 
-volatile uint8_t timer_int = 0;
+volatile int timer_int = 0;
 
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
