@@ -31,6 +31,15 @@
 // DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
+#define PLAYER_READY 0xFF;
+#define PLAYER_LISNING 0xEE;
+
+#define TRACK_STOP 0xDD;
+#define TRACK_START 0xCC;
+
+#define ALL_CONNECTED 0xFF;
+#define NO_CONNECTION 0xAA;
+
 Adafruit_VS1053_FilePlayer musicPlayer = 
   // create breakout-example object!
   //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
@@ -43,6 +52,11 @@ Adafruit_VS1053_FilePlayer musicPlayer =
 void setup() {
   Serial.begin(9600);
   Serial.println("Adafruit VS1053 Library Test");
+
+    Serial1.begin(9600); 
+  while (!Serial1) {
+    ; // wait for serial port to connect. Needed for native USB
+  }
 
   // initialise the music player
   if (! musicPlayer.begin()) { // initialise the music player
@@ -127,5 +141,78 @@ void printDirectory(File dir, int numTabs) {
      }
      entry.close();
    }
+}
+
+void loop_player(){
+ 
+  Serial1.write(PLAYER_READY);
+  int esp_flag = 0x00;
+  char command[1];
+  char track[12];
+  // track001.mp3 - powietrze
+  // track002.mp3 - woda
+  // track003.mp3 - kamien
+  // track004.mp3 - drewno
+  // *********************
+  // track011.mp3 - powietrze_transport
+  // track021.mp3 - powietrze_energia
+  // track012.mp3 - woda_transport
+  // track022.mp3 - woda energia
+  // ...
+
+  
+  int read_info = Serial1.readBytes();
+
+  switch(read_info){
+    case(ALL _CONNECTED):
+      esp_flag = 0x01;
+    break;
+    case(NO_CONNECTION):
+      esp_flag = 0x00;
+      while(read_info != 0x01){};
+    break;
+
+    default:
+      esp_flag = 0xFF;
+    break;
+  }
+
+  
+  
+  while(esp_flag == 0x01){ // PETLA GLOWNA
+
+    Serial1.write(PLAYER_LISNING);
+
+    track = Serial1.read();
+
+    /*while (musicPlayer.playingMusic) {
+      Serial.print(".");
+      delay(1000);
+    }*/  
+
+    musicPlayer.startPlayingFile(track);
+    Serial1.write(TRACK_START);
+    
+    while (musicPlayer.playingMusic) {
+      // file is now playing in the 'background' so now's a good time
+      // to do something else like handling LEDs or buttons :)
+      delay(100);
+      command = Serial1.read();
+
+      while(command != 's'){
+
+        musicPlayer.stopPlaying();
+        
+        if (musicPlayer.stopped()) {
+        Serial1.write(TRACK_STOP);
+        }
+      }
+
+      
+    }
+
+
+    
+  }  
 }
 
