@@ -23,7 +23,7 @@ bluedroid/btc/profile/std/gap/btc_gap_bt.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
@@ -155,7 +155,7 @@ bluedroid/btc/profile/std/gap/btc_gap_bt.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h:
 

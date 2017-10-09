@@ -13,7 +13,7 @@ src/bootloader_random.o: \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_access.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h \
- /home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/i2s_reg.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -46,7 +46,7 @@ src/bootloader_random.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h:
 
-/home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/i2s_reg.h:
 

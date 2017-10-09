@@ -24,7 +24,7 @@ libsodium/src/libsodium/crypto_auth/hmacsha256/auth_hmacsha256.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
  /home/JG/Workspace/esp/esp-idf/components/mbedtls/include/mbedtls/sha256.h \
  /home/JG/Workspace/esp/esp-idf/components/mbedtls/port/include/mbedtls/esp_config.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/mbedtls/include/mbedtls/check_config.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/limits.h \
  /home/JG/Workspace/esp/esp-idf/components/libsodium/libsodium/src/libsodium/include/sodium/export.h \
@@ -87,7 +87,7 @@ libsodium/src/libsodium/crypto_auth/hmacsha256/auth_hmacsha256.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/mbedtls/port/include/mbedtls/esp_config.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/mbedtls/include/mbedtls/check_config.h:
 

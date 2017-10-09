@@ -1,7 +1,7 @@
 bluedroid/stack/smp/smp_main.o: \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/smp/smp_main.c \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
@@ -105,7 +105,7 @@ bluedroid/stack/smp/smp_main.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
 

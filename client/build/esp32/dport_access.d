@@ -17,7 +17,7 @@ dport_access.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/lock.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/cdefs.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/string.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h \
@@ -127,7 +127,7 @@ dport_access.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/string.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h:
 

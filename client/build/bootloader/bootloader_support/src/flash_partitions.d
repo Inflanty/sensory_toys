@@ -4,7 +4,7 @@ src/flash_partitions.o: \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_flash_data_types.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
- /home/JG/Workspace/sensory_toys/client/build/bootloader/../include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/bootloader/../include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -22,7 +22,7 @@ src/flash_partitions.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h:
 
-/home/JG/Workspace/sensory_toys/client/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/bootloader/../include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

@@ -9,7 +9,7 @@ spi_flash_rom_patch.o: \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/spi_flash.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/spi_reg.h \
- /home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h
+ /home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 
@@ -29,5 +29,5 @@ spi_flash_rom_patch.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/spi_reg.h:
 
-/home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h:
 /home/JG/Workspace/esp/esp-idf/components/spi_flash/./spi_flash_rom_patch.c:

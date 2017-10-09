@@ -27,7 +27,7 @@ freertos_hooks.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h:
@@ -84,7 +84,7 @@ freertos_hooks.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 /home/JG/Workspace/esp/esp-idf/components/esp32/./freertos_hooks.c:

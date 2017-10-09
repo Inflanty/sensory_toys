@@ -30,7 +30,7 @@ bluedroid/btc/profile/std/gatt/btc_gatt_util.o: \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/bta/include/bta_gatt_api.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/bta/include/bta_api.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
@@ -174,7 +174,7 @@ bluedroid/btc/profile/std/gatt/btc_gatt_util.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h:
 

@@ -1,7 +1,7 @@
 libsodium/src/libsodium/crypto_generichash/blake2b/ref/generichash_blake2b.o: \
  /home/JG/Workspace/esp/esp-idf/components/libsodium/libsodium/src/libsodium/crypto_generichash/blake2b/ref/generichash_blake2b.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/ieeefp.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -29,7 +29,7 @@ libsodium/src/libsodium/crypto_generichash/blake2b/ref/generichash_blake2b.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h:
 

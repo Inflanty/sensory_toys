@@ -17,7 +17,7 @@ hwcrypto/aes.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/string.h \
  /home/JG/Workspace/esp/esp-idf/components/mbedtls/include/mbedtls/aes.h \
  /home/JG/Workspace/esp/esp-idf/components/mbedtls/port/include/mbedtls/esp_config.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/mbedtls/include/mbedtls/check_config.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/limits.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
@@ -123,7 +123,7 @@ hwcrypto/aes.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/mbedtls/port/include/mbedtls/esp_config.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/mbedtls/include/mbedtls/check_config.h:
 

@@ -7,7 +7,7 @@ esp32/cpu_util.o: \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/rtc_cntl_reg.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
- /home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h
+ /home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h:
 
@@ -23,5 +23,5 @@ esp32/cpu_util.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h:
 
-/home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h:
 /home/JG/Workspace/esp/esp-idf/components/soc/esp32/cpu_util.c:

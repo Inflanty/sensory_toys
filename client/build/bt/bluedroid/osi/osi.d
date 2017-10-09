@@ -17,7 +17,7 @@ bluedroid/osi/osi.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/lock.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -117,7 +117,7 @@ bluedroid/osi/osi.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 

@@ -4,7 +4,7 @@ pcnt.o: /home/JG/Workspace/esp/esp-idf/components/driver/./pcnt.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/features.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -95,7 +95,7 @@ pcnt.o: /home/JG/Workspace/esp/esp-idf/components/driver/./pcnt.c \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

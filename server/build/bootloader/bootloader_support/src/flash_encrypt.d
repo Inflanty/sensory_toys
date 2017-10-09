@@ -3,7 +3,7 @@ src/flash_encrypt.o: \
  /home/JG/Workspace/esp/esp-idf/components/bootloader_support/include_priv/bootloader_flash.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/JG/Workspace/esp/esp-idf/components/spi_flash/include/esp_spi_flash.h \
- /home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/bootloader_support/include_priv/bootloader_random.h \
  /home/JG/Workspace/esp/esp-idf/components/bootloader_support/include/esp_image_format.h \
  /home/JG/Workspace/esp/esp-idf/components/bootloader_support/include/esp_flash_partitions.h \
@@ -33,7 +33,7 @@ src/flash_encrypt.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/spi_flash/include/esp_spi_flash.h:
 
-/home/JG/Workspace/sensory_toys/server/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/bootloader/../include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bootloader_support/include_priv/bootloader_random.h:
 

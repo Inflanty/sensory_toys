@@ -1,4 +1,4 @@
-gatts_demo.o: /home/JG/Workspace/sensory_toys/server/main/./gatts_demo.c \
+gatts_demo.o: /home/JG/git/sensoty_toys/server/main/./gatts_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/newlib.h \
@@ -26,7 +26,7 @@ gatts_demo.o: /home/JG/Workspace/sensory_toys/server/main/./gatts_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -157,7 +157,7 @@ gatts_demo.o: /home/JG/Workspace/sensory_toys/server/main/./gatts_demo.c \
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -308,4 +308,4 @@ gatts_demo.o: /home/JG/Workspace/sensory_toys/server/main/./gatts_demo.c \
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
-/home/JG/Workspace/sensory_toys/server/main/./gatts_demo.c:
+/home/JG/git/sensoty_toys/server/main/./gatts_demo.c:

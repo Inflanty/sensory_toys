@@ -21,7 +21,7 @@ bluedroid/bta/sdp/bta_sdp_act.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/types.h \
@@ -159,7 +159,7 @@ bluedroid/bta/sdp/bta_sdp_act.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h:
 

@@ -9,7 +9,7 @@ library/ssl_pkey.o: \
  /home/JG/Workspace/esp/esp-idf/components/openssl/include/internal/ssl_methods.h \
  /home/JG/Workspace/esp/esp-idf/components/openssl/include/internal/ssl_dbg.h \
  /home/JG/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_opt.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_port.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/cdefs.h \
@@ -61,7 +61,7 @@ library/ssl_pkey.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_opt.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_port.h:
 

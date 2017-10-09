@@ -1,6 +1,6 @@
 spiram_psram.o: \
  /home/JG/Workspace/esp/esp-idf/components/esp32/./spiram_psram.c \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/string.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/newlib.h \
@@ -56,7 +56,7 @@ spiram_psram.o: \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/lldesc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/queue.h
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/string.h:
 

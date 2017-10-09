@@ -11,7 +11,7 @@ xtensa_init.o: \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/config/system.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/simcall.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_context.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/xtruntime-frames.h \
@@ -62,7 +62,7 @@ xtensa_init.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 

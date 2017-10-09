@@ -1,5 +1,5 @@
 gattc_multi_connect.o: \
- /home/JG/Workspace/sensory_toys/client/main/./gattc_multi_connect.c \
+ /home/JG/git/sensoty_toys/client/main/./gattc_multi_connect.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/features.h \
@@ -25,7 +25,7 @@ gattc_multi_connect.o: \
  /home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
@@ -166,7 +166,7 @@ gattc_multi_connect.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h:
 
@@ -345,4 +345,4 @@ gattc_multi_connect.o: \
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
-/home/JG/Workspace/sensory_toys/client/main/./gattc_multi_connect.c:
+/home/JG/git/sensoty_toys/client/main/./gattc_multi_connect.c:

@@ -32,7 +32,7 @@ src/fast_crypto/fast_crypto_internal-cipher.o: \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/lwip/include/lwip/lwip/mem.h \
  /home/JG/Workspace/esp/esp-idf/components/lwip/include/lwip/lwip/opt.h \
@@ -174,7 +174,7 @@ src/fast_crypto/fast_crypto_internal-cipher.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

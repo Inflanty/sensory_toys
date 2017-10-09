@@ -5,7 +5,7 @@ bluedroid/osi/buffer.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/features.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/newlib.h \
@@ -50,7 +50,7 @@ bluedroid/osi/buffer.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h:
 

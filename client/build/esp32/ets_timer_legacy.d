@@ -19,7 +19,7 @@ ets_timer_legacy.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -125,7 +125,7 @@ ets_timer_legacy.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

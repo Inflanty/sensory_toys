@@ -29,7 +29,7 @@ spiffs/src/spiffs_hydrogen.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/string.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/unistd.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/unistd.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
@@ -97,7 +97,7 @@ spiffs/src/spiffs_hydrogen.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/unistd.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h:
 

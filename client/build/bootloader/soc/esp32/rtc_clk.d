@@ -17,7 +17,7 @@ esp32/rtc_clk.o: \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_access.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h \
- /home/JG/Workspace/sensory_toys/client/build/bootloader/../include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/bootloader/../include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/efuse_reg.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/apb_ctrl_reg.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/i2c_rtc_clk.h \
@@ -67,7 +67,7 @@ esp32/rtc_clk.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h:
 
-/home/JG/Workspace/sensory_toys/client/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/bootloader/../include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/efuse_reg.h:
 

@@ -19,7 +19,7 @@ bluedroid/stack/btm/btm_devctl.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/string.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/string.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/types.h \
@@ -171,7 +171,7 @@ bluedroid/stack/btm/btm_devctl.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h:
 

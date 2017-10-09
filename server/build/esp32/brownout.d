@@ -22,7 +22,7 @@ brownout.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./brownout.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
@@ -123,7 +123,7 @@ brownout.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./brownout.c \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h:
 

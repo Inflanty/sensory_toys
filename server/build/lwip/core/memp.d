@@ -27,7 +27,7 @@ core/memp.o: /home/JG/Workspace/esp/esp-idf/components/lwip/core/memp.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_default_fcntl.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/stat.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_task.h \
- /home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/server/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_system.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
@@ -197,7 +197,7 @@ core/memp.o: /home/JG/Workspace/esp/esp-idf/components/lwip/core/memp.c \
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_task.h:
 
-/home/JG/Workspace/sensory_toys/server/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/server/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_system.h:
 

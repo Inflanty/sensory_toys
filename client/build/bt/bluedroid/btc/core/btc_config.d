@@ -28,7 +28,7 @@ bluedroid/btc/core/btc_config.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -159,7 +159,7 @@ bluedroid/btc/core/btc_config.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
 
-/home/JG/Workspace/sensory_toys/client/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
 
