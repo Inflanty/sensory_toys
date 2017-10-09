@@ -1,14 +1,14 @@
-/*************************************************** 
+/***************************************************
   This is an example for the Adafruit VS1053 Codec Breakout
 
-  Designed specifically to work with the Adafruit VS1053 Codec Breakout 
+  Designed specifically to work with the Adafruit VS1053 Codec Breakout
   ----> https://www.adafruit.com/products/1381
 
-  Adafruit invests time and resources providing this open source code, 
-  please support Adafruit and open-source hardware by purchasing 
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
   products from Adafruit!
 
-  Written by Limor Fried/Ladyada for Adafruit Industries.  
+  Written by Limor Fried/Ladyada for Adafruit Industries.
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
@@ -31,16 +31,17 @@
 // DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
-#define PLAYER_READY 0xFF;
-#define PLAYER_LISNING 0xEE;
+#define PLAYER_READY (0xFF);
+#define PLAYER_LISNING (0xEE);
 
-#define TRACK_STOP 0xDD;
-#define TRACK_START 0xCC;
+#define TRACK_STOP (0xDD);
+#define TRACK_START (0xCC);
+#define TRACK_FIN (0xBB);
 
-#define ALL_CONNECTED 0xFF;
-#define NO_CONNECTION 0xAA;
+#define ALL_CONNECTED (0xFF);
+#define NO_CONNECTION (0xAA);
 
-Adafruit_VS1053_FilePlayer musicPlayer = 
+Adafruit_VS1053_FilePlayer musicPlayer =
   // create breakout-example object!
   //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
   // create shield-example object!
@@ -53,38 +54,34 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Adafruit VS1053 Library Test");
 
-    Serial1.begin(9600); 
-  while (!Serial1) {
-    ; // wait for serial port to connect. Needed for native USB
-  }
 
   // initialise the music player
   if (! musicPlayer.begin()) { // initialise the music player
-     Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
-     while (1);
+    Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
+    while (1);
   }
   Serial.println(F("VS1053 found"));
 
   musicPlayer.sineTest(0x44, 500);    // Make a tone to indicate VS1053 is working
- 
+
   if (!SD.begin(CARDCS)) {
     Serial.println(F("SD failed, or not present"));
     while (1);  // don't do anything more
   }
   Serial.println("SD OK!");
-  
+
   // list files
   printDirectory(SD.open("/"), 0);
-  
-  // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(20,20);
 
-  /***** Two interrupt options! *******/ 
+  // Set volume for left, right channels. lower numbers == louder volume!
+  musicPlayer.setVolume(20, 20);
+
+  /***** Two interrupt options! *******/
   // This option uses timer0, this means timer1 & t2 are not required
   // (so you can use 'em for Servos, etc) BUT millis() can lose time
   // since we're hitchhiking on top of the millis() tracker
   //musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT);
-  
+
   // This option uses a pin interrupt. No timers required! But DREQ
   // must be on an interrupt pin. For Uno/Duemilanove/Diecimilla
   // that's Digital #2 or #3
@@ -94,7 +91,7 @@ void setup() {
     Serial.println(F("DREQ pin is not an interrupt pin"));
 }
 
-void loop() {  
+void loop() {
   // Alternately, we can just play an entire file at once
   // This doesn't happen in the background, instead, the entire
   // file is played and the program will continue when it's done!
@@ -119,32 +116,40 @@ void loop() {
 
 /// File listing helper
 void printDirectory(File dir, int numTabs) {
-   while(true) {
-     
-     File entry =  dir.openNextFile();
-     if (! entry) {
-       // no more files
-       //Serial.println("**nomorefiles**");
-       break;
-     }
-     for (uint8_t i=0; i<numTabs; i++) {
-       Serial.print('\t');
-     }
-     Serial.print(entry.name());
-     if (entry.isDirectory()) {
-       Serial.println("/");
-       printDirectory(entry, numTabs+1);
-     } else {
-       // files have sizes, directories do not
-       Serial.print("\t\t");
-       Serial.println(entry.size(), DEC);
-     }
-     entry.close();
-   }
+  while (true) {
+
+    File entry =  dir.openNextFile();
+    if (! entry) {
+      // no more files
+      //Serial.println("**nomorefiles**");
+      break;
+    }
+    for (uint8_t i = 0; i < numTabs; i++) {
+      Serial.print('\t');
+    }
+    Serial.print(entry.name());
+    if (entry.isDirectory()) {
+      Serial.println("/");
+      printDirectory(entry, numTabs + 1);
+    } else {
+      // files have sizes, directories do not
+      Serial.print("\t\t");
+      Serial.println(entry.size(), DEC);
+    }
+    entry.close();
+  }
+
+  loop_player();
 }
 
-void loop_player(){
- 
+void loop_player() {
+
+  
+  Serial1.begin(9600);
+  while (!Serial1) {
+    ; // wait for serial port to connect. Needed for native USB
+  }
+
   Serial1.write(PLAYER_READY);
   int esp_flag = 0x00;
   char command[1];
@@ -160,26 +165,26 @@ void loop_player(){
   // track022.mp3 - woda energia
   // ...
 
-  
+
   int read_info = Serial1.readBytes();
 
-  switch(read_info){
-    case(ALL _CONNECTED):
+  switch (read_info) {
+    case (ALL _CONNECTED):
       esp_flag = 0x01;
-    break;
-    case(NO_CONNECTION):
+      break;
+    case (NO_CONNECTION):
       esp_flag = 0x00;
-      while(read_info != 0x01){};
-    break;
+      while (read_info != 0x01) {};
+      break;
 
     default:
       esp_flag = 0xFF;
-    break;
+      break;
   }
 
-  
-  
-  while(esp_flag == 0x01){ // PETLA GLOWNA
+
+
+  while (esp_flag == 0x01) { // PETLA GLOWNA
 
     Serial1.write(PLAYER_LISNING);
 
@@ -188,10 +193,11 @@ void loop_player(){
     /*while (musicPlayer.playingMusic) {
       Serial.print(".");
       delay(1000);
-    }*/  
+      }*/
 
     musicPlayer.startPlayingFile(track);
     Serial1.write(TRACK_START);
+    delay(1);
     
     while (musicPlayer.playingMusic) {
       // file is now playing in the 'background' so now's a good time
@@ -199,20 +205,18 @@ void loop_player(){
       delay(100);
       command = Serial1.read();
 
-      while(command != 's'){
+      while (command != 's') {
 
         musicPlayer.stopPlaying();
-        
+
         if (musicPlayer.stopped()) {
-        Serial1.write(TRACK_STOP);
+          Serial1.write(TRACK_STOP);
         }
       }
-
-      
     }
 
-
-    
-  }  
+    Serial1.write(TRACK_FIN);
+    delay(1);
+  }
 }
 
