@@ -27,6 +27,14 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_system.h"
+#include "driver/uart.h"
+#include "freertos/queue.h"
+#include "esp_log.h"
+#include "soc/uart_struct.h"
 #include "nvs.h"
 #include "nvs_flash.h"
 #include "controller.h"
@@ -44,8 +52,20 @@
 #define PROFILE_NUM      1
 #define PROFILE_A_APP_ID 0
 #define INVALID_HANDLE   0
+#define EX_UART_NUM UART_NUM_1
 
+// ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
+#define BUF_SIZE (1024)
+#define TRACK_STOP 0x00
+#define TRACK_START 0x0F
+#define TRACK_FINAL 0xF0
+#define NO_EXT 0x00
+#define EXT_WORK 0x10
+#define EXT_ENERGY 0x20
+#define TAG "uart_events"
+// ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
 static const char remote_device_name[] = "ESP_GATTS_DEMO";
+
 static bool connect    = false;
 static bool get_server = false;
 static esp_gattc_char_elem_t *char_elem_result   = NULL;
@@ -55,7 +75,7 @@ static esp_gattc_descr_elem_t *descr_elem_result = NULL;
 static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
 static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
-
+void UART_SendByte(const int uartNumber,  uint8_t data);
 
 static esp_bt_uuid_t remote_filter_service_uuid = {
     .len = ESP_UUID_LEN_16,
@@ -91,6 +111,175 @@ struct gattc_profile_inst {
     esp_bd_addr_t remote_bda;
 };
 
+// ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
+typedef struct {
+	uint8_t profile;
+	uint8_t state;
+	uint8_t level;
+	uint16_t batt_level;
+	bool charger;
+	bool evt;
+} moduleState;
+
+moduleState state;
+
+static QueueHandle_t uart0_queue;
+static QueueHandle_t player_queue;
+// ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
+
+// ----------------------------------------- USER FNC  ---------------------------------------------------------------------------------- */
+/*
+ * moduleState Qstate;
+ *
+ * Zdefiniowac w obsludze notyfikacji
+ * Qstate.state = ...
+ * Qstate.level = ...
+ *
+ *
+ */
+static void player_task(void* arg){
+    uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
+
+    uart_write_bytes(EX_UART_NUM, (const char*)data, 4);
+
+	moduleState Qstat;
+
+	while (1) {
+		if (xQueueReceive(player_queue, &Qstat, portMAX_DELAY)) {
+			//data[0] = Qstat.state;
+			//data[1] = Qstat.level;
+
+			if(Qstat.state != 0x00){
+				/*if(Qstat.level == NO_EXT){
+					data[0] = TRACK_START;
+					data[1] = Qstat.profile;
+				}else if((Qstat.level == EXT_WORK) || (Qstat.level == EXT_ENERGY)){
+					data[0] = TRACK_START;
+					data[1] = ((Qstat.level) || (Qstat.profile));
+				}*/
+				data[0] = TRACK_START;
+				data[1] = ((Qstat.level) || (Qstat.profile));
+			}else if(Qstat.state == 0x00){
+				data[0] = TRACK_STOP;
+				data[1] = 0x00;
+			}
+
+			/*switch(Qstat.profile){
+			case 1:
+
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+			case 4:
+
+				break;
+			default:
+
+				break;
+			}*/
+		}
+		printf("\nTO PLAYER:\ncommand:  %d\ndata: %d", data[0], data[1]);
+	}
+}
+
+static void uart_event_task(void *pvParameters)
+{
+    uart_event_t event;
+    size_t buffered_size;
+    uint8_t* dtmp = (uint8_t*) malloc(BUF_SIZE);
+    for(;;) {
+        //Waiting for UART event.
+        if(xQueueReceive(uart0_queue, (void * )&event, (portTickType)portMAX_DELAY)) {
+            ESP_LOGI(TAG, "uart[%d] event:", EX_UART_NUM);
+            switch(event.type) {
+                //Event of UART receving data
+                /*We'd better handler data event fast, there would be much more data events than
+                other types of events. If we take too much time on data event, the queue might
+                be full.
+                in this example, we don't process data in event, but read data outside.*/
+                case UART_DATA:
+                    uart_get_buffered_data_len(EX_UART_NUM, &buffered_size);
+                    ESP_LOGI(TAG, "data, len: %d; buffered len: %d", event.size, buffered_size);
+                    break;
+                //Event of HW FIFO overflow detected
+                case UART_FIFO_OVF:
+                    ESP_LOGI(TAG, "hw fifo overflow\n");
+                    //If fifo overflow happened, you should consider adding flow control for your application.
+                    //We can read data out out the buffer, or directly flush the rx buffer.
+                    uart_flush(EX_UART_NUM);
+                    break;
+                //Event of UART ring buffer full
+                case UART_BUFFER_FULL:
+                    ESP_LOGI(TAG, "ring buffer full\n");
+                    //If buffer full happened, you should consider encreasing your buffer size
+                    //We can read data out out the buffer, or directly flush the rx buffer.
+                    uart_flush(EX_UART_NUM);
+                    break;
+                //Event of UART RX break detected
+                case UART_BREAK:
+                    ESP_LOGI(TAG, "uart rx break\n");
+                    break;
+                //Event of UART parity check error
+                case UART_PARITY_ERR:
+                    ESP_LOGI(TAG, "uart parity error\n");
+                    break;
+                //Event of UART frame error
+                case UART_FRAME_ERR:
+                    ESP_LOGI(TAG, "uart frame error\n");
+                    break;
+                //UART_PATTERN_DET
+                case UART_PATTERN_DET:
+                    ESP_LOGI(TAG, "uart pattern detected\n");
+                    break;
+                //Others
+                default:
+                    ESP_LOGI(TAG, "uart event type: %d\n", event.type);
+                    break;
+            }
+        }
+    }
+    free(dtmp);
+    dtmp = NULL;
+    vTaskDelete(NULL);
+}
+
+static void uart_init(void){
+    uart_config_t uart_config = {
+       .baud_rate = 115200,
+       .data_bits = UART_DATA_8_BITS,
+       .parity = UART_PARITY_DISABLE,
+       .stop_bits = UART_STOP_BITS_1,
+       .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+       .rx_flow_ctrl_thresh = 122,
+    };
+    //Set UART parameters
+    uart_param_config(EX_UART_NUM, &uart_config);
+    //Set UART log level
+    esp_log_level_set(TAG, ESP_LOG_INFO);
+    //Install UART driver, and get the queue.
+    uart_driver_install(EX_UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10, &uart0_queue, 0);
+
+    //Set UART pins (using UART0 default pins ie no changes.)
+    uart_set_pin(EX_UART_NUM, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+
+    //Set uart pattern detect function.
+    uart_enable_pattern_det_intr(EX_UART_NUM, '+', 3, 10000, 10, 10);
+
+    xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 12, NULL);
+}
+
+void UART_SendByte(const int uartNumber,  uint8_t data)
+{
+    char toSend[2] = { data };
+    uart_write_bytes(uartNumber, (char *)toSend, 2);
+}
+
+// ----------------------------------------- USER FNC  ---------------------------------------------------------------------------------- */
+
 /* One gatt-based profile one app_id and one gattc_if, this array will store the gattc_if returned by ESP_GATTS_REG_EVT */
 static struct gattc_profile_inst gl_profile_tab[PROFILE_NUM] = {
     [PROFILE_A_APP_ID] = {
@@ -98,6 +287,7 @@ static struct gattc_profile_inst gl_profile_tab[PROFILE_NUM] = {
         .gattc_if = ESP_GATT_IF_NONE,       /* Not get the gatt_if, so initial is ESP_GATT_IF_NONE */
     },
 };
+
 
 static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param)
 {
@@ -259,6 +449,36 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
     case ESP_GATTC_NOTIFY_EVT:
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, receive notify value:");
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
+
+        /* *************************************************************************** */
+
+        /*printf("\nCharacteristic handle: %d\n", gl_profile_tab[PROFILE_A_APP_ID].char_handle);
+        if(p_data->notify.value_len == 4){
+        	state.state = p_data->notify.value[0];
+        	state.level = p_data->notify.value[1];
+        }
+        switch(state.state){
+        case 0x00:
+        	printf("-----------------TRACK STOP-----------------\n");
+        	break;
+        case 0x01:
+        	printf("Track001.mp3\n");
+        	break;
+        case 0x11:
+        	printf("Track011.mp3\n");
+        	break;
+        default:
+
+        	break;
+        }*/
+        state.profile = 0x01; // DLA PROFILU A
+    	state.state = p_data->notify.value[0];
+    	state.level = p_data->notify.value[1];
+    	state.batt_level = (((0x0000 | (p_data->notify.value[2])) << 8 ) | (p_data->notify.value[3]));
+
+    	xQueueSendFromISR(player_queue, &state, NULL);
+        /* *************************************************************************** */
+
         break;
     case ESP_GATTC_WRITE_DESCR_EVT:
         if (p_data->write.status != ESP_GATT_OK){
@@ -469,6 +689,23 @@ void app_main()
     if (local_mtu_ret){
         ESP_LOGE(GATTC_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
     }
+
+
+	player_queue = xQueueCreate(10, sizeof(uint32_t));
+	uart_init();
+	xTaskCreate(player_task, "player_task", 2048, NULL, 10, NULL);
+
+    /*uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
+    do {
+        int len = uart_read_bytes(EX_UART_NUM, data, BUF_SIZE, 100 / portTICK_RATE_MS);
+        if(len > 0) {
+            ESP_LOGI(TAG, "uart read : %d", len);
+            uart_write_bytes(EX_UART_NUM, (const char*)data, len);
+        }
+    } while(1);*/
+	while(1){
+		;
+	}
 
 }
 

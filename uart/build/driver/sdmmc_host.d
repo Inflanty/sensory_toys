@@ -12,7 +12,7 @@ sdmmc_host.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
- /home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -115,7 +115,7 @@ sdmmc_host.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h:
 
-/home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

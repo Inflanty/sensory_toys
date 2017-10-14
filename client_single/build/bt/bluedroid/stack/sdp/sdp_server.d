@@ -22,7 +22,7 @@ bluedroid/stack/sdp/sdp_server.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
- /home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/btu.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
@@ -96,7 +96,7 @@ bluedroid/stack/sdp/sdp_server.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h:
 
-/home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/btu.h:
 

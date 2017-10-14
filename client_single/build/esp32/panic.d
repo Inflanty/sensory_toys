@@ -27,7 +27,7 @@ panic.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./panic.c \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/uart.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_types.h \
@@ -152,7 +152,7 @@ panic.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./panic.c \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

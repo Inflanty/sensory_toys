@@ -2,7 +2,7 @@ bootloader_start.o: \
  /home/JG/Workspace/esp/esp-idf/components/bootloader/subproject/main/./bootloader_start.c \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
- /home/JG/Workspace/sensory_toys/uart/build/bootloader/../include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/uart/build/bootloader/../include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -50,7 +50,7 @@ bootloader_start.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h:
 
-/home/JG/Workspace/sensory_toys/uart/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/uart/build/bootloader/../include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

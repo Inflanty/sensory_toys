@@ -24,7 +24,7 @@ port/minicheck.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/setjmp.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/setjmp.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/expat/include/expat/internal.h \
  /home/JG/Workspace/esp/esp-idf/components/expat/port/include/minicheck.h
@@ -77,7 +77,7 @@ port/minicheck.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

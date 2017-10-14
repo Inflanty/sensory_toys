@@ -33,7 +33,7 @@ src/crypto/ms_funcs.o: \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/lwip/include/lwip/lwip/mem.h \
  /home/JG/Workspace/esp/esp-idf/components/lwip/include/lwip/lwip/opt.h \
@@ -177,7 +177,7 @@ src/crypto/ms_funcs.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

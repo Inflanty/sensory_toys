@@ -1,5 +1,5 @@
 int_wdt.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./int_wdt.c \
- /home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/features.h \
@@ -82,7 +82,7 @@ int_wdt.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./int_wdt.c \
  /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/timer.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_int_wdt.h
 
-/home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h:
 

@@ -2,7 +2,7 @@ src/ff.o: /home/JG/Workspace/esp/esp-idf/components/fatfs/src/ff.c \
  /home/JG/Workspace/esp/esp-idf/components/fatfs/src/ff.h \
  /home/JG/Workspace/esp/esp-idf/components/fatfs/src/integer.h \
  /home/JG/Workspace/esp/esp-idf/components/fatfs/src/ffconf.h \
- /home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/reent.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -90,7 +90,7 @@ src/ff.o: /home/JG/Workspace/esp/esp-idf/components/fatfs/src/ff.c \
 
 /home/JG/Workspace/esp/esp-idf/components/fatfs/src/ffconf.h:
 
-/home/JG/Workspace/sensory_toys/uart/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/uart/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 

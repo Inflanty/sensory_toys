@@ -1,7 +1,3 @@
-
-
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,7 +30,6 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 		esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param);
 static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 		esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param);
-
 
 // ----------------------------------------- DEFINES ------------------------------------------------------------------------------------ */
 
@@ -88,7 +83,6 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 uint8_t char1_str[] = { 0x11, 0x22, 0x33 };
 esp_gatt_char_prop_t a_property = 0;
 esp_gatt_char_prop_t b_property = 0;
-
 
 esp_attr_value_t gatts_demo_char1_val = { .attr_max_len =
 GATTS_DEMO_CHAR_VAL_LEN_MAX, .attr_len = sizeof(char1_str), .attr_value =
@@ -205,6 +199,8 @@ moduleState module;
 conn_params connection;
 
 volatile int timer_int = 0;
+
+volatile int motion_status = 1;
 //
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
@@ -221,15 +217,16 @@ void notify_data(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
 
 // ----------------------------------------- FUNCTIONS ---------------------------------------------------------------------------------- */
 /*
-static void inline print_u64(uint64_t val)
-{
-    printf("0x%08x%08x\n", (uint32_t) (val >> 32), (uint32_t) (val));
-}
-*/
+ static void inline print_u64(uint64_t val)
+ {
+ printf("0x%08x%08x\n", (uint32_t) (val >> 32), (uint32_t) (val));
+ }
+ */
 
 static xQueueHandle gpio_evt_queue = NULL;
+xQueueHandle timer_queue;
 
-static void vibro_task (void* arg) {
+static void vibro_task(void* arg) {
 	uint32_t io_num;
 
 	module.state = IMMOBILITY;
@@ -239,45 +236,54 @@ static void vibro_task (void* arg) {
 	timer_group_t group_num = TIMER_GROUP_0;
 	timer_idx_t timer_num = TIMER_1;
 	uint64_t load_val = 0x00000000ULL;
+	uint64_t counter_val = 0;
 
 	for (;;) {
 		if (xQueueReceive(gpio_evt_queue, &io_num, portMAX_DELAY)) {
 			printf("GPIO[%d] intr, val: %d\n", io_num, gpio_get_level(io_num));
 			if (io_num == GPIO_INPUT_IO_0) {
-
 				module.evt = true;
-				if(timer_pause(group_num, timer_num) == ESP_OK){
-					if(timer_set_counter_value(group_num, timer_num, load_val) == ESP_OK){
-						if(timer_start(group_num, timer_num) == ESP_OK){
-							module.state = MOTION;
+				timer_get_counter_value(group_num, timer_num, &counter_val);
+				if (counter_val != 0x00000000ULL) {
+					timer_pause(group_num, timer_num);
+					if (timer_set_counter_value(group_num, timer_num,
+							load_val) == ESP_OK) {
+						if (timer_start(group_num, timer_num) == ESP_OK) {
+							module.state = EXP_CONNECT;
 							printf("Timer_start find motion\n");
+							if (TIMERG0.hw_timer[timer_num].config.alarm_en
+									== 1) {
+
+							} else {
+								TIMERG0.hw_timer[timer_num].config.alarm_en = 1;
+							}
 						}
 					}
-				}else if(timer_start(group_num, timer_num) == ESP_OK){
-						module.state = MOTION;
-						printf("Timer_start find motion\n");
+				} else if (timer_start(group_num, timer_num) == ESP_OK) {
+					module.state = MOTION;
+					printf("Timer_start find motion\n");
+					if (TIMERG0.hw_timer[timer_num].config.alarm_en == 1) {
 
+					} else {
+						TIMERG0.hw_timer[timer_num].config.alarm_en = 1;
 					}
 				}
-				/* notify_data(connection.gatt_if, connection.character_attr, notify_tab, sizeof(notify_tab));*/
-
-
-			} else if (io_num == GPIO_INPUT_IO_1) {
-				/* mozna ustawic polaczenie z rozszezeniem */
 			}
-
-
-		if(timer_int == 1 ){
-
-			module.evt = true;
-			if(module.state == MOTION){
-				module.state = IMMOBILITY;
-			}
-			timer_int = 0;
-
+		} else if (io_num == GPIO_INPUT_IO_1) {
+			/* mozna ustawic polaczenie z rozszezeniem */
 		}
 
-		if (module.evt == true){
+		/*if (timer_int == 1) {
+
+		 module.evt = true;
+		 if (module.state == MOTION) {
+		 module.state = IMMOBILITY;
+		 }
+		 timer_int = 0;
+
+		 }*/
+
+		if ((module.evt == true) && (motion_status == 1)) {
 
 			uint8_t notify_tab[4];
 			notify_tab[0] = module.state;
@@ -285,39 +291,87 @@ static void vibro_task (void* arg) {
 			notify_tab[2] = 0x00;
 			notify_tab[3] = 0x00;
 
-            //the size of notify_data[] need less than MTU size
-            esp_ble_gatts_send_indicate(connection.gatt_if, 0, connection.character_attr, sizeof(notify_tab), notify_tab, false);
+			//the size of notify_data[] need less than MTU size
+			esp_ble_gatts_send_indicate(connection.gatt_if, 0,
+					connection.character_attr, sizeof(notify_tab), notify_tab,
+					false);
 
 			module.evt = false;
+			motion_status = 0;
 
-			printf("\n-----------------------\nNotify send, send value = %d | %d | %d | %d\n-----------------------\n", notify_tab[0], notify_tab[1], notify_tab[2], notify_tab[3]);
+			printf(
+					"\n-----------------------\nNotify send, send value = %d | %d | %d | %d\n-----------------------\n",
+					notify_tab[0], notify_tab[1], notify_tab[2], notify_tab[3]);
 
 		}
 
+	}
 }
-}
-
 
 void IRAM_ATTR timer_group0_isr(void *para) {
+
+	timer_event_t evt;
 	int timer_idx = (int) para;
 	uint32_t intr_status = TIMERG0.int_st_timers.val;
 	if ((intr_status & BIT(timer_idx)) && timer_idx == TIMER_1) {
-
 		/*Timer1 is an example that will reload counter value*/
 		TIMERG0.hw_timer[timer_idx].update = 1;
 		/*We don't call a API here because they are not declared with IRAM_ATTR*/
 		TIMERG0.int_clr_timers.t1 = 1;
-		/*uint64_t timer_val = ((uint64_t) TIMERG0.hw_timer[timer_idx].cnt_high)
-				<< 32 | TIMERG0.hw_timer[timer_idx].cnt_low;*/
+		uint64_t timer_val = ((uint64_t) TIMERG0.hw_timer[timer_idx].cnt_high)
+				<< 32 | TIMERG0.hw_timer[timer_idx].cnt_low;
 		/*Post an event to out example task*/
-		/*evt.type = TEST_WITH_RELOAD;
+		evt.type = TEST_WITH_RELOAD;
 		evt.group = 0;
 		evt.idx = timer_idx;
-		evt.counter_val = timer_val;*/
-
-		timer_int = 1;
+		evt.counter_val = timer_val;
+		xQueueSendFromISR(timer_queue, &evt, NULL);
 		/*For a auto-reload timer, we still need to set alarm_en bit if we want to enable alarm again.*/
-		TIMERG0.hw_timer[timer_idx].config.alarm_en = 1;
+		//TIMERG0.hw_timer[timer_idx].config.alarm_en = 1;
+	}
+}
+
+static void timer_example_evt_task(void *arg) {
+	while (1) {
+		timer_event_t evt;
+		xQueueReceive(timer_queue, &evt, portMAX_DELAY);
+		if (evt.idx == TIMER_0) {
+
+		} else if (evt.idx == TIMER_1) {
+			module.evt = true;
+			if (module.state != IMMOBILITY) {
+				module.state = IMMOBILITY;
+
+				if (module.evt == true) {
+
+					uint8_t notify_tab[4];
+					notify_tab[0] = module.state;
+					notify_tab[1] = module.level;
+					notify_tab[2] = 0x00;
+					notify_tab[3] = 0x00;
+
+					//the size of notify_data[] need less than MTU size
+					esp_ble_gatts_send_indicate(connection.gatt_if, 0,
+							connection.character_attr, sizeof(notify_tab),
+							notify_tab,
+							false);
+
+					module.evt = false;
+					motion_status = 1;
+					timer_set_counter_value(TIMER_GROUP_0, TIMER_1,
+							0x00000000ULL);
+
+					printf(
+							"\n-----------------------\nNotify send, send value = %d | %d | %d | %d\n-----------------------\n",
+							notify_tab[0], notify_tab[1], notify_tab[2],
+							notify_tab[3]);
+
+				}
+
+			}
+
+		}
+
 	}
 }
 
@@ -510,59 +564,66 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 		esp_gatt_rsp_t rsp;
 		memset(&rsp, 0, sizeof(esp_gatt_rsp_t));
 		rsp.attr_value.handle = param->read.handle;
-        rsp.attr_value.len = 4;
-        rsp.attr_value.value[0] = 0xde;
-        rsp.attr_value.value[1] = 0xed;
-        rsp.attr_value.value[2] = 0xbe;
-        rsp.attr_value.value[3] = 0xef;
+		rsp.attr_value.len = 4;
+		rsp.attr_value.value[0] = 0xde;
+		rsp.attr_value.value[1] = 0xed;
+		rsp.attr_value.value[2] = 0xbe;
+		rsp.attr_value.value[3] = 0xef;
 		esp_ble_gatts_send_response(gatts_if, param->read.conn_id,
 				param->read.trans_id, ESP_GATT_OK, &rsp);
 		break;
 	}
 	case ESP_GATTS_WRITE_EVT: {
-	        ESP_LOGI(GATTS_TAG, "GATT_WRITE_EVT, conn_id %d, trans_id %d, handle %d", param->write.conn_id, param->write.trans_id, param->write.handle);
-	        if (!param->write.is_prep){
-	            ESP_LOGI(GATTS_TAG, "GATT_WRITE_EVT, value len %d, value :", param->write.len);
-	            esp_log_buffer_hex(GATTS_TAG, param->write.value, param->write.len);
-	            if (gl_profile_tab[PROFILE_A_APP_ID].descr_handle == param->write.handle && param->write.len == 2){
-	                uint16_t descr_value = param->write.value[1]<<8 | param->write.value[0];
-	                if (descr_value == 0x0001){
-	                    if (a_property & ESP_GATT_CHAR_PROP_BIT_NOTIFY){
-	                        ESP_LOGI(GATTS_TAG, "notify enable");
-	                        uint8_t notify_data[15];
-	                        for (int i = 0; i < sizeof(notify_data); ++i)
-	                        {
-	                            notify_data[i] = i%0xff;
-	                        }
-	                        //the size of notify_data[] need less than MTU size
-	                        esp_ble_gatts_send_indicate(gatts_if, param->write.conn_id, gl_profile_tab[PROFILE_A_APP_ID].char_handle,
-	                                                sizeof(notify_data), notify_data, false);
-	                    }
-	                }else if (descr_value == 0x0002){
-	                    if (a_property & ESP_GATT_CHAR_PROP_BIT_INDICATE){
-	                        ESP_LOGI(GATTS_TAG, "indicate enable");
-	                        uint8_t indicate_data[15];
-	                        for (int i = 0; i < sizeof(indicate_data); ++i)
-	                        {
-	                            indicate_data[i] = i%0xff;
-	                        }
-	                        //the size of indicate_data[] need less than MTU size
-	                        esp_ble_gatts_send_indicate(gatts_if, param->write.conn_id, gl_profile_tab[PROFILE_A_APP_ID].char_handle,
-	                                                sizeof(indicate_data), indicate_data, true);
-	                    }
-	                }
-	                else if (descr_value == 0x0000){
-	                    ESP_LOGI(GATTS_TAG, "notify/indicate disable ");
-	                }else{
-	                    ESP_LOGE(GATTS_TAG, "unknown descr value");
-	                    esp_log_buffer_hex(GATTS_TAG, param->write.value, param->write.len);
-	                }
+		ESP_LOGI(GATTS_TAG,
+				"GATT_WRITE_EVT, conn_id %d, trans_id %d, handle %d",
+				param->write.conn_id, param->write.trans_id,
+				param->write.handle);
+		if (!param->write.is_prep) {
+			ESP_LOGI(GATTS_TAG, "GATT_WRITE_EVT, value len %d, value :",
+					param->write.len);
+			esp_log_buffer_hex(GATTS_TAG, param->write.value, param->write.len);
+			if (gl_profile_tab[PROFILE_A_APP_ID].descr_handle
+					== param->write.handle && param->write.len == 2) {
+				uint16_t descr_value = param->write.value[1] << 8
+						| param->write.value[0];
+				if (descr_value == 0x0001) {
+					if (a_property & ESP_GATT_CHAR_PROP_BIT_NOTIFY) {
+						ESP_LOGI(GATTS_TAG, "notify enable");
+						uint8_t notify_data[15];
+						for (int i = 0; i < sizeof(notify_data); ++i) {
+							notify_data[i] = i % 0xff;
+						}
+						//the size of notify_data[] need less than MTU size
+						esp_ble_gatts_send_indicate(gatts_if,
+								param->write.conn_id,
+								gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+								sizeof(notify_data), notify_data, false);
+					}
+				} else if (descr_value == 0x0002) {
+					if (a_property & ESP_GATT_CHAR_PROP_BIT_INDICATE) {
+						ESP_LOGI(GATTS_TAG, "indicate enable");
+						uint8_t indicate_data[15];
+						for (int i = 0; i < sizeof(indicate_data); ++i) {
+							indicate_data[i] = i % 0xff;
+						}
+						//the size of indicate_data[] need less than MTU size
+						esp_ble_gatts_send_indicate(gatts_if,
+								param->write.conn_id,
+								gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+								sizeof(indicate_data), indicate_data, true);
+					}
+				} else if (descr_value == 0x0000) {
+					ESP_LOGI(GATTS_TAG, "notify/indicate disable ");
+				} else {
+					ESP_LOGE(GATTS_TAG, "unknown descr value");
+					esp_log_buffer_hex(GATTS_TAG, param->write.value, param->write.len);
+				}
 
-	            }
-	        }
-	        example_write_event_env(gatts_if, &a_prepare_write_env, param);
-	        break;
-	    }
+			}
+		}
+		example_write_event_env(gatts_if, &a_prepare_write_env, param);
+		break;
+	}
 	case ESP_GATTS_EXEC_WRITE_EVT:
 		ESP_LOGI(GATTS_TAG, "ESP_GATTS_EXEC_WRITE_EVT")
 		;
@@ -642,7 +703,8 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 			ESP_LOGE(GATTS_TAG, "add char descr failed, error code =%x",
 					add_descr_ret);
 		}
-		connection.character_attr = gl_profile_tab[PROFILE_A_APP_ID].char_handle;
+		connection.character_attr =
+				gl_profile_tab[PROFILE_A_APP_ID].char_handle;
 		break;
 	}
 	case ESP_GATTS_ADD_CHAR_DESCR_EVT:
@@ -682,7 +744,8 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 		//start sent the update connection parameters to the peer device.
 		esp_ble_gap_update_conn_params(&conn_params);
 
-		printf("*****************\n*****************\n*****************\n		CONNECTION		\n*****************\n*****************\n*****************\n");
+		printf(
+				"*****************\n*****************\n*****************\n		CONNECTION		\n*****************\n*****************\n*****************\n");
 
 		break;
 	}
@@ -913,34 +976,34 @@ static void gatts_event_handler(esp_gatts_cb_event_t event,
 static void example_gpio_init() {
 
 	gpio_config_t io_conf;
-	//disable interrupt
+//disable interrupt
 	io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
-	//set as output mode
+//set as output mode
 	io_conf.mode = GPIO_MODE_OUTPUT;
-	//bit mask of the pins that you want to set,e.g.GPIO18/19
+//bit mask of the pins that you want to set,e.g.GPIO18/19
 	io_conf.pin_bit_mask = GPIO_SEL_18;
-	//disable pull-down mode
+//disable pull-down mode
 	io_conf.pull_down_en = 0;
-	//disable pull-up mode
+//disable pull-up mode
 	io_conf.pull_up_en = 0;
-	//configure GPIO with the given settings
+//configure GPIO with the given settings
 	gpio_config(&io_conf);
 
-	//interrupt of any edge
+//interrupt of any edge
 	io_conf.intr_type = GPIO_PIN_INTR_ANYEDGE;
-	//bit mask of the pins, use GPIO4/5 here
+//bit mask of the pins, use GPIO4/5 here
 	io_conf.pin_bit_mask = GPIO_INPUT_PIN_SEL;
-	//set as input mode
+//set as input mode
 	io_conf.mode = GPIO_MODE_INPUT;
-	//enable pull-up mode
+//enable pull-up mode
 	io_conf.pull_up_en = 1;
 	gpio_config(&io_conf);
 
 	gpio_set_intr_type(GPIO_INPUT_IO_1, GPIO_INTR_POSEDGE);
 
-	//install gpio isr service
+//install gpio isr service
 	gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);
-	//hook isr handler for specific gpio pin
+//hook isr handler for specific gpio pin
 	gpio_isr_handler_add(GPIO_INPUT_IO_0, gpio_isr_handler,
 			(void*) GPIO_INPUT_IO_0);
 	gpio_isr_handler_add(GPIO_INPUT_IO_1, gpio_isr_handler,
@@ -971,7 +1034,8 @@ static void example_tg0_timer0_init() {
 	timer_enable_intr(timer_group, timer_idx);
 	/*Set ISR handler*/
 	timer_isr_register(timer_group, timer_idx, timer_group0_isr,
-			(void*) timer_idx, ESP_INTR_FLAG_IRAM, NULL);
+			(void*) timer_idx,
+			ESP_INTR_FLAG_IRAM, NULL);
 	/*Start timer counter*/
 	/*timer_start(timer_group, timer_idx);*/
 }
@@ -999,15 +1063,15 @@ static void example_tg0_timer1_init() {
 	timer_enable_intr(timer_group, timer_idx);
 	/*Set ISR handler*/
 	timer_isr_register(timer_group, timer_idx, timer_group0_isr,
-			(void*) timer_idx, ESP_INTR_FLAG_IRAM, NULL);
+			(void*) timer_idx,
+			ESP_INTR_FLAG_IRAM, NULL);
 	/*Start timer counter*/
 	/*timer_start(timer_group, timer_idx);*/
 }
 
-
 void notify_data(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
 		uint8_t *value, uint8_t length) {
-/* notify_data(connection.gatt_if, connection.character_attr, notify_tab, sizeof(notify_tab));*/
+	/* notify_data(connection.gatt_if, connection.character_attr, notify_tab, sizeof(notify_tab));*/
 
 	if (gatt_server_if == ESP_GATT_IF_NONE) {
 
@@ -1027,8 +1091,8 @@ void notify_data(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
 		value++;
 		rsp.attr_value.value[3] = *value;
 
-		esp_ble_gatts_send_indicate(gatt_server_if, 0, attr_handle, rsp.attr_value.len,
-				rsp.attr_value.value, false);
+		esp_ble_gatts_send_indicate(gatt_server_if, 0, attr_handle,
+				rsp.attr_value.len, rsp.attr_value.value, false);
 
 	}
 
@@ -1100,18 +1164,20 @@ void app_main() {
 	}
 
 	gpio_evt_queue = xQueueCreate(10, sizeof(uint32_t));
+	timer_queue = xQueueCreate(10, sizeof(timer_event_t));
 
 	example_gpio_init();
 	example_tg0_timer0_init();
 	example_tg0_timer1_init();
 
 	xTaskCreate(vibro_task, "vibro_task", 4096, NULL, 10, NULL);
+	xTaskCreate(timer_example_evt_task, "timer_evt_task", 2048, NULL, 5, NULL);
 
-    int cnt = 0;
-    while(1) {
-        printf("cnt: %d\n", cnt++);
-        vTaskDelay(1000 / portTICK_RATE_MS);
-        gpio_set_level(GPIO_OUTPUT_IO_0, cnt % 2);
+	int cnt = 0;
+	while (1) {
+		printf("cnt: %d\n", cnt++);
+		vTaskDelay(1000 / portTICK_RATE_MS);
+		gpio_set_level(GPIO_OUTPUT_IO_0, cnt % 2);
 	}
 
 	return;

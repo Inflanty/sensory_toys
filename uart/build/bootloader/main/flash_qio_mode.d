@@ -2,7 +2,7 @@ flash_qio_mode.o: \
  /home/JG/Workspace/esp/esp-idf/components/bootloader/subproject/main/./flash_qio_mode.c \
  /home/JG/Workspace/esp/esp-idf/components/bootloader/subproject/main/./flash_qio_mode.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
- /home/JG/Workspace/sensory_toys/uart/build/bootloader/../include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/uart/build/bootloader/../include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -20,7 +20,7 @@ flash_qio_mode.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h:
 
-/home/JG/Workspace/sensory_toys/uart/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/uart/build/bootloader/../include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

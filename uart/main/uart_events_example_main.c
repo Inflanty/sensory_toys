@@ -99,6 +99,7 @@ static void uart_event_task(void *pvParameters)
     vTaskDelete(NULL);
 }
 
+
 /* Configure the UART events example */
 void app_main()
 {
@@ -126,11 +127,17 @@ void app_main()
     xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 12, NULL);
     //process data
     uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
+    data[0] = 0x02;
+    data[1] = 0x41;
+    data[2] = 0x41;
+    data[3] = 0x03;
     do {
-        int len = uart_read_bytes(EX_UART_NUM, data, BUF_SIZE, 100 / portTICK_RATE_MS);
+        /*int len = uart_read_bytes(EX_UART_NUM, data, BUF_SIZE, 100 / portTICK_RATE_MS);
         if(len > 0) {
             ESP_LOGI(TAG, "uart read : %d", len);
             uart_write_bytes(EX_UART_NUM, (const char*)data, len);
-        }
+        }*/
+    	uart_write_bytes(EX_UART_NUM, (const char*)data, 4);
+    	vTaskDelay(8000 / portTICK_RATE_MS);
     } while(1);
 }

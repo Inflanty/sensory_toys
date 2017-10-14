@@ -9,7 +9,7 @@ esp32/rtc_sleep.o: \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_access.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h \
- /home/JG/Workspace/sensory_toys/uart/build/bootloader/../include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/uart/build/bootloader/../include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/i2s_reg.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h \
  /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/bb_reg.h \
@@ -35,7 +35,7 @@ esp32/rtc_sleep.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h:
 
-/home/JG/Workspace/sensory_toys/uart/build/bootloader/../include/sdkconfig.h:
+/home/JG/git/sensoty_toys/uart/build/bootloader/../include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/i2s_reg.h:
 

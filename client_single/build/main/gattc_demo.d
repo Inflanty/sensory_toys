@@ -1,5 +1,4 @@
-gattc_demo.o: \
- /home/JG/Workspace/sensory_toys/client_single/main/./gattc_demo.c \
+gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/features.h \
@@ -22,38 +21,12 @@ gattc_demo.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/stdio.h \
- /home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h \
- /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
- /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
- /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
- /home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs_flash.h \
- /home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/device/include/controller.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
- /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
- /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
- /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
- /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log_internal.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/bdaddr.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_defs.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/hash_map.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/device_features.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/hci_layer.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/allocator.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/osi.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/future.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/semaphore.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
+ /home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -64,6 +37,11 @@ gattc_demo.o: \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_context.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/corebits.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/xtruntime-frames.h \
+ /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
+ /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
+ /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
+ /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/projdefs.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/portable.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/deprecated_definitions.h \
@@ -80,6 +58,7 @@ gattc_demo.o: \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/portbenchmark.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/mpu_wrappers.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_system.h \
+ /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_sleep.h \
  /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/gpio.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_types.h \
@@ -99,9 +78,38 @@ gattc_demo.o: \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/task.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/limits.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/list.h \
- /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h \
+ /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/uart.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_reg.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_struct.h \
+ /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/periph_ctrl.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_access.h \
+ /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/semphr.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h \
+ /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h \
+ /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/ringbuf.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_channel.h \
+ /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
+ /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log_internal.h \
+ /home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h \
+ /home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs_flash.h \
+ /home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/device/include/controller.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/bdaddr.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_defs.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/hash_map.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/device_features.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/hci_layer.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/allocator.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/osi.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/future.h \
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/semaphore.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/hci_packet_factory.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/event_mask.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/hci_packet_parser.h \
@@ -160,69 +168,17 @@ gattc_demo.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/stdio.h:
 
-/home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h:
-
-/home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h:
-
-/home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
-
-/home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h:
-
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h:
 
-/home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
-
-/home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs_flash.h:
-
-/home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/device/include/controller.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
-
-/home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h:
-
-/home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
-
-/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h:
-
-/home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h:
-
-/home/JG/Workspace/esp/esp-idf/components/log/include/esp_log_internal.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/bdaddr.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_defs.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/hash_map.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/device_features.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/hci_layer.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/allocator.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/osi.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/future.h:
-
-/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/semaphore.h:
-
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
+
+/home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -243,6 +199,16 @@ gattc_demo.o: \
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/corebits.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/xtruntime-frames.h:
+
+/home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h:
+
+/home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h:
+
+/home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
+
+/home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/projdefs.h:
 
@@ -275,6 +241,8 @@ gattc_demo.o: \
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/mpu_wrappers.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_system.h:
+
+/home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_sleep.h:
 
@@ -314,11 +282,69 @@ gattc_demo.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/list.h:
 
-/home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h:
+/home/JG/Workspace/esp/esp-idf/components/driver/include/driver/uart.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_reg.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_struct.h:
+
+/home/JG/Workspace/esp/esp-idf/components/driver/include/driver/periph_ctrl.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_access.h:
+
+/home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/semphr.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h:
+
+/home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h:
+
+/home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/ringbuf.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_channel.h:
+
+/home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h:
+
+/home/JG/Workspace/esp/esp-idf/components/log/include/esp_log_internal.h:
+
+/home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h:
+
+/home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs_flash.h:
+
+/home/JG/Workspace/esp/esp-idf/components/nvs_flash/include/nvs.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/device/include/controller.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/bdaddr.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_defs.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/hash_map.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/btcore/include/device_features.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/hci_layer.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/allocator.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/osi.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/future.h:
+
+/home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/semaphore.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/hci_packet_factory.h:
 
@@ -345,4 +371,4 @@ gattc_demo.o: \
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
-/home/JG/Workspace/sensory_toys/client_single/main/./gattc_demo.c:
+/home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c:

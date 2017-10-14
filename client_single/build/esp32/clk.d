@@ -16,7 +16,7 @@ clk.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./clk.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/lock.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h \
- /home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -84,7 +84,7 @@ clk.o: /home/JG/Workspace/esp/esp-idf/components/esp32/./clk.c \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h:
 
-/home/JG/Workspace/sensory_toys/client_single/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h:
 
