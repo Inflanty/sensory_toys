@@ -139,16 +139,11 @@ static QueueHandle_t player_queue;
  */
 static void player_task(void* arg){
     uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
-
-    uart_write_bytes(EX_UART_NUM, (const char*)data, 4);
-
+    uint8_t actualProfile = 0x00;
 	moduleState Qstat;
 
 	while (1) {
 		if (xQueueReceive(player_queue, &Qstat, portMAX_DELAY)) {
-			//data[0] = Qstat.state;
-			//data[1] = Qstat.level;
-
 			if(Qstat.state != 0x00){
 				/*if(Qstat.level == NO_EXT){
 					data[0] = TRACK_START;
@@ -160,9 +155,16 @@ static void player_task(void* arg){
 				data[0] = TRACK_START;
 				data[1] = ((Qstat.level) || (Qstat.profile));
 			}else if(Qstat.state == 0x00){
-				data[0] = TRACK_STOP;
-				data[1] = 0x00;
+				if(Qstat.profile == actualProfile){
+					data[0] = TRACK_STOP;
+					data[1] = 0x00;
+				}else {
+					;
+				}
 			}
+
+			//uart_write_bytes(EX_UART_NUM, (const char*)data, 4);
+			actualProfile = Qstat.profile;
 
 			/*switch(Qstat.profile){
 			case 1:
@@ -182,7 +184,7 @@ static void player_task(void* arg){
 				break;
 			}*/
 		}
-		printf("\nTO PLAYER:\ncommand:  %d\ndata: %d", data[0], data[1]);
+		printf("\nTO PLAYER:\ncommand:  %d\ndata: %d\nactual profile: %d\n", data[0], data[1], actualProfile);
 	}
 }
 
@@ -517,6 +519,8 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
         connect = false;
         get_server = false;
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_DISCONNECT_EVT, status = %d", p_data->disconnect.status);
+        ESP_LOGI(GATTC_TAG, "ESP_RESTART");
+        esp_restart();
         break;
     default:
         break;
