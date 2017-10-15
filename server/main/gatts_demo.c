@@ -249,7 +249,7 @@ static void vibro_task(void* arg) {
 					if (timer_set_counter_value(group_num, timer_num,
 							load_val) == ESP_OK) {
 						if (timer_start(group_num, timer_num) == ESP_OK) {
-							module.state = EXP_CONNECT;
+							module.state = MOTION;
 							printf("Timer_start find motion\n");
 							if (TIMERG0.hw_timer[timer_num].config.alarm_en
 									== 1) {

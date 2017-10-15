@@ -31,26 +31,27 @@
 // DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
-#define PLAYER_READY (0xFF);
-#define PLAYER_LISNING (0xEE);
+#define PLAYER_READY (0xFF)
+#define PLAYER_LISNING (0xEE)
 
-#define TRACK_STOP (0xDD);
-#define TRACK_START (0xCC);
-#define TRACK_FIN (0xBB);
+#define TRACK_STOP (0x11)
+#define TRACK_START (0x0F)
+#define TRACK_FIN (0xF0)
 
-#define ALL_CONNECTED (0xFF);
-#define NO_CONNECTION (0xAA);
+#define ALL_CONNECTED (0xFF)
+#define NO_CONNECTION (0xAA)
 
 Adafruit_VS1053_FilePlayer musicPlayer =
   // create breakout-example object!
-  //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
+  Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
   // create shield-example object!
-  Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
+  //Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
 
 
 ////
 
 void setup() {
+  delay(25000);
   Serial.begin(9600);
   Serial.println("Adafruit VS1053 Library Test");
 
@@ -92,131 +93,146 @@ void setup() {
 }
 
 void loop() {
+
+  Serial1.begin(9600);
   // Alternately, we can just play an entire file at once
   // This doesn't happen in the background, instead, the entire
   // file is played and the program will continue when it's done!
-  musicPlayer.playFullFile("track001.ogg");
-
+      //musicPlayer.playFullFile("DREWNO.MP3");
   // Start playing a file, then we can do stuff while waiting for it to finish
-  if (! musicPlayer.startPlayingFile("track001.mp3")) {
-    Serial.println("Could not open file track001.mp3");
+  start:
+  
+  if (! musicPlayer.startPlayingFile("CONNECTING.MP3")) {
+    Serial.println("Could not open file start.mp3");
     while (1);
   }
-  Serial.println(F("Started playing"));
+  //Serial.println(F("Started playing"));
 
-  while (musicPlayer.playingMusic) {
-    // file is now playing in the 'background' so now's a good time
-    // to do something else like handling LEDs or buttons :)
-    Serial.print(".");
-    delay(1000);
+  uint8_t buffer[10];
+  int length = 2;
+
+  while ((Serial1.readBytes(buffer, length)) == 0) {
+    musicPlayer.playFullFile("CONNECTING.MP3");
   }
-  Serial.println("Done playing music");
-}
-
-
-/// File listing helper
-void printDirectory(File dir, int numTabs) {
-  while (true) {
-
-    File entry =  dir.openNextFile();
-    if (! entry) {
-      // no more files
-      //Serial.println("**nomorefiles**");
-      break;
-    }
-    for (uint8_t i = 0; i < numTabs; i++) {
-      Serial.print('\t');
-    }
-    Serial.print(entry.name());
-    if (entry.isDirectory()) {
-      Serial.println("/");
-      printDirectory(entry, numTabs + 1);
-    } else {
-      // files have sizes, directories do not
-      Serial.print("\t\t");
-      Serial.println(entry.size(), DEC);
-    }
-    entry.close();
+  //Serial.println("Done playing music");
+  if(buffer[0] == ALL_CONNECTED){
+    musicPlayer.startPlayingFile("CONNECTED.MP3");
+  }else{
+    musicPlayer.startPlayingFile("FAIL.MP3");
+    goto start;
   }
 
-  loop_player();
+  // INICJALIZATION OK
+
+  //loop_player_TAB();
 }
 
-void loop_player() {
-
+void loop_player_TAB() {
+  start_fnc:
+  Serial.print("PLAYER LOOP STARTING");
+  uint8_t rx_data[2];
   
-  Serial1.begin(9600);
+  //Serial1.begin(9600);
   while (!Serial1) {
     ; // wait for serial port to connect. Needed for native USB
+    Serial.print("PLAYER LOOP STARTING");
+    delay(1000);
   }
 
-  Serial1.write(PLAYER_READY);
-  int esp_flag = 0x00;
-  char command[1];
-  char track[12];
-  // track001.mp3 - powietrze
-  // track002.mp3 - woda
-  // track003.mp3 - kamien
-  // track004.mp3 - drewno
-  // *********************
-  // track011.mp3 - powietrze_transport
-  // track021.mp3 - powietrze_energia
-  // track012.mp3 - woda_transport
-  // track022.mp3 - woda energia
-  // ...
+  while(Serial1.available()){
+  
+    Serial1.readBytes(rx_data, 2);
+    uint8_t command = rx_data[0];
+    uint8_t argument = rx_data[1];
+    char *track[13];
 
-
-  int read_info = Serial1.readBytes();
-
-  switch (read_info) {
-    case (ALL _CONNECTED):
-      esp_flag = 0x01;
-      break;
-    case (NO_CONNECTION):
-      esp_flag = 0x00;
-      while (read_info != 0x01) {};
-      break;
-
-    default:
-      esp_flag = 0xFF;
-      break;
-  }
-
-
-
-  while (esp_flag == 0x01) { // PETLA GLOWNA
-
-    Serial1.write(PLAYER_LISNING);
-
-    track = Serial1.read();
-
-    /*while (musicPlayer.playingMusic) {
-      Serial.print(".");
-      delay(1000);
-      }*/
-
-    musicPlayer.startPlayingFile(track);
-    Serial1.write(TRACK_START);
-    delay(1);
-    
-    while (musicPlayer.playingMusic) {
-      // file is now playing in the 'background' so now's a good time
-      // to do something else like handling LEDs or buttons :)
-      delay(100);
-      command = Serial1.read();
-
-      while (command != 's') {
-
-        musicPlayer.stopPlaying();
-
-        if (musicPlayer.stopped()) {
-          Serial1.write(TRACK_STOP);
-        }
+    if(command == TRACK_START){
+      switch(argument){
+        case 0x01:
+          *track = 'track001.mp3';
+        break;
+        case 0x02:
+          *track = 'track002.mp3';
+        break;
+        case 0x03:
+          *track = 'track003.mp3';
+          break;
+        case 0x04:
+          *track = 'track004.mp3';
+        break;
+        case 0x11:
+          *track = 'track011.mp3';
+        break;
+        case 0x21:
+          *track =  'track021.mp3';
+        break;
+        case 0x12:
+          *track =  'track012.mp3';
+        break;
+        case 0x22:
+          *track = 'track022.mp3';
+        break;
+        case 0x13:
+          *track =  'track013.mp3';
+        break;
+        case 0x23:
+          *track = 'track023.mp3';
+        break;
+        case 0x14:
+          *track = 'track014.mp3';
+        break;
+        case 0x24:
+          *track = 'track024.mp3';
+        break;
+        default:
+        break;
       }
-    }
+      
+      musicPlayer.startPlayingFile((const char*) track);
+      
+     }else if(command == TRACK_STOP){
+      for(int i = 20; i > 0; i--){
+        musicPlayer.setVolume(i, i);
+        delay(10);
+      }
+      musicPlayer.stopPlaying();
+      musicPlayer.setVolume(20, 20);
+     }else if (command == NO_CONNECTION){
+      while((Serial1.readBytes(rx_data, 2)) == 0){
+        musicPlayer.playFullFile("CONNECTING.MP3");
+      }
+      if(rx_data[0] == ALL_CONNECTED){
+        musicPlayer.playFullFile("CONNECTED.MP3");
+        goto start_fnc;
+      }else{
+        musicPlayer.playFullFile("FAIL.MP3");
+      }
+     }
+  } 
+}
 
-    Serial1.write(TRACK_FIN);
-    delay(1);
-  }
+void printDirectory(File dir, int numTabs) {
+   while(true) {
+     
+     File entry =  dir.openNextFile();
+     if (! entry) {
+       // no more files
+       //Serial.println("**nomorefiles**");
+       break;
+     }
+     for (uint8_t i=0; i<numTabs; i++) {
+       Serial.print('\t');
+     }
+     Serial.print(entry.name());
+     if (entry.isDirectory()) {
+       Serial.println("/");
+       printDirectory(entry, numTabs+1);
+     } else {
+       // files have sizes, directories do not
+       Serial.print("\t\t");
+       Serial.println(entry.size(), DEC);
+     }
+     entry.close();
+   }
 }
 
