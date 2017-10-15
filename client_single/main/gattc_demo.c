@@ -52,9 +52,9 @@
 #define PROFILE_NUM      1
 #define PROFILE_A_APP_ID 0
 #define INVALID_HANDLE   0
-#define EX_UART_NUM UART_NUM_1
 
 // ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
+#define EX_UART_NUM UART_NUM_2
 #define BUF_SIZE (1024)
 #define TRACK_STOP 0x00
 #define TRACK_START 0x0F
@@ -62,7 +62,10 @@
 #define NO_EXT 0x00
 #define EXT_WORK 0x10
 #define EXT_ENERGY 0x20
-#define TAG "uart_events"
+#define TAG_UART "uart_events"
+#define ESP_SERVER_NUMBER 0x01
+#define UART1_tx 17
+#define UART1_rx 16
 // ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
 static const char remote_device_name[] = "ESP_GATTS_DEMO";
 
@@ -75,6 +78,7 @@ static esp_gattc_descr_elem_t *descr_elem_result = NULL;
 static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
 static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
+//static void uart_handler();
 void UART_SendByte(const int uartNumber,  uint8_t data);
 
 static esp_bt_uuid_t remote_filter_service_uuid = {
@@ -138,7 +142,9 @@ static QueueHandle_t player_queue;
  *
  */
 static void player_task(void* arg){
-    uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
+    uint8_t* data_tx = (uint8_t*) malloc(BUF_SIZE);
+    uint8_t* data_rx = (uint8_t*) malloc(BUF_SIZE);
+    uint8_t len_tx = 0;
     uint8_t actualProfile = 0x00;
 	moduleState Qstat;
 
@@ -152,39 +158,45 @@ static void player_task(void* arg){
 					data[0] = TRACK_START;
 					data[1] = ((Qstat.level) || (Qstat.profile));
 				}*/
-				data[0] = TRACK_START;
-				data[1] = ((Qstat.level) || (Qstat.profile));
+				data_tx[0] = TRACK_START;
+				data_tx[1] = ((Qstat.level) || (Qstat.profile));
+				len_tx = 2;
 			}else if(Qstat.state == 0x00){
 				if(Qstat.profile == actualProfile){
-					data[0] = TRACK_STOP;
-					data[1] = 0x00;
+					data_tx[0] = TRACK_STOP;
+					data_tx[1] = 0x00;
+					len_tx = 2;
 				}else {
 					;
 				}
 			}
-
-			//uart_write_bytes(EX_UART_NUM, (const char*)data, 4);
 			actualProfile = Qstat.profile;
-
-			/*switch(Qstat.profile){
-			case 1:
-
-				break;
-			case 2:
-
-				break;
-			case 3:
-
-				break;
-			case 4:
-
-				break;
-			default:
-
-				break;
-			}*/
 		}
-		printf("\nTO PLAYER:\ncommand:  %d\ndata: %d\nactual profile: %d\n", data[0], data[1], actualProfile);
+
+
+
+	    // ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
+	    int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE, 100 / portTICK_RATE_MS);
+	    if(len == 2) {
+	    	ESP_LOGI(TAG_UART, "uart read : %d", len);
+	    	if(data_rx[0] == TRACK_FINAL){
+	    		data_tx[0] = TRACK_START;
+	    		data_tx[1] = data_rx[1];
+	    		len_tx = 2;
+	    	}
+	    	//uart_write_bytes(EX_UART_NUM, (const char*)data, len);
+	    }
+	    // ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
+
+
+		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
+		printf("\nTO PLAYER:\ncommand:  %d\ndata: %d\nactual profile: %d\n", data_tx[0], data_tx[1], actualProfile);
+		;
+		if(len_tx > 0){
+			uart_write_bytes(EX_UART_NUM, (const char*)data_tx, len_tx);
+			len_tx = 0;
+		}
+		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
 	}
 }
 
@@ -196,7 +208,7 @@ static void uart_event_task(void *pvParameters)
     for(;;) {
         //Waiting for UART event.
         if(xQueueReceive(uart0_queue, (void * )&event, (portTickType)portMAX_DELAY)) {
-            ESP_LOGI(TAG, "uart[%d] event:", EX_UART_NUM);
+            ESP_LOGI(TAG_UART, "uart[%d] event:", EX_UART_NUM);
             switch(event.type) {
                 //Event of UART receving data
                 /*We'd better handler data event fast, there would be much more data events than
@@ -205,41 +217,41 @@ static void uart_event_task(void *pvParameters)
                 in this example, we don't process data in event, but read data outside.*/
                 case UART_DATA:
                     uart_get_buffered_data_len(EX_UART_NUM, &buffered_size);
-                    ESP_LOGI(TAG, "data, len: %d; buffered len: %d", event.size, buffered_size);
+                    ESP_LOGI(TAG_UART, "data, len: %d; buffered len: %d", event.size, buffered_size);
                     break;
                 //Event of HW FIFO overflow detected
                 case UART_FIFO_OVF:
-                    ESP_LOGI(TAG, "hw fifo overflow\n");
+                    ESP_LOGI(TAG_UART, "hw fifo overflow\n");
                     //If fifo overflow happened, you should consider adding flow control for your application.
                     //We can read data out out the buffer, or directly flush the rx buffer.
                     uart_flush(EX_UART_NUM);
                     break;
                 //Event of UART ring buffer full
                 case UART_BUFFER_FULL:
-                    ESP_LOGI(TAG, "ring buffer full\n");
+                    ESP_LOGI(TAG_UART, "ring buffer full\n");
                     //If buffer full happened, you should consider encreasing your buffer size
                     //We can read data out out the buffer, or directly flush the rx buffer.
                     uart_flush(EX_UART_NUM);
                     break;
                 //Event of UART RX break detected
                 case UART_BREAK:
-                    ESP_LOGI(TAG, "uart rx break\n");
+                    ESP_LOGI(TAG_UART, "uart rx break\n");
                     break;
                 //Event of UART parity check error
                 case UART_PARITY_ERR:
-                    ESP_LOGI(TAG, "uart parity error\n");
+                    ESP_LOGI(TAG_UART, "uart parity error\n");
                     break;
                 //Event of UART frame error
                 case UART_FRAME_ERR:
-                    ESP_LOGI(TAG, "uart frame error\n");
+                    ESP_LOGI(TAG_UART, "uart frame error\n");
                     break;
                 //UART_PATTERN_DET
                 case UART_PATTERN_DET:
-                    ESP_LOGI(TAG, "uart pattern detected\n");
+                    ESP_LOGI(TAG_UART, "uart pattern detected\n");
                     break;
                 //Others
                 default:
-                    ESP_LOGI(TAG, "uart event type: %d\n", event.type);
+                    ESP_LOGI(TAG_UART, "uart event type: %d\n", event.type);
                     break;
             }
         }
@@ -261,17 +273,21 @@ static void uart_init(void){
     //Set UART parameters
     uart_param_config(EX_UART_NUM, &uart_config);
     //Set UART log level
-    esp_log_level_set(TAG, ESP_LOG_INFO);
+    esp_log_level_set(TAG_UART, ESP_LOG_INFO);
     //Install UART driver, and get the queue.
     uart_driver_install(EX_UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10, &uart0_queue, 0);
 
     //Set UART pins (using UART0 default pins ie no changes.)
-    uart_set_pin(EX_UART_NUM, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_set_pin(EX_UART_NUM, UART1_tx, UART1_rx, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 
     //Set uart pattern detect function.
     uart_enable_pattern_det_intr(EX_UART_NUM, '+', 3, 10000, 10, 10);
 
+    uart_enable_rx_intr(EX_UART_NUM);
+
     xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 12, NULL);
+
+    //uart_isr_register(EX_UART_NUM, uart_handler, void * arg, int intr_alloc_flags,  uart_isr_handle_t *handle);
 }
 
 void UART_SendByte(const int uartNumber,  uint8_t data)
@@ -473,7 +489,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_
 
         	break;
         }*/
-        state.profile = 0x01; // DLA PROFILU A
+        state.profile = ESP_SERVER_NUMBER; //0x01 DLA PROFILU A
     	state.state = p_data->notify.value[0];
     	state.level = p_data->notify.value[1];
     	state.batt_level = (((0x0000 | (p_data->notify.value[2])) << 8 ) | (p_data->notify.value[3]));
@@ -696,7 +712,9 @@ void app_main()
 
 
 	player_queue = xQueueCreate(10, sizeof(uint32_t));
+
 	uart_init();
+
 	xTaskCreate(player_task, "player_task", 2048, NULL, 10, NULL);
 
     /*uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
