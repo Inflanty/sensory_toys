@@ -1,6 +1,6 @@
 src/secure_boot_signatures.o: \
  /home/JG/Workspace/esp/esp-idf/components/bootloader_support/src/secure_boot_signatures.c \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/bootloader_support/include_priv/bootloader_flash.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
@@ -46,7 +46,7 @@ src/secure_boot_signatures.o: \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/sha.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_types.h
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bootloader_support/include_priv/bootloader_flash.h:
 

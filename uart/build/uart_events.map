@@ -17859,7 +17859,7 @@ END GROUP
                 0x000000003f408cb8                _lit4_end = ABSOLUTE (.)
                 0x000000003f408cb8                . = ALIGN (0x4)
 
-.flash.text     0x00000000400d0018    0x125b0
+.flash.text     0x00000000400d0018    0x125b4
                 0x00000000400d0018                _stext = .
                 0x00000000400d0018                _text_start = ABSOLUTE (.)
  *(.literal .text .literal.* .text.* .stub .gnu.warning .gnu.linkonce.literal.* .gnu.linkonce.t.*.literal .gnu.linkonce.t.*)
@@ -18590,795 +18590,797 @@ END GROUP
                                         0x14b (size before relaxing)
  *fill*         0x00000000400d22c7        0x1 
  .text.app_main
-                0x00000000400d22c8       0x98 /home/JG/git/sensoty_toys/uart/build/main/libmain.a(uart_events_example_main.o)
-                                         0xb0 (size before relaxing)
+                0x00000000400d22c8       0x99 /home/JG/git/sensoty_toys/uart/build/main/libmain.a(uart_events_example_main.o)
+                                         0xb1 (size before relaxing)
                 0x00000000400d22c8                app_main
- .text          0x00000000400d2360       0x38 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-assert.o)
+ *fill*         0x00000000400d2361        0x3 
+ .text          0x00000000400d2364       0x38 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-assert.o)
                                          0x40 (size before relaxing)
-                0x00000000400d2360                __assert_func
-                0x00000000400d2388                __assert
- .text          0x00000000400d2398       0x54 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fiprintf.o)
+                0x00000000400d2364                __assert_func
+                0x00000000400d238c                __assert
+ .text          0x00000000400d239c       0x54 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fiprintf.o)
                                          0x5c (size before relaxing)
-                0x00000000400d2398                _fiprintf_r
-                0x00000000400d23bc                fiprintf
- .text          0x00000000400d23ec       0xc0 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fopen.o)
+                0x00000000400d239c                _fiprintf_r
+                0x00000000400d23c0                fiprintf
+ .text          0x00000000400d23f0       0xc0 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fopen.o)
                                          0xcc (size before relaxing)
-                0x00000000400d23ec                _fopen_r
-                0x00000000400d2498                fopen
- .text          0x00000000400d24ac       0x2d /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseek.o)
+                0x00000000400d23f0                _fopen_r
+                0x00000000400d249c                fopen
+ .text          0x00000000400d24b0       0x2d /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseek.o)
                                          0x31 (size before relaxing)
-                0x00000000400d24ac                _fseek_r
-                0x00000000400d24c4                fseek
- *fill*         0x00000000400d24d9        0x3 
- .text          0x00000000400d24dc      0x32e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseeko.o)
+                0x00000000400d24b0                _fseek_r
+                0x00000000400d24c8                fseek
+ *fill*         0x00000000400d24dd        0x3 
+ .text          0x00000000400d24e0      0x32e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseeko.o)
                                         0x336 (size before relaxing)
-                0x00000000400d24dc                _fseeko_r
-                0x00000000400d27f4                fseeko
- *fill*         0x00000000400d280a        0x2 
- .text          0x00000000400d280c       0xe8 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-reent.o)
+                0x00000000400d24e0                _fseeko_r
+                0x00000000400d27f8                fseeko
+ *fill*         0x00000000400d280e        0x2 
+ .text          0x00000000400d2810       0xe8 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-reent.o)
                                          0xfc (size before relaxing)
-                0x00000000400d280c                cleanup_glue
-                0x00000000400d2824                _reclaim_reent
- .text          0x00000000400d28f4     0x26a1 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfiprintf.o)
+                0x00000000400d2810                cleanup_glue
+                0x00000000400d2828                _reclaim_reent
+ .text          0x00000000400d28f8     0x26a1 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfiprintf.o)
                                        0x26ad (size before relaxing)
-                0x00000000400d2d74                __sprint_r
-                0x00000000400d2de0                _vfiprintf_r
-                0x00000000400d4ee0                vfiprintf
- *fill*         0x00000000400d4f95        0x3 
- .text          0x00000000400d4f98     0x3719 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfprintf.o)
+                0x00000000400d2d78                __sprint_r
+                0x00000000400d2de4                _vfiprintf_r
+                0x00000000400d4ee4                vfiprintf
+ *fill*         0x00000000400d4f99        0x3 
+ .text          0x00000000400d4f9c     0x3719 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfprintf.o)
                                        0x3785 (size before relaxing)
-                0x00000000400d5418                _vfprintf_r
-                0x00000000400d85fc                vfprintf
- *fill*         0x00000000400d86b1        0x3 
- .text          0x00000000400d86b4       0x5e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vprintf.o)
+                0x00000000400d541c                _vfprintf_r
+                0x00000000400d8600                vfprintf
+ *fill*         0x00000000400d86b5        0x3 
+ .text          0x00000000400d86b8       0x5e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vprintf.o)
                                          0x62 (size before relaxing)
-                0x00000000400d86b4                vprintf
-                0x00000000400d86e4                _vprintf_r
- *fill*         0x00000000400d8712        0x2 
- .text          0x00000000400d8714      0xcae /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-dtoa.o)
+                0x00000000400d86b8                vprintf
+                0x00000000400d86e8                _vprintf_r
+ *fill*         0x00000000400d8716        0x2 
+ .text          0x00000000400d8718      0xcae /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-dtoa.o)
                                         0xdae (size before relaxing)
-                0x00000000400d8820                _dtoa_r
- *fill*         0x00000000400d93c2        0x2 
- .text          0x00000000400d93c4       0x7f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-flags.o)
-                0x00000000400d93c4                __sflags
- *fill*         0x00000000400d9443        0x1 
- .text          0x00000000400d9444      0x82a /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-mprec.o)
+                0x00000000400d8824                _dtoa_r
+ *fill*         0x00000000400d93c6        0x2 
+ .text          0x00000000400d93c8       0x7f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-flags.o)
+                0x00000000400d93c8                __sflags
+ *fill*         0x00000000400d9447        0x1 
+ .text          0x00000000400d9448      0x82a /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-mprec.o)
                                         0x82e (size before relaxing)
-                0x00000000400d9444                _Balloc
-                0x00000000400d94b8                _Bfree
-                0x00000000400d94e8                __multadd
-                0x00000000400d955c                __s2b
-                0x00000000400d95dc                __hi0bits
-                0x00000000400d9628                __lo0bits
-                0x00000000400d9694                __i2b
-                0x00000000400d96a8                __multiply
-                0x00000000400d97ac                __pow5mult
-                0x00000000400d983c                __lshift
-                0x00000000400d98d8                __mcmp
-                0x00000000400d9914                __mdiff
-                0x00000000400d99d8                __ulp
-                0x00000000400d9a20                __b2d
-                0x00000000400d9ac4                __d2b
-                0x00000000400d9b64                __ratio
-                0x00000000400d9bb8                _mprec_log10
-                0x00000000400d9bec                __copybits
-                0x00000000400d9c20                __any_on
- *fill*         0x00000000400d9c6e        0x2 
- .text          0x00000000400d9c70       0x62 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-s_frexp.o)
-                0x00000000400d9c70                frexp
- *fill*         0x00000000400d9cd2        0x2 
- .text          0x00000000400d9cd4     0x2582 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-svfiprintf.o)
+                0x00000000400d9448                _Balloc
+                0x00000000400d94bc                _Bfree
+                0x00000000400d94ec                __multadd
+                0x00000000400d9560                __s2b
+                0x00000000400d95e0                __hi0bits
+                0x00000000400d962c                __lo0bits
+                0x00000000400d9698                __i2b
+                0x00000000400d96ac                __multiply
+                0x00000000400d97b0                __pow5mult
+                0x00000000400d9840                __lshift
+                0x00000000400d98dc                __mcmp
+                0x00000000400d9918                __mdiff
+                0x00000000400d99dc                __ulp
+                0x00000000400d9a24                __b2d
+                0x00000000400d9ac8                __d2b
+                0x00000000400d9b68                __ratio
+                0x00000000400d9bbc                _mprec_log10
+                0x00000000400d9bf0                __copybits
+                0x00000000400d9c24                __any_on
+ *fill*         0x00000000400d9c72        0x2 
+ .text          0x00000000400d9c74       0x62 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-s_frexp.o)
+                0x00000000400d9c74                frexp
+ *fill*         0x00000000400d9cd6        0x2 
+ .text          0x00000000400d9cd8     0x2582 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-svfiprintf.o)
                                        0x2586 (size before relaxing)
-                0x00000000400da154                __ssprint_r
-                0x00000000400da25c                _svfiprintf_r
- *fill*         0x00000000400dc256        0x2 
+                0x00000000400da158                __ssprint_r
+                0x00000000400da260                _svfiprintf_r
+ *fill*         0x00000000400dc25a        0x2 
  .text.get_boot_time
-                0x00000000400dc258       0x23 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+                0x00000000400dc25c       0x23 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
                                          0x27 (size before relaxing)
- *fill*         0x00000000400dc27b        0x1 
+ *fill*         0x00000000400dc27f        0x1 
  .text.set_boot_time
-                0x00000000400dc27c       0x24 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+                0x00000000400dc280       0x24 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
                                          0x28 (size before relaxing)
  .text.get_time_since_boot
-                0x00000000400dc2a0       0x1f /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
- *fill*         0x00000000400dc2bf        0x1 
+                0x00000000400dc2a4       0x1f /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+ *fill*         0x00000000400dc2c3        0x1 
  .text.esp_clk_slowclk_cal_set
-                0x00000000400dc2c0       0x6a /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+                0x00000000400dc2c4       0x6a /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
                                          0x6e (size before relaxing)
-                0x00000000400dc2c0                esp_clk_slowclk_cal_set
- *fill*         0x00000000400dc32a        0x2 
+                0x00000000400dc2c4                esp_clk_slowclk_cal_set
+ *fill*         0x00000000400dc32e        0x2 
  .text.esp_clk_slowclk_cal_get
-                0x00000000400dc32c        0xd /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
-                0x00000000400dc32c                esp_clk_slowclk_cal_get
- *fill*         0x00000000400dc339        0x3 
+                0x00000000400dc330        0xd /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+                0x00000000400dc330                esp_clk_slowclk_cal_get
+ *fill*         0x00000000400dc33d        0x3 
  .text.get_rtc_time_us
-                0x00000000400dc33c       0x43 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+                0x00000000400dc340       0x43 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
                                          0x47 (size before relaxing)
- *fill*         0x00000000400dc37f        0x1 
+ *fill*         0x00000000400dc383        0x1 
  .text.esp_set_time_from_rtc
-                0x00000000400dc380       0x27 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+                0x00000000400dc384       0x27 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
                                          0x2f (size before relaxing)
-                0x00000000400dc380                esp_set_time_from_rtc
- *fill*         0x00000000400dc3a7        0x1 
+                0x00000000400dc384                esp_set_time_from_rtc
+ *fill*         0x00000000400dc3ab        0x1 
  .text._raise_r
-                0x00000000400dc3a8        0x6 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
+                0x00000000400dc3ac        0x6 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
                                           0x9 (size before relaxing)
-                0x00000000400dc3a8                _raise_r
- *fill*         0x00000000400dc3ae        0x2 
- .text._sbrk_r  0x00000000400dc3b0        0x6 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
+                0x00000000400dc3ac                _raise_r
+ *fill*         0x00000000400dc3b2        0x2 
+ .text._sbrk_r  0x00000000400dc3b4        0x6 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
                                           0x9 (size before relaxing)
-                0x00000000400dc3b0                _sbrk_r
- *fill*         0x00000000400dc3b6        0x2 
+                0x00000000400dc3b4                _sbrk_r
+ *fill*         0x00000000400dc3ba        0x2 
  .text.esp_setup_syscall_table
-                0x00000000400dc3b8       0x2b /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscall_table.o)
-                0x00000000400dc3b8                esp_setup_syscall_table
- *fill*         0x00000000400dc3e3        0x1 
+                0x00000000400dc3bc       0x2b /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscall_table.o)
+                0x00000000400dc3bc                esp_setup_syscall_table
+ *fill*         0x00000000400dc3e7        0x1 
  .text.esp_pthread_init
-                0x00000000400dc3e4       0x3a /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc3e8       0x3a /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x46 (size before relaxing)
-                0x00000000400dc3e4                esp_pthread_init
- *fill*         0x00000000400dc41e        0x2 
+                0x00000000400dc3e8                esp_pthread_init
+ *fill*         0x00000000400dc422        0x2 
  .text.pthread_cancel
-                0x00000000400dc420       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc424       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x22 (size before relaxing)
-                0x00000000400dc420                pthread_cancel
- *fill*         0x00000000400dc43e        0x2 
+                0x00000000400dc424                pthread_cancel
+ *fill*         0x00000000400dc442        0x2 
  .text.pthread_key_create
-                0x00000000400dc440       0x33 /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc444       0x33 /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x37 (size before relaxing)
-                0x00000000400dc440                pthread_key_create
- *fill*         0x00000000400dc473        0x1 
+                0x00000000400dc444                pthread_key_create
+ *fill*         0x00000000400dc477        0x1 
  .text.pthread_key_delete
-                0x00000000400dc474       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc478       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x22 (size before relaxing)
-                0x00000000400dc474                pthread_key_delete
- *fill*         0x00000000400dc492        0x2 
+                0x00000000400dc478                pthread_key_delete
+ *fill*         0x00000000400dc496        0x2 
  .text.pthread_getspecific
-                0x00000000400dc494       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc498       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x22 (size before relaxing)
-                0x00000000400dc494                pthread_getspecific
- *fill*         0x00000000400dc4b2        0x2 
+                0x00000000400dc498                pthread_getspecific
+ *fill*         0x00000000400dc4b6        0x2 
  .text.pthread_setspecific
-                0x00000000400dc4b4       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc4b8       0x1e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x22 (size before relaxing)
-                0x00000000400dc4b4                pthread_setspecific
- *fill*         0x00000000400dc4d2        0x2 
+                0x00000000400dc4b8                pthread_setspecific
+ *fill*         0x00000000400dc4d6        0x2 
  .text.pthread_mutex_init
-                0x00000000400dc4d4       0x6e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
-                0x00000000400dc4d4                pthread_mutex_init
- *fill*         0x00000000400dc542        0x2 
+                0x00000000400dc4d8       0x6e /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc4d8                pthread_mutex_init
+ *fill*         0x00000000400dc546        0x2 
  .text.pthread_mutex_init_if_static
-                0x00000000400dc544       0x32 /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc548       0x32 /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x36 (size before relaxing)
- *fill*         0x00000000400dc576        0x2 
+ *fill*         0x00000000400dc57a        0x2 
  .text.pthread_mutex_destroy
-                0x00000000400dc578       0x2c /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+                0x00000000400dc57c       0x2c /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
                                          0x30 (size before relaxing)
-                0x00000000400dc578                pthread_mutex_destroy
+                0x00000000400dc57c                pthread_mutex_destroy
  .text.spi_flash_init_lock
-                0x00000000400dc5a4       0x22 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
+                0x00000000400dc5a8       0x22 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
                                          0x26 (size before relaxing)
-                0x00000000400dc5a4                spi_flash_init_lock
- *fill*         0x00000000400dc5c6        0x2 
+                0x00000000400dc5a8                spi_flash_init_lock
+ *fill*         0x00000000400dc5ca        0x2 
  .text.spi_flash_op_lock
-                0x00000000400dc5c8       0x16 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
-                0x00000000400dc5c8                spi_flash_op_lock
- *fill*         0x00000000400dc5de        0x2 
+                0x00000000400dc5cc       0x16 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
+                0x00000000400dc5cc                spi_flash_op_lock
+ *fill*         0x00000000400dc5e2        0x2 
  .text.spi_flash_op_unlock
-                0x00000000400dc5e0       0x16 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
-                0x00000000400dc5e0                spi_flash_op_unlock
- *fill*         0x00000000400dc5f6        0x2 
+                0x00000000400dc5e4       0x16 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
+                0x00000000400dc5e4                spi_flash_op_unlock
+ *fill*         0x00000000400dc5fa        0x2 
  .text.spi_flash_init
-                0x00000000400dc5f8        0x8 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(flash_ops.o)
+                0x00000000400dc5fc        0x8 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(flash_ops.o)
                                           0xb (size before relaxing)
-                0x00000000400dc5f8                spi_flash_init
- *fill*         0x00000000400dc600        0x0 
+                0x00000000400dc5fc                spi_flash_init
+ *fill*         0x00000000400dc604        0x0 
  .text.uart_tx_char
-                0x00000000400dc600       0x25 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
- *fill*         0x00000000400dc625        0x3 
+                0x00000000400dc604       0x25 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+ *fill*         0x00000000400dc629        0x3 
  .text.uart_rx_char
-                0x00000000400dc628       0x21 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
- *fill*         0x00000000400dc649        0x3 
+                0x00000000400dc62c       0x21 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+ *fill*         0x00000000400dc64d        0x3 
  .text.uart_read_char
-                0x00000000400dc64c       0x28 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc650       0x28 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
  .text.uart_fstat
-                0x00000000400dc674       0x1e /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc678       0x1e /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0x21 (size before relaxing)
- *fill*         0x00000000400dc692        0x2 
+ *fill*         0x00000000400dc696        0x2 
  .text.uart_close
-                0x00000000400dc694       0x19 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc698       0x19 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0x1c (size before relaxing)
- *fill*         0x00000000400dc6ad        0x3 
+ *fill*         0x00000000400dc6b1        0x3 
  .text.uart_return_char
-                0x00000000400dc6b0       0x27 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc6b4       0x27 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0x2a (size before relaxing)
- *fill*         0x00000000400dc6d7        0x1 
+ *fill*         0x00000000400dc6db        0x1 
  .text.uart_fcntl
-                0x00000000400dc6d8       0x81 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc6dc       0x81 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0x85 (size before relaxing)
- *fill*         0x00000000400dc759        0x3 
+ *fill*         0x00000000400dc75d        0x3 
  .text.uart_open
-                0x00000000400dc75c       0x42 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc760       0x42 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0x46 (size before relaxing)
- *fill*         0x00000000400dc79e        0x2 
+ *fill*         0x00000000400dc7a2        0x2 
  .text.uart_read
-                0x00000000400dc7a0       0x9c /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc7a4       0x9c /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0xa8 (size before relaxing)
  .text.uart_write
-                0x00000000400dc83c       0x6d /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc840       0x6d /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0x75 (size before relaxing)
- *fill*         0x00000000400dc8a9        0x3 
+ *fill*         0x00000000400dc8ad        0x3 
  .text.esp_vfs_dev_uart_register
-                0x00000000400dc8ac       0x4e /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+                0x00000000400dc8b0       0x4e /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
                                          0x52 (size before relaxing)
-                0x00000000400dc8ac                esp_vfs_dev_uart_register
- *fill*         0x00000000400dc8fa        0x2 
+                0x00000000400dc8b0                esp_vfs_dev_uart_register
+ *fill*         0x00000000400dc8fe        0x2 
  .text.get_vfs_for_fd
-                0x00000000400dc8fc       0x22 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
- *fill*         0x00000000400dc91e        0x2 
+                0x00000000400dc900       0x22 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+ *fill*         0x00000000400dc922        0x2 
  .text.get_vfs_for_path
-                0x00000000400dc920       0x68 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dc924       0x68 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
  .text.translate_path
-                0x00000000400dc988       0x39 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dc98c       0x39 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x3d (size before relaxing)
- *fill*         0x00000000400dc9c1        0x3 
+ *fill*         0x00000000400dc9c5        0x3 
  .text.esp_vfs_register
-                0x00000000400dc9c4       0xca /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
-                0x00000000400dc9c4                esp_vfs_register
- *fill*         0x00000000400dca8e        0x2 
+                0x00000000400dc9c8       0xca /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dc9c8                esp_vfs_register
+ *fill*         0x00000000400dca92        0x2 
  .text.esp_vfs_open
-                0x00000000400dca90       0x6c /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dca94       0x6c /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x74 (size before relaxing)
-                0x00000000400dca90                esp_vfs_open
+                0x00000000400dca94                esp_vfs_open
  .text.esp_vfs_write
-                0x00000000400dcafc       0x48 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcb00       0x48 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x4c (size before relaxing)
-                0x00000000400dcafc                esp_vfs_write
+                0x00000000400dcb00                esp_vfs_write
  .text.esp_vfs_lseek
-                0x00000000400dcb44       0x48 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcb48       0x48 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x4c (size before relaxing)
-                0x00000000400dcb44                esp_vfs_lseek
+                0x00000000400dcb48                esp_vfs_lseek
  .text.esp_vfs_read
-                0x00000000400dcb8c       0x48 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcb90       0x48 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x4c (size before relaxing)
-                0x00000000400dcb8c                esp_vfs_read
+                0x00000000400dcb90                esp_vfs_read
  .text.esp_vfs_close
-                0x00000000400dcbd4       0x40 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcbd8       0x40 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x44 (size before relaxing)
-                0x00000000400dcbd4                esp_vfs_close
+                0x00000000400dcbd8                esp_vfs_close
  .text.esp_vfs_fstat
-                0x00000000400dcc14       0x45 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcc18       0x45 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x49 (size before relaxing)
-                0x00000000400dcc14                esp_vfs_fstat
- *fill*         0x00000000400dcc59        0x3 
+                0x00000000400dcc18                esp_vfs_fstat
+ *fill*         0x00000000400dcc5d        0x3 
  .text.esp_vfs_stat
-                0x00000000400dcc5c       0x45 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcc60       0x45 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x49 (size before relaxing)
-                0x00000000400dcc5c                esp_vfs_stat
- *fill*         0x00000000400dcca1        0x3 
+                0x00000000400dcc60                esp_vfs_stat
+ *fill*         0x00000000400dcca5        0x3 
  .text.esp_vfs_link
-                0x00000000400dcca4       0x64 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcca8       0x64 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x6c (size before relaxing)
-                0x00000000400dcca4                esp_vfs_link
+                0x00000000400dcca8                esp_vfs_link
  .text.esp_vfs_unlink
-                0x00000000400dcd08       0x40 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcd0c       0x40 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x44 (size before relaxing)
-                0x00000000400dcd08                esp_vfs_unlink
+                0x00000000400dcd0c                esp_vfs_unlink
  .text.esp_vfs_rename
-                0x00000000400dcd48       0x64 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+                0x00000000400dcd4c       0x64 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
                                          0x6c (size before relaxing)
-                0x00000000400dcd48                esp_vfs_rename
- .text          0x00000000400dcdac      0x2fa /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_addsubdf3.o)
-                0x00000000400dcdcc                __adddf3
-                0x00000000400dcf20                __subdf3
- *fill*         0x00000000400dd0a6        0x2 
- .text          0x00000000400dd0a8      0x1fb /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_muldf3.o)
-                0x00000000400dd188                __muldf3
- *fill*         0x00000000400dd2a3        0x1 
- .text          0x00000000400dd2a4      0x20b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_divdf3.o)
-                0x00000000400dd38c                __divdf3
- *fill*         0x00000000400dd4af        0x1 
- .text          0x00000000400dd4b0      0x176 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_cmpdf2.o)
-                0x00000000400dd4b0                __nedf2
-                0x00000000400dd4b0                __eqdf2
-                0x00000000400dd4e4                __gtdf2
-                0x00000000400dd50c                __ledf2
-                0x00000000400dd570                __gedf2
-                0x00000000400dd598                __ltdf2
-                0x00000000400dd5fc                __unorddf2
- *fill*         0x00000000400dd626        0x2 
- .text          0x00000000400dd628       0x4c /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_fixdfsi.o)
-                0x00000000400dd628                __fixdfsi
- .text          0x00000000400dd674      0x860 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-xtensa.o)
+                0x00000000400dcd4c                esp_vfs_rename
+ .text          0x00000000400dcdb0      0x2fa /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_addsubdf3.o)
+                0x00000000400dcdd0                __adddf3
+                0x00000000400dcf24                __subdf3
+ *fill*         0x00000000400dd0aa        0x2 
+ .text          0x00000000400dd0ac      0x1fb /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_muldf3.o)
+                0x00000000400dd18c                __muldf3
+ *fill*         0x00000000400dd2a7        0x1 
+ .text          0x00000000400dd2a8      0x20b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_divdf3.o)
+                0x00000000400dd390                __divdf3
+ *fill*         0x00000000400dd4b3        0x1 
+ .text          0x00000000400dd4b4      0x176 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_cmpdf2.o)
+                0x00000000400dd4b4                __nedf2
+                0x00000000400dd4b4                __eqdf2
+                0x00000000400dd4e8                __gtdf2
+                0x00000000400dd510                __ledf2
+                0x00000000400dd574                __gedf2
+                0x00000000400dd59c                __ltdf2
+                0x00000000400dd600                __unorddf2
+ *fill*         0x00000000400dd62a        0x2 
+ .text          0x00000000400dd62c       0x4c /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_fixdfsi.o)
+                0x00000000400dd62c                __fixdfsi
+ .text          0x00000000400dd678      0x860 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-xtensa.o)
                                         0x880 (size before relaxing)
-                0x00000000400ddc10                _Unwind_GetGR
-                0x00000000400ddc28                _Unwind_GetCFA
-                0x00000000400ddc30                _Unwind_SetGR
-                0x00000000400ddc48                _Unwind_GetIP
-                0x00000000400ddc50                _Unwind_GetIPInfo
-                0x00000000400ddc60                _Unwind_SetIP
-                0x00000000400ddc68                _Unwind_GetLanguageSpecificData
-                0x00000000400ddc70                _Unwind_GetRegionStart
-                0x00000000400ddc78                _Unwind_FindEnclosingFunction
-                0x00000000400ddc90                _Unwind_GetDataRelBase
-                0x00000000400ddc98                _Unwind_GetTextRelBase
-                0x00000000400ddca0                _Unwind_RaiseException
-                0x00000000400ddd4c                _Unwind_ForcedUnwind
-                0x00000000400ddda8                _Unwind_Resume
-                0x00000000400dde0c                _Unwind_Resume_or_Rethrow
-                0x00000000400dde74                _Unwind_DeleteException
-                0x00000000400dde84                _Unwind_Backtrace
- .text          0x00000000400dded4      0xcc8 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-fde.o)
+                0x00000000400ddc14                _Unwind_GetGR
+                0x00000000400ddc2c                _Unwind_GetCFA
+                0x00000000400ddc34                _Unwind_SetGR
+                0x00000000400ddc4c                _Unwind_GetIP
+                0x00000000400ddc54                _Unwind_GetIPInfo
+                0x00000000400ddc64                _Unwind_SetIP
+                0x00000000400ddc6c                _Unwind_GetLanguageSpecificData
+                0x00000000400ddc74                _Unwind_GetRegionStart
+                0x00000000400ddc7c                _Unwind_FindEnclosingFunction
+                0x00000000400ddc94                _Unwind_GetDataRelBase
+                0x00000000400ddc9c                _Unwind_GetTextRelBase
+                0x00000000400ddca4                _Unwind_RaiseException
+                0x00000000400ddd50                _Unwind_ForcedUnwind
+                0x00000000400dddac                _Unwind_Resume
+                0x00000000400dde10                _Unwind_Resume_or_Rethrow
+                0x00000000400dde78                _Unwind_DeleteException
+                0x00000000400dde88                _Unwind_Backtrace
+ .text          0x00000000400dded8      0xcc8 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-fde.o)
                                         0xce0 (size before relaxing)
-                0x00000000400de91c                __register_frame_info_bases
-                0x00000000400de960                __register_frame_info
-                0x00000000400de974                __register_frame
-                0x00000000400de990                __register_frame_info_table_bases
-                0x00000000400de9cc                __register_frame_info_table
-                0x00000000400de9dc                __register_frame_table
-                0x00000000400de9f8                __deregister_frame_info_bases
-                0x00000000400deaa0                __deregister_frame_info
-                0x00000000400deaac                __deregister_frame
-                0x00000000400deac0                _Unwind_Find_FDE
+                0x00000000400de920                __register_frame_info_bases
+                0x00000000400de964                __register_frame_info
+                0x00000000400de978                __register_frame
+                0x00000000400de994                __register_frame_info_table_bases
+                0x00000000400de9d0                __register_frame_info_table
+                0x00000000400de9e0                __register_frame_table
+                0x00000000400de9fc                __deregister_frame_info_bases
+                0x00000000400deaa4                __deregister_frame_info
+                0x00000000400deab0                __deregister_frame
+                0x00000000400deac4                _Unwind_Find_FDE
  .text._ZL28read_encoded_value_with_basehjPKhPj
-                0x00000000400deb9c       0xd8 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400deba0       0xd8 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
  .text._ZL15get_ttype_entryP16lsda_header_infom
-                0x00000000400dec74       0x4e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400dec78       0x4e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
                                          0x52 (size before relaxing)
- *fill*         0x00000000400decc2        0x2 
+ *fill*         0x00000000400decc6        0x2 
  .text._ZL21base_of_encoded_valuehP15_Unwind_Context
-                0x00000000400decc4       0x54 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400decc8       0x54 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
                                          0x5c (size before relaxing)
  .text._ZL18read_encoded_valueP15_Unwind_ContexthPKhPj
-                0x00000000400ded18       0x1c /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400ded1c       0x1c /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
                                          0x20 (size before relaxing)
  .text._ZL17parse_lsda_headerP15_Unwind_ContextPKhP16lsda_header_info
-                0x00000000400ded34       0x68 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400ded38       0x68 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
                                          0x6c (size before relaxing)
  .text._ZL20check_exception_specP16lsda_header_infoPKSt9type_infoPvl$constprop$3
-                0x00000000400ded9c       0x38 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400deda0       0x38 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
                                          0x40 (size before relaxing)
  .text.__gxx_personality_v0
-                0x00000000400dedd4      0x2be /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400dedd8      0x2be /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
                                         0x2c2 (size before relaxing)
-                0x00000000400dedd4                __gxx_personality_v0
- *fill*         0x00000000400df092        0x2 
+                0x00000000400dedd8                __gxx_personality_v0
+ *fill*         0x00000000400df096        0x2 
  .text.__cxa_call_unexpected
-                0x00000000400df094       0x7d /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
-                0x00000000400df094                __cxa_call_unexpected
- *fill*         0x00000000400df111        0x3 
+                0x00000000400df098       0x7d /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+                0x00000000400df098                __cxa_call_unexpected
+ *fill*         0x00000000400df115        0x3 
  .text._ZL15eh_globals_dtorPv
-                0x00000000400df114       0x23 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
- *fill*         0x00000000400df137        0x1 
+                0x00000000400df118       0x23 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
+ *fill*         0x00000000400df13b        0x1 
  .text.__cxa_get_globals_fast
-                0x00000000400df138       0x32 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
-                0x00000000400df138                __cxa_get_globals_fast
- *fill*         0x00000000400df16a        0x2 
+                0x00000000400df13c       0x32 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
+                0x00000000400df13c                __cxa_get_globals_fast
+ *fill*         0x00000000400df16e        0x2 
  .text.__cxa_get_globals
-                0x00000000400df16c       0x56 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
-                0x00000000400df16c                __cxa_get_globals
- *fill*         0x00000000400df1c2        0x2 
+                0x00000000400df170       0x56 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
+                0x00000000400df170                __cxa_get_globals
+ *fill*         0x00000000400df1c6        0x2 
  .text.startup._GLOBAL__sub_I___cxa_get_globals_fast
-                0x00000000400df1c4       0x28 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
+                0x00000000400df1c8       0x28 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
  .text.exit._GLOBAL__sub_D___cxa_get_globals_fast
-                0x00000000400df1ec       0x12 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
+                0x00000000400df1f0       0x12 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
                                          0x16 (size before relaxing)
- *fill*         0x00000000400df1fe        0x2 
+ *fill*         0x00000000400df202        0x2 
  .text.__cxa_rethrow
-                0x00000000400df200       0x50 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_throw.o)
+                0x00000000400df204       0x50 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_throw.o)
                                          0x58 (size before relaxing)
-                0x00000000400df200                __cxa_rethrow
+                0x00000000400df204                __cxa_rethrow
  .text.__cxa_call_terminate
-                0x00000000400df250       0x36 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_call.o)
+                0x00000000400df254       0x36 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_call.o)
                                          0x3a (size before relaxing)
-                0x00000000400df250                __cxa_call_terminate
- *fill*         0x00000000400df286        0x2 
+                0x00000000400df254                __cxa_call_terminate
+ *fill*         0x00000000400df28a        0x2 
  .text.startup._GLOBAL__sub_I___cxa_allocate_exception
-                0x00000000400df288       0x36 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_alloc.o)
- *fill*         0x00000000400df2be        0x2 
+                0x00000000400df28c       0x36 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_alloc.o)
+ *fill*         0x00000000400df2c2        0x2 
  .text.exit._GLOBAL__sub_D___cxa_allocate_exception
-                0x00000000400df2c0       0x10 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_alloc.o)
+                0x00000000400df2c4       0x10 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_alloc.o)
                                          0x13 (size before relaxing)
- *fill*         0x00000000400df2d0        0x0 
+ *fill*         0x00000000400df2d4        0x0 
  .text._ZN10__cxxabiv111__terminateEPFvvE
-                0x00000000400df2d0       0x32 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
-                0x00000000400df2d0                _ZN10__cxxabiv111__terminateEPFvvE
- *fill*         0x00000000400df302        0x2 
+                0x00000000400df2d4       0x32 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
+                0x00000000400df2d4                _ZN10__cxxabiv111__terminateEPFvvE
+ *fill*         0x00000000400df306        0x2 
  .text._ZSt13get_terminatev
-                0x00000000400df304       0x10 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
-                0x00000000400df304                _ZSt13get_terminatev
+                0x00000000400df308       0x10 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
+                0x00000000400df308                _ZSt13get_terminatev
  .text._ZSt9terminatev
-                0x00000000400df314        0x9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
+                0x00000000400df318        0x9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
                                           0xf (size before relaxing)
-                0x00000000400df314                _ZSt9terminatev
- *fill*         0x00000000400df31d        0x3 
+                0x00000000400df318                _ZSt9terminatev
+ *fill*         0x00000000400df321        0x3 
  .text._ZN10__cxxabiv112__unexpectedEPFvvE
-                0x00000000400df320        0x9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
+                0x00000000400df324        0x9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
                                           0xc (size before relaxing)
-                0x00000000400df320                _ZN10__cxxabiv112__unexpectedEPFvvE
- *fill*         0x00000000400df329        0x3 
+                0x00000000400df324                _ZN10__cxxabiv112__unexpectedEPFvvE
+ *fill*         0x00000000400df32d        0x3 
  .text._ZSt14get_unexpectedv
-                0x00000000400df32c       0x10 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
-                0x00000000400df32c                _ZSt14get_unexpectedv
+                0x00000000400df330       0x10 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
+                0x00000000400df330                _ZSt14get_unexpectedv
  .text._ZSt10unexpectedv
-                0x00000000400df33c        0x9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
+                0x00000000400df340        0x9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
                                           0xf (size before relaxing)
-                0x00000000400df33c                _ZSt10unexpectedv
- *fill*         0x00000000400df345        0x3 
+                0x00000000400df340                _ZSt10unexpectedv
+ *fill*         0x00000000400df349        0x3 
  .text.__cxa_begin_catch
-                0x00000000400df348       0x58 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_catch.o)
-                0x00000000400df348                __cxa_begin_catch
+                0x00000000400df34c       0x58 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_catch.o)
+                0x00000000400df34c                __cxa_begin_catch
  .text.__cxa_end_catch
-                0x00000000400df3a0       0x62 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_catch.o)
-                0x00000000400df3a0                __cxa_end_catch
- *fill*         0x00000000400df402        0x2 
+                0x00000000400df3a4       0x62 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_catch.o)
+                0x00000000400df3a4                __cxa_end_catch
+ *fill*         0x00000000400df406        0x2 
  .text.uart_set_break
-                0x00000000400df404       0x69 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400df408       0x69 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0x6d (size before relaxing)
- *fill*         0x00000000400df46d        0x3 
+ *fill*         0x00000000400df471        0x3 
  .text.uart_reset_fifo
-                0x00000000400df470       0x8a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400df474       0x8a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0x92 (size before relaxing)
- *fill*         0x00000000400df4fa        0x2 
+ *fill*         0x00000000400df4fe        0x2 
  .text.uart_fill_fifo
-                0x00000000400df4fc       0x7d /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
- *fill*         0x00000000400df579        0x3 
+                0x00000000400df500       0x7d /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+ *fill*         0x00000000400df57d        0x3 
  .text.uart_rx_intr_handler_default
-                0x00000000400df57c      0x583 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400df580      0x583 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x5df (size before relaxing)
- *fill*         0x00000000400dfaff        0x1 
+ *fill*         0x00000000400dfb03        0x1 
  .text.uart_set_stop_bits
-                0x00000000400dfb00       0xca /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400dfb04       0xca /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0xd2 (size before relaxing)
-                0x00000000400dfb00                uart_set_stop_bits
- *fill*         0x00000000400dfbca        0x2 
+                0x00000000400dfb04                uart_set_stop_bits
+ *fill*         0x00000000400dfbce        0x2 
  .text.uart_set_baudrate
-                0x00000000400dfbcc       0xb1 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400dfbd0       0xb1 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0xbd (size before relaxing)
-                0x00000000400dfbcc                uart_set_baudrate
- *fill*         0x00000000400dfc7d        0x3 
+                0x00000000400dfbd0                uart_set_baudrate
+ *fill*         0x00000000400dfc81        0x3 
  .text.uart_set_hw_flow_ctrl
-                0x00000000400dfc80      0x124 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400dfc84      0x124 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x134 (size before relaxing)
-                0x00000000400dfc80                uart_set_hw_flow_ctrl
+                0x00000000400dfc84                uart_set_hw_flow_ctrl
  .text.uart_enable_intr_mask
-                0x00000000400dfda4      0x18a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400dfda8      0x18a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x1a2 (size before relaxing)
-                0x00000000400dfda4                uart_enable_intr_mask
- *fill*         0x00000000400dff2e        0x2 
+                0x00000000400dfda8                uart_enable_intr_mask
+ *fill*         0x00000000400dff32        0x2 
  .text.uart_disable_intr_mask
-                0x00000000400dff30       0xf0 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400dff34       0xf0 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x100 (size before relaxing)
-                0x00000000400dff30                uart_disable_intr_mask
+                0x00000000400dff34                uart_disable_intr_mask
  .text.uart_enable_pattern_det_intr
-                0x00000000400e0020      0x140 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0024      0x140 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x150 (size before relaxing)
-                0x00000000400e0020                uart_enable_pattern_det_intr
+                0x00000000400e0024                uart_enable_pattern_det_intr
  .text.uart_enable_rx_intr
-                0x00000000400e0160       0x12 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
-                0x00000000400e0160                uart_enable_rx_intr
- *fill*         0x00000000400e0172        0x2 
+                0x00000000400e0164       0x12 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0164                uart_enable_rx_intr
+ *fill*         0x00000000400e0176        0x2 
  .text.uart_disable_rx_intr
-                0x00000000400e0174       0x12 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
-                0x00000000400e0174                uart_disable_rx_intr
- *fill*         0x00000000400e0186        0x2 
+                0x00000000400e0178       0x12 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0178                uart_disable_rx_intr
+ *fill*         0x00000000400e018a        0x2 
  .text.uart_disable_tx_intr
-                0x00000000400e0188       0x11 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
-                0x00000000400e0188                uart_disable_tx_intr
- *fill*         0x00000000400e0199        0x3 
+                0x00000000400e018c       0x11 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e018c                uart_disable_tx_intr
+ *fill*         0x00000000400e019d        0x3 
  .text.uart_enable_tx_intr
-                0x00000000400e019c       0xb6 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e01a0       0xb6 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0xc2 (size before relaxing)
-                0x00000000400e019c                uart_enable_tx_intr
- *fill*         0x00000000400e0252        0x2 
+                0x00000000400e01a0                uart_enable_tx_intr
+ *fill*         0x00000000400e0256        0x2 
  .text.uart_tx_all
-                0x00000000400e0254      0x148 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0258      0x148 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x170 (size before relaxing)
  .text.uart_isr_register
-                0x00000000400e039c       0x82 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e03a0       0x82 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0x8e (size before relaxing)
-                0x00000000400e039c                uart_isr_register
- *fill*         0x00000000400e041e        0x2 
+                0x00000000400e03a0                uart_isr_register
+ *fill*         0x00000000400e0422        0x2 
  .text.uart_set_pin
-                0x00000000400e0420      0x332 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0424      0x332 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x37a (size before relaxing)
-                0x00000000400e0420                uart_set_pin
- *fill*         0x00000000400e0752        0x2 
+                0x00000000400e0424                uart_set_pin
+ *fill*         0x00000000400e0756        0x2 
  .text.uart_param_config
-                0x00000000400e0754       0xd0 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0758       0xd0 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0xe8 (size before relaxing)
-                0x00000000400e0754                uart_param_config
+                0x00000000400e0758                uart_param_config
  .text.uart_intr_config
-                0x00000000400e0824      0x120 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0828      0x120 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x12c (size before relaxing)
-                0x00000000400e0824                uart_intr_config
+                0x00000000400e0828                uart_intr_config
  .text.uart_write_bytes
-                0x00000000400e0944       0x98 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0948       0x98 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0xa4 (size before relaxing)
-                0x00000000400e0944                uart_write_bytes
+                0x00000000400e0948                uart_write_bytes
  .text.uart_get_buffered_data_len
-                0x00000000400e09dc       0x64 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e09e0       0x64 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                          0x6c (size before relaxing)
-                0x00000000400e09dc                uart_get_buffered_data_len
+                0x00000000400e09e0                uart_get_buffered_data_len
  .text.uart_flush
-                0x00000000400e0a40      0x152 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0a44      0x152 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x182 (size before relaxing)
-                0x00000000400e0a40                uart_flush
- *fill*         0x00000000400e0b92        0x2 
+                0x00000000400e0a44                uart_flush
+ *fill*         0x00000000400e0b96        0x2 
  .text.uart_driver_delete
-                0x00000000400e0b94      0x16a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0b98      0x16a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x186 (size before relaxing)
-                0x00000000400e0b94                uart_driver_delete
- *fill*         0x00000000400e0cfe        0x2 
+                0x00000000400e0b98                uart_driver_delete
+ *fill*         0x00000000400e0d02        0x2 
  .text.uart_driver_install
-                0x00000000400e0d00      0x258 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+                0x00000000400e0d04      0x258 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
                                         0x29c (size before relaxing)
-                0x00000000400e0d00                uart_driver_install
+                0x00000000400e0d04                uart_driver_install
  .text.gpio_output_disable
-                0x00000000400e0f58       0xa4 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e0f5c       0xa4 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0xac (size before relaxing)
  .text.gpio_output_enable
-                0x00000000400e0ffc       0x8a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e1000       0x8a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0x8e (size before relaxing)
- *fill*         0x00000000400e1086        0x2 
+ *fill*         0x00000000400e108a        0x2 
  .text.gpio_pullup_en
-                0x00000000400e1088       0x99 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e108c       0x99 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0x9d (size before relaxing)
-                0x00000000400e1088                gpio_pullup_en
- *fill*         0x00000000400e1121        0x3 
+                0x00000000400e108c                gpio_pullup_en
+ *fill*         0x00000000400e1125        0x3 
  .text.gpio_pullup_dis
-                0x00000000400e1124       0x9a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e1128       0x9a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0x9e (size before relaxing)
-                0x00000000400e1124                gpio_pullup_dis
- *fill*         0x00000000400e11be        0x2 
+                0x00000000400e1128                gpio_pullup_dis
+ *fill*         0x00000000400e11c2        0x2 
  .text.gpio_pulldown_en
-                0x00000000400e11c0       0x9a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e11c4       0x9a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0x9e (size before relaxing)
-                0x00000000400e11c0                gpio_pulldown_en
- *fill*         0x00000000400e125a        0x2 
+                0x00000000400e11c4                gpio_pulldown_en
+ *fill*         0x00000000400e125e        0x2 
  .text.gpio_pulldown_dis
-                0x00000000400e125c       0x9a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e1260       0x9a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0x9e (size before relaxing)
-                0x00000000400e125c                gpio_pulldown_dis
- *fill*         0x00000000400e12f6        0x2 
+                0x00000000400e1260                gpio_pulldown_dis
+ *fill*         0x00000000400e12fa        0x2 
  .text.gpio_set_level
-                0x00000000400e12f8       0xbd /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e12fc       0xbd /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0xc1 (size before relaxing)
-                0x00000000400e12f8                gpio_set_level
- *fill*         0x00000000400e13b5        0x3 
+                0x00000000400e12fc                gpio_set_level
+ *fill*         0x00000000400e13b9        0x3 
  .text.gpio_set_pull_mode
-                0x00000000400e13b8       0xd1 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e13bc       0xd1 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                          0xf1 (size before relaxing)
-                0x00000000400e13b8                gpio_set_pull_mode
- *fill*         0x00000000400e1489        0x3 
+                0x00000000400e13bc                gpio_set_pull_mode
+ *fill*         0x00000000400e148d        0x3 
  .text.gpio_set_direction
-                0x00000000400e148c      0x160 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+                0x00000000400e1490      0x160 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
                                         0x178 (size before relaxing)
-                0x00000000400e148c                gpio_set_direction
+                0x00000000400e1490                gpio_set_direction
  .text.timer_group_intr_enable
-                0x00000000400e15ec       0x58 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(timer.o)
+                0x00000000400e15f0       0x58 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(timer.o)
                                          0x64 (size before relaxing)
-                0x00000000400e15ec                timer_group_intr_enable
+                0x00000000400e15f0                timer_group_intr_enable
  .text.periph_module_enable
-                0x00000000400e1644      0x5c8 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(periph_ctrl.o)
+                0x00000000400e1648      0x5c8 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(periph_ctrl.o)
                                         0x703 (size before relaxing)
-                0x00000000400e1644                periph_module_enable
- *fill*         0x00000000400e1c0c        0x0 
- .text.rtc_isr  0x00000000400e1c0c       0x4a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1648                periph_module_enable
+ *fill*         0x00000000400e1c10        0x0 
+ .text.rtc_isr  0x00000000400e1c10       0x4a /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
                                          0x56 (size before relaxing)
- *fill*         0x00000000400e1c56        0x2 
+ *fill*         0x00000000400e1c5a        0x2 
  .text.rtc_isr_ensure_installed
-                0x00000000400e1c58       0x43 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1c5c       0x43 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
                                          0x4a (size before relaxing)
- *fill*         0x00000000400e1c9b        0x1 
+ *fill*         0x00000000400e1c9f        0x1 
  .text.rtc_gpio_pullup_en
-                0x00000000400e1c9c       0x8d /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1ca0       0x8d /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
                                          0x9d (size before relaxing)
-                0x00000000400e1c9c                rtc_gpio_pullup_en
- *fill*         0x00000000400e1d29        0x3 
+                0x00000000400e1ca0                rtc_gpio_pullup_en
+ *fill*         0x00000000400e1d2d        0x3 
  .text.rtc_gpio_pulldown_en
-                0x00000000400e1d2c       0x8d /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1d30       0x8d /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
                                          0x9d (size before relaxing)
-                0x00000000400e1d2c                rtc_gpio_pulldown_en
- *fill*         0x00000000400e1db9        0x3 
+                0x00000000400e1d30                rtc_gpio_pulldown_en
+ *fill*         0x00000000400e1dbd        0x3 
  .text.rtc_gpio_pullup_dis
-                0x00000000400e1dbc       0x95 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1dc0       0x95 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
                                          0xa1 (size before relaxing)
-                0x00000000400e1dbc                rtc_gpio_pullup_dis
- *fill*         0x00000000400e1e51        0x3 
+                0x00000000400e1dc0                rtc_gpio_pullup_dis
+ *fill*         0x00000000400e1e55        0x3 
  .text.rtc_gpio_pulldown_dis
-                0x00000000400e1e54       0x95 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1e58       0x95 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
                                          0xa1 (size before relaxing)
-                0x00000000400e1e54                rtc_gpio_pulldown_dis
- *fill*         0x00000000400e1ee9        0x3 
+                0x00000000400e1e58                rtc_gpio_pulldown_dis
+ *fill*         0x00000000400e1eed        0x3 
  .text.rtc_gpio_force_hold_dis_all
-                0x00000000400e1eec       0x39 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
-                0x00000000400e1eec                rtc_gpio_force_hold_dis_all
- *fill*         0x00000000400e1f25        0x3 
+                0x00000000400e1ef0       0x39 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1ef0                rtc_gpio_force_hold_dis_all
+ *fill*         0x00000000400e1f29        0x3 
  .text.rtc_isr_register
-                0x00000000400e1f28       0x41 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+                0x00000000400e1f2c       0x41 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
                                          0x49 (size before relaxing)
-                0x00000000400e1f28                rtc_isr_register
- *fill*         0x00000000400e1f69        0x3 
- .text          0x00000000400e1f6c        0xa /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-errno.o)
+                0x00000000400e1f2c                rtc_isr_register
+ *fill*         0x00000000400e1f6d        0x3 
+ .text          0x00000000400e1f70        0xa /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-errno.o)
                                           0xd (size before relaxing)
-                0x00000000400e1f6c                __errno
- *fill*         0x00000000400e1f76        0x2 
+                0x00000000400e1f70                __errno
+ *fill*         0x00000000400e1f7a        0x2 
  .text.__cxa_guard_dummy
-                0x00000000400e1f78        0x5 /home/JG/git/sensoty_toys/uart/build/cxx/libcxx.a(cxx_guards.o)
-                0x00000000400e1f78                __cxa_guard_dummy
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x0 
- *fill*         0x00000000400e1f7d        0x3 
+                0x00000000400e1f7c        0x5 /home/JG/git/sensoty_toys/uart/build/cxx/libcxx.a(cxx_guards.o)
+                0x00000000400e1f7c                __cxa_guard_dummy
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x0 
+ *fill*         0x00000000400e1f81        0x3 
  .text.heap_caps_match
-                0x00000000400e1f80       0x34 /home/JG/git/sensoty_toys/uart/build/heap/libheap.a(heap_caps.o)
-                0x00000000400e1f80                heap_caps_match
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
- *fill*         0x00000000400e1fb4        0x0 
+                0x00000000400e1f84       0x34 /home/JG/git/sensoty_toys/uart/build/heap/libheap.a(heap_caps.o)
+                0x00000000400e1f84                heap_caps_match
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
+ *fill*         0x00000000400e1fb8        0x0 
  .text._system_r
-                0x00000000400e1fb4        0xb /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
-                0x00000000400e1fb4                _system_r
- *fill*         0x00000000400e1fbf        0x0 
- *fill*         0x00000000400e1fbf        0x0 
- *fill*         0x00000000400e1fbf        0x1 
+                0x00000000400e1fb8        0xb /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
+                0x00000000400e1fb8                _system_r
+ *fill*         0x00000000400e1fc3        0x0 
+ *fill*         0x00000000400e1fc3        0x0 
+ *fill*         0x00000000400e1fc3        0x1 
  .text._getpid_r
-                0x00000000400e1fc0        0xb /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
-                0x00000000400e1fc0                _getpid_r
- *fill*         0x00000000400e1fcb        0x1 
- .text._kill_r  0x00000000400e1fcc        0xb /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
-                0x00000000400e1fcc                _kill_r
- *fill*         0x00000000400e1fd7        0x0 
- *fill*         0x00000000400e1fd7        0x1 
+                0x00000000400e1fc4        0xb /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
+                0x00000000400e1fc4                _getpid_r
+ *fill*         0x00000000400e1fcf        0x1 
+ .text._kill_r  0x00000000400e1fd0        0xb /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
+                0x00000000400e1fd0                _kill_r
+ *fill*         0x00000000400e1fdb        0x0 
+ *fill*         0x00000000400e1fdb        0x1 
  .text.mutexattr_check
-                0x00000000400e1fd8       0x10 /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
- *fill*         0x00000000400e1fe8        0x0 
+                0x00000000400e1fdc       0x10 /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
+ *fill*         0x00000000400e1fec        0x0 
  .text.translate_fd
-                0x00000000400e1fe8        0xc /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
- *fill*         0x00000000400e1ff4        0x0 
- *fill*         0x00000000400e1ff4        0x0 
- *fill*         0x00000000400e1ff4        0x0 
- *fill*         0x00000000400e1ff4        0x0 
- *fill*         0x00000000400e1ff4        0x0 
- *fill*         0x00000000400e1ff4        0x0 
- *fill*         0x00000000400e1ff4        0x0 
- *fill*         0x00000000400e1ff4        0x0 
- .text          0x00000000400e1ff4       0x3d /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_floatsidf.o)
-                0x00000000400e1ff4                __floatunsidf
-                0x00000000400e2000                __floatsidf
- *fill*         0x00000000400e2031        0x3 
- .text          0x00000000400e2034      0x281 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
-                0x00000000400e2034                __udivdi3
- *fill*         0x00000000400e22b5        0x3 
- .text          0x00000000400e22b8      0x26e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_umoddi3.o)
-                0x00000000400e22b8                __umoddi3
- *fill*         0x00000000400e2526        0x2 
+                0x00000000400e1fec        0xc /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+ *fill*         0x00000000400e1ff8        0x0 
+ *fill*         0x00000000400e1ff8        0x0 
+ *fill*         0x00000000400e1ff8        0x0 
+ *fill*         0x00000000400e1ff8        0x0 
+ *fill*         0x00000000400e1ff8        0x0 
+ *fill*         0x00000000400e1ff8        0x0 
+ *fill*         0x00000000400e1ff8        0x0 
+ *fill*         0x00000000400e1ff8        0x0 
+ .text          0x00000000400e1ff8       0x3d /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_floatsidf.o)
+                0x00000000400e1ff8                __floatunsidf
+                0x00000000400e2004                __floatsidf
+ *fill*         0x00000000400e2035        0x3 
+ .text          0x00000000400e2038      0x281 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+                0x00000000400e2038                __udivdi3
+ *fill*         0x00000000400e22b9        0x3 
+ .text          0x00000000400e22bc      0x26e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_umoddi3.o)
+                0x00000000400e22bc                __umoddi3
+ *fill*         0x00000000400e252a        0x2 
  .text._ZL12read_uleb128PKhPm
-                0x00000000400e2528       0x2e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
- *fill*         0x00000000400e2556        0x2 
+                0x00000000400e252c       0x2e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+ *fill*         0x00000000400e255a        0x2 
  .text._ZL12read_sleb128PKhPl
-                0x00000000400e2558       0x3a /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
- *fill*         0x00000000400e2592        0x0 
- *fill*         0x00000000400e2592        0x2 
+                0x00000000400e255c       0x3a /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+ *fill*         0x00000000400e2596        0x0 
+ *fill*         0x00000000400e2596        0x2 
  .text._ZL16get_adjusted_ptrPKSt9type_infoS1_PPv$constprop$4
-                0x00000000400e2594       0x34 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
- *fill*         0x00000000400e25c8        0x0 
+                0x00000000400e2598       0x34 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
+ *fill*         0x00000000400e25cc        0x0 
  *(.irom0.text)
  *(.fini.literal)
  *(.fini)
  *(.gnu.version)
-                0x00000000400e25c8                _text_end = ABSOLUTE (.)
-                0x00000000400e25c8                _etext = .
+                0x00000000400e25cc                _text_end = ABSOLUTE (.)
+                0x00000000400e25cc                _etext = .
                 0x0000000000000000                _flash_cache_start = 0x0
                 [!provide]                        PROVIDE (abort, 0x4000bba4)
                 [!provide]                        PROVIDE (__absvdi2, 0x4006387c)
@@ -21364,7 +21366,7 @@ OUTPUT(/home/JG/git/sensoty_toys/uart/build/uart_events.elf elf32-xtensa-le)
  .debug_frame   0x000000000000a6c8       0x40 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vsnprintf.o)
  .debug_frame   0x000000000000a708       0x70 /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_sleep.o)
 
-.debug_info     0x0000000000000000    0xbf365
+.debug_info     0x0000000000000000    0xbf366
  .debug_info    0x0000000000000000     0x30a2 /home/JG/git/sensoty_toys/uart/build/cxx/libcxx.a(cxx_guards.o)
  .debug_info    0x00000000000030a2     0x185c /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(panic.o)
  .debug_info    0x00000000000048fe     0x181b /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(cpu_start.o)
@@ -21430,128 +21432,128 @@ OUTPUT(/home/JG/git/sensoty_toys/uart/build/uart_events.elf elf32-xtensa-le)
  .debug_info    0x000000000003e6a4      0xf33 /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(ip6_frag.o)
  .debug_info    0x000000000003f5d7      0x36b /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(ip6_addr.o)
  .debug_info    0x000000000003f942     0x1bef /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(dhcpserver.o)
- .debug_info    0x0000000000041531      0x7ec /home/JG/git/sensoty_toys/uart/build/main/libmain.a(uart_events_example_main.o)
- .debug_info    0x0000000000041d1d      0x19b /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-assert.o)
- .debug_info    0x0000000000041eb8      0x946 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fiprintf.o)
- .debug_info    0x00000000000427fe      0xa0b /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fopen.o)
- .debug_info    0x0000000000043209      0xa8e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fputs.o)
- .debug_info    0x0000000000043c97      0x93f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseek.o)
- .debug_info    0x00000000000445d6      0xd7f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseeko.o)
- .debug_info    0x0000000000045355      0x95b /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-printf.o)
- .debug_info    0x0000000000045cb0      0x8d3 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-putchar.o)
- .debug_info    0x0000000000046583      0x9e3 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-puts.o)
- .debug_info    0x0000000000046f66      0x9d7 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-reent.o)
- .debug_info    0x000000000004793d      0x99f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-snprintf.o)
- .debug_info    0x00000000000482dc      0x973 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-sprintf.o)
- .debug_info    0x0000000000048c4f     0x22fe /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-svfprintf.o)
- .debug_info    0x000000000004af4d     0x1f4e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfiprintf.o)
- .debug_info    0x000000000004ce9b     0x2605 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfprintf.o)
- .debug_info    0x000000000004f4a0      0x93d /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vprintf.o)
- .debug_info    0x000000000004fddd     0x11d3 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-dtoa.o)
- .debug_info    0x0000000000050fb0      0x85e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-flags.o)
- .debug_info    0x000000000005180e     0x161f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-mprec.o)
- .debug_info    0x0000000000052e2d      0x9d2 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-putc.o)
- .debug_info    0x00000000000537ff      0x1b9 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-s_frexp.o)
- .debug_info    0x00000000000539b8     0x1c54 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-svfiprintf.o)
- .debug_info    0x000000000005560c      0x142 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libm.a(lib_a-s_fpclassify.o)
- .debug_info    0x000000000005574e      0xf02 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
- .debug_info    0x0000000000056650      0xab9 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
- .debug_info    0x0000000000057109      0xf03 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscall_table.o)
- .debug_info    0x000000000005800c      0x830 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(reent_init.o)
- .debug_info    0x000000000005883c      0x7a1 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(locks.o)
- .debug_info    0x0000000000058fdd     0xbca1 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_api.o)
- .debug_info    0x0000000000064c7e     0x6bf7 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_storage.o)
- .debug_info    0x000000000006b875     0x6b0b /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_page.o)
- .debug_info    0x0000000000072380     0x2330 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_types.o)
- .debug_info    0x00000000000746b0     0x31be /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_item_hash_list.o)
- .debug_info    0x000000000007786e     0x5e32 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_pagemanager.o)
- .debug_info    0x000000000007d6a0     0x1a8a /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
- .debug_info    0x000000000007f12a      0x14d /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(cpu_util.o)
- .debug_info    0x000000000007f277      0x225 /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(soc_memory_layout.o)
- .debug_info    0x000000000007f49c      0x3ce /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_init.o)
- .debug_info    0x000000000007f86a      0x3bb /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_time.o)
- .debug_info    0x000000000007fc25     0x1463 /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_clk.o)
- .debug_info    0x0000000000081088      0xead /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(partition.o)
- .debug_info    0x0000000000081f35      0xba0 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
- .debug_info    0x0000000000082ad5      0xf61 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(flash_ops.o)
- .debug_info    0x0000000000083a36      0xc34 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(flash_mmap.o)
- .debug_info    0x000000000008466a      0xd72 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .debug_info    0x00000000000853dc     0x2fe1 /home/JG/git/sensoty_toys/uart/build/tcpip_adapter/libtcpip_adapter.a(tcpip_adapter_lwip.o)
- .debug_info    0x00000000000883bd     0x2637 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
- .debug_info    0x000000000008a9f4     0x235f /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
- .debug_info    0x000000000008cd53      0x4d1 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(md5-internal.o)
- .debug_info    0x000000000008d224      0x51f /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(sha1.o)
- .debug_info    0x000000000008d743      0x873 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(crypto_internal.o)
- .debug_info    0x000000000008dfb6      0x4ed /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(crypto_internal-rsa.o)
- .debug_info    0x000000000008e4a3      0xfb6 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(ms_funcs.o)
- .debug_info    0x000000000008f459      0x53d /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(sha1-internal.o)
- .debug_info    0x000000000008f996      0x4e6 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(md4-internal.o)
- .debug_info    0x000000000008fe7c      0x34a /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(md5.o)
- .debug_info    0x00000000000901c6      0x3d8 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(sha1-pbkdf2.o)
- .debug_info    0x000000000009059e      0x1ec /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(rc4.o)
- .debug_info    0x000000000009078a      0x1f3 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(os_xtensa.o)
- .debug_info    0x000000000009097d      0x560 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(des-internal.o)
- .debug_info    0x0000000000090edd       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_divsf3.o)
- .debug_info    0x0000000000090fb7       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_addsubdf3.o)
- .debug_info    0x0000000000091091       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_muldf3.o)
- .debug_info    0x000000000009116b       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_divdf3.o)
- .debug_info    0x0000000000091245       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_cmpdf2.o)
- .debug_info    0x000000000009131f       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_fixdfsi.o)
- .debug_info    0x00000000000913f9       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_floatsidf.o)
- .debug_info    0x00000000000914d3       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_extendsfdf2.o)
- .debug_info    0x00000000000915ad       0xcd /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_popcountsi2.o)
- .debug_info    0x000000000009167a      0x5c8 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
- .debug_info    0x0000000000091c42      0x61d /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_umoddi3.o)
- .debug_info    0x000000000009225f     0x1959 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-xtensa.o)
- .debug_info    0x0000000000093bb8     0x23a7 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-fde.o)
- .debug_info    0x0000000000095f5f       0xd9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(lib2funcs.o)
- .debug_info    0x0000000000096038     0x18ed /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
- .debug_info    0x0000000000097925      0xb20 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
- .debug_info    0x0000000000098445      0x83e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_throw.o)
- .debug_info    0x0000000000098c83      0x725 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_call.o)
- .debug_info    0x00000000000993a8      0x460 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(del_op.o)
- .debug_info    0x0000000000099808       0xf0 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(new_opv.o)
- .debug_info    0x00000000000998f8      0x7c3 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(new_op.o)
- .debug_info    0x000000000009a0bb      0x965 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(class_type_info.o)
- .debug_info    0x000000000009aa20     0x18d3 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_alloc.o)
- .debug_info    0x000000000009c2f3       0xa2 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(del_opv.o)
- .debug_info    0x000000000009c395      0x1d7 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(bad_alloc.o)
- .debug_info    0x000000000009c56c      0x96b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
- .debug_info    0x000000000009ced7      0x91e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_catch.o)
- .debug_info    0x000000000009d7f5      0x48b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(tinfo.o)
- .debug_info    0x000000000009dc80      0x4ac /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_term_handler.o)
- .debug_info    0x000000000009e12c      0x51b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_exception.o)
- .debug_info    0x000000000009e647      0x119 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_unex_handler.o)
- .debug_info    0x000000000009e760      0x353 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(new_handler.o)
- .debug_info    0x000000000009eab3      0x87c /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(si_class_type_info.o)
- .debug_info    0x000000000009f32f      0x12e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(pure.o)
- .debug_info    0x000000000009f45d     0x57c0 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
- .debug_info    0x00000000000a4c1d     0x2a75 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
- .debug_info    0x00000000000a7692     0x244f /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(timer.o)
- .debug_info    0x00000000000a9ae1     0x1d49 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(periph_ctrl.o)
- .debug_info    0x00000000000ab82a     0x88be /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
- .debug_info    0x00000000000b40e8      0x517 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(lib_printf.o)
- .debug_info    0x00000000000b45ff     0x11c1 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(phy_init.o)
- .debug_info    0x00000000000b57c0      0x6c6 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(ets_timer_legacy.o)
- .debug_info    0x00000000000b5e86      0x9d0 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(event_loop.o)
- .debug_info    0x00000000000b6856      0x10c /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(hw_random.o)
- .debug_info    0x00000000000b6962     0x1299 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(event_default_handlers.o)
- .debug_info    0x00000000000b7bfb       0x53 /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(clock.o)
- .debug_info    0x00000000000b7c4e       0x5d /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(windowspill_asm.o)
- .debug_info    0x00000000000b7cab       0x55 /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(interrupts--intlevel.o)
- .debug_info    0x00000000000b7d00       0x7a /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(state_asm--restore_extra_nw.o)
- .debug_info    0x00000000000b7d7a       0x7a /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(state_asm--save_extra_nw.o)
- .debug_info    0x00000000000b7df4     0x2a50 /home/JG/git/sensoty_toys/uart/build/ethernet/libethernet.a(emac_main.o)
- .debug_info    0x00000000000ba844      0x4bc /home/JG/git/sensoty_toys/uart/build/ethernet/libethernet.a(emac_dev.o)
- .debug_info    0x00000000000bad00     0x1afa /home/JG/git/sensoty_toys/uart/build/freertos/libfreertos.a(ringbuf.o)
- .debug_info    0x00000000000bc7fa      0x8f7 /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(wlanif.o)
- .debug_info    0x00000000000bd0f1      0x83a /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(ethernetif.o)
- .debug_info    0x00000000000bd92b      0x90a /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(ethip6.o)
- .debug_info    0x00000000000be235       0xb6 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-errno.o)
- .debug_info    0x00000000000be2eb      0x131 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-sysgettod.o)
- .debug_info    0x00000000000be41c      0x973 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vsnprintf.o)
- .debug_info    0x00000000000bed8f      0x4fc /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_sleep.o)
- .debug_info    0x00000000000bf28b       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_floatdidf.o)
+ .debug_info    0x0000000000041531      0x7ed /home/JG/git/sensoty_toys/uart/build/main/libmain.a(uart_events_example_main.o)
+ .debug_info    0x0000000000041d1e      0x19b /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-assert.o)
+ .debug_info    0x0000000000041eb9      0x946 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fiprintf.o)
+ .debug_info    0x00000000000427ff      0xa0b /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fopen.o)
+ .debug_info    0x000000000004320a      0xa8e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fputs.o)
+ .debug_info    0x0000000000043c98      0x93f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseek.o)
+ .debug_info    0x00000000000445d7      0xd7f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-fseeko.o)
+ .debug_info    0x0000000000045356      0x95b /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-printf.o)
+ .debug_info    0x0000000000045cb1      0x8d3 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-putchar.o)
+ .debug_info    0x0000000000046584      0x9e3 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-puts.o)
+ .debug_info    0x0000000000046f67      0x9d7 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-reent.o)
+ .debug_info    0x000000000004793e      0x99f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-snprintf.o)
+ .debug_info    0x00000000000482dd      0x973 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-sprintf.o)
+ .debug_info    0x0000000000048c50     0x22fe /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-svfprintf.o)
+ .debug_info    0x000000000004af4e     0x1f4e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfiprintf.o)
+ .debug_info    0x000000000004ce9c     0x2605 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vfprintf.o)
+ .debug_info    0x000000000004f4a1      0x93d /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vprintf.o)
+ .debug_info    0x000000000004fdde     0x11d3 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-dtoa.o)
+ .debug_info    0x0000000000050fb1      0x85e /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-flags.o)
+ .debug_info    0x000000000005180f     0x161f /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-mprec.o)
+ .debug_info    0x0000000000052e2e      0x9d2 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-putc.o)
+ .debug_info    0x0000000000053800      0x1b9 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-s_frexp.o)
+ .debug_info    0x00000000000539b9     0x1c54 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-svfiprintf.o)
+ .debug_info    0x000000000005560d      0x142 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libm.a(lib_a-s_fpclassify.o)
+ .debug_info    0x000000000005574f      0xf02 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(time.o)
+ .debug_info    0x0000000000056651      0xab9 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscalls.o)
+ .debug_info    0x000000000005710a      0xf03 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(syscall_table.o)
+ .debug_info    0x000000000005800d      0x830 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(reent_init.o)
+ .debug_info    0x000000000005883d      0x7a1 /home/JG/git/sensoty_toys/uart/build/newlib/libnewlib.a(locks.o)
+ .debug_info    0x0000000000058fde     0xbca1 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_api.o)
+ .debug_info    0x0000000000064c7f     0x6bf7 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_storage.o)
+ .debug_info    0x000000000006b876     0x6b0b /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_page.o)
+ .debug_info    0x0000000000072381     0x2330 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_types.o)
+ .debug_info    0x00000000000746b1     0x31be /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_item_hash_list.o)
+ .debug_info    0x000000000007786f     0x5e32 /home/JG/git/sensoty_toys/uart/build/nvs_flash/libnvs_flash.a(nvs_pagemanager.o)
+ .debug_info    0x000000000007d6a1     0x1a8a /home/JG/git/sensoty_toys/uart/build/pthread/libpthread.a(pthread.o)
+ .debug_info    0x000000000007f12b      0x14d /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(cpu_util.o)
+ .debug_info    0x000000000007f278      0x225 /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(soc_memory_layout.o)
+ .debug_info    0x000000000007f49d      0x3ce /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_init.o)
+ .debug_info    0x000000000007f86b      0x3bb /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_time.o)
+ .debug_info    0x000000000007fc26     0x1463 /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_clk.o)
+ .debug_info    0x0000000000081089      0xead /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(partition.o)
+ .debug_info    0x0000000000081f36      0xba0 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(cache_utils.o)
+ .debug_info    0x0000000000082ad6      0xf61 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(flash_ops.o)
+ .debug_info    0x0000000000083a37      0xc34 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(flash_mmap.o)
+ .debug_info    0x000000000008466b      0xd72 /home/JG/git/sensoty_toys/uart/build/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .debug_info    0x00000000000853dd     0x2fe1 /home/JG/git/sensoty_toys/uart/build/tcpip_adapter/libtcpip_adapter.a(tcpip_adapter_lwip.o)
+ .debug_info    0x00000000000883be     0x2637 /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs_uart.o)
+ .debug_info    0x000000000008a9f5     0x235f /home/JG/git/sensoty_toys/uart/build/vfs/libvfs.a(vfs.o)
+ .debug_info    0x000000000008cd54      0x4d1 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(md5-internal.o)
+ .debug_info    0x000000000008d225      0x51f /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(sha1.o)
+ .debug_info    0x000000000008d744      0x873 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(crypto_internal.o)
+ .debug_info    0x000000000008dfb7      0x4ed /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(crypto_internal-rsa.o)
+ .debug_info    0x000000000008e4a4      0xfb6 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(ms_funcs.o)
+ .debug_info    0x000000000008f45a      0x53d /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(sha1-internal.o)
+ .debug_info    0x000000000008f997      0x4e6 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(md4-internal.o)
+ .debug_info    0x000000000008fe7d      0x34a /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(md5.o)
+ .debug_info    0x00000000000901c7      0x3d8 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(sha1-pbkdf2.o)
+ .debug_info    0x000000000009059f      0x1ec /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(rc4.o)
+ .debug_info    0x000000000009078b      0x1f3 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(os_xtensa.o)
+ .debug_info    0x000000000009097e      0x560 /home/JG/git/sensoty_toys/uart/build/wpa_supplicant/libwpa_supplicant.a(des-internal.o)
+ .debug_info    0x0000000000090ede       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_divsf3.o)
+ .debug_info    0x0000000000090fb8       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_addsubdf3.o)
+ .debug_info    0x0000000000091092       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_muldf3.o)
+ .debug_info    0x000000000009116c       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_divdf3.o)
+ .debug_info    0x0000000000091246       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_cmpdf2.o)
+ .debug_info    0x0000000000091320       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_fixdfsi.o)
+ .debug_info    0x00000000000913fa       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_floatsidf.o)
+ .debug_info    0x00000000000914d4       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_extendsfdf2.o)
+ .debug_info    0x00000000000915ae       0xcd /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_popcountsi2.o)
+ .debug_info    0x000000000009167b      0x5c8 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+ .debug_info    0x0000000000091c43      0x61d /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_umoddi3.o)
+ .debug_info    0x0000000000092260     0x1959 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-xtensa.o)
+ .debug_info    0x0000000000093bb9     0x23a7 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(unwind-dw2-fde.o)
+ .debug_info    0x0000000000095f60       0xd9 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(lib2funcs.o)
+ .debug_info    0x0000000000096039     0x18ed /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_personality.o)
+ .debug_info    0x0000000000097926      0xb20 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_globals.o)
+ .debug_info    0x0000000000098446      0x83e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_throw.o)
+ .debug_info    0x0000000000098c84      0x725 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_call.o)
+ .debug_info    0x00000000000993a9      0x460 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(del_op.o)
+ .debug_info    0x0000000000099809       0xf0 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(new_opv.o)
+ .debug_info    0x00000000000998f9      0x7c3 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(new_op.o)
+ .debug_info    0x000000000009a0bc      0x965 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(class_type_info.o)
+ .debug_info    0x000000000009aa21     0x18d3 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_alloc.o)
+ .debug_info    0x000000000009c2f4       0xa2 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(del_opv.o)
+ .debug_info    0x000000000009c396      0x1d7 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(bad_alloc.o)
+ .debug_info    0x000000000009c56d      0x96b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_terminate.o)
+ .debug_info    0x000000000009ced8      0x91e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_catch.o)
+ .debug_info    0x000000000009d7f6      0x48b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(tinfo.o)
+ .debug_info    0x000000000009dc81      0x4ac /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_term_handler.o)
+ .debug_info    0x000000000009e12d      0x51b /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_exception.o)
+ .debug_info    0x000000000009e648      0x119 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(eh_unex_handler.o)
+ .debug_info    0x000000000009e761      0x353 /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(new_handler.o)
+ .debug_info    0x000000000009eab4      0x87c /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(si_class_type_info.o)
+ .debug_info    0x000000000009f330      0x12e /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a(pure.o)
+ .debug_info    0x000000000009f45e     0x57c0 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(uart.o)
+ .debug_info    0x00000000000a4c1e     0x2a75 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(gpio.o)
+ .debug_info    0x00000000000a7693     0x244f /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(timer.o)
+ .debug_info    0x00000000000a9ae2     0x1d49 /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(periph_ctrl.o)
+ .debug_info    0x00000000000ab82b     0x88be /home/JG/git/sensoty_toys/uart/build/driver/libdriver.a(rtc_module.o)
+ .debug_info    0x00000000000b40e9      0x517 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(lib_printf.o)
+ .debug_info    0x00000000000b4600     0x11c1 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(phy_init.o)
+ .debug_info    0x00000000000b57c1      0x6c6 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(ets_timer_legacy.o)
+ .debug_info    0x00000000000b5e87      0x9d0 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(event_loop.o)
+ .debug_info    0x00000000000b6857      0x10c /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(hw_random.o)
+ .debug_info    0x00000000000b6963     0x1299 /home/JG/git/sensoty_toys/uart/build/esp32/libesp32.a(event_default_handlers.o)
+ .debug_info    0x00000000000b7bfc       0x53 /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(clock.o)
+ .debug_info    0x00000000000b7c4f       0x5d /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(windowspill_asm.o)
+ .debug_info    0x00000000000b7cac       0x55 /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(interrupts--intlevel.o)
+ .debug_info    0x00000000000b7d01       0x7a /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(state_asm--restore_extra_nw.o)
+ .debug_info    0x00000000000b7d7b       0x7a /home/JG/Workspace/esp/esp-idf/components/esp32/libhal.a(state_asm--save_extra_nw.o)
+ .debug_info    0x00000000000b7df5     0x2a50 /home/JG/git/sensoty_toys/uart/build/ethernet/libethernet.a(emac_main.o)
+ .debug_info    0x00000000000ba845      0x4bc /home/JG/git/sensoty_toys/uart/build/ethernet/libethernet.a(emac_dev.o)
+ .debug_info    0x00000000000bad01     0x1afa /home/JG/git/sensoty_toys/uart/build/freertos/libfreertos.a(ringbuf.o)
+ .debug_info    0x00000000000bc7fb      0x8f7 /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(wlanif.o)
+ .debug_info    0x00000000000bd0f2      0x83a /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(ethernetif.o)
+ .debug_info    0x00000000000bd92c      0x90a /home/JG/git/sensoty_toys/uart/build/lwip/liblwip.a(ethip6.o)
+ .debug_info    0x00000000000be236       0xb6 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-errno.o)
+ .debug_info    0x00000000000be2ec      0x131 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-sysgettod.o)
+ .debug_info    0x00000000000be41d      0x973 /home/JG/Workspace/esp/esp-idf/components/newlib/lib/libc.a(lib_a-vsnprintf.o)
+ .debug_info    0x00000000000bed90      0x4fc /home/JG/git/sensoty_toys/uart/build/soc/libsoc.a(rtc_sleep.o)
+ .debug_info    0x00000000000bf28c       0xda /home/JG/Workspace/esp/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_floatdidf.o)
 
 .debug_abbrev   0x0000000000000000    0x1b135
  .debug_abbrev  0x0000000000000000      0x613 /home/JG/git/sensoty_toys/uart/build/cxx/libcxx.a(cxx_guards.o)

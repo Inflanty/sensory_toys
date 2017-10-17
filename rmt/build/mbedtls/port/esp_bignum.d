@@ -24,7 +24,7 @@ port/esp_bignum.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/malloc.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/limits.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
@@ -143,7 +143,7 @@ port/esp_bignum.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h:
 

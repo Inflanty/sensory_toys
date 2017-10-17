@@ -43,7 +43,7 @@ nghttp2/lib/nghttp2_session.o: \
  /home/JG/Workspace/esp/esp-idf/components/nghttp/nghttp2/lib/nghttp2_pq.h \
  /home/JG/Workspace/esp/esp-idf/components/nghttp/nghttp2/lib/nghttp2_callbacks.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/nghttp/nghttp2/lib/nghttp2_helper.h \
  /home/JG/Workspace/esp/esp-idf/components/nghttp/nghttp2/lib/nghttp2_net.h \
@@ -138,7 +138,7 @@ nghttp2/lib/nghttp2_session.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

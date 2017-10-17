@@ -39,7 +39,7 @@ syscall_table.o: \
  /home/JG/Workspace/esp/esp-idf/components/vfs/include/esp_vfs.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/dirent.h \
  /home/JG/Workspace/esp/esp-idf/components/vfs/include/sys/dirent.h \
@@ -123,7 +123,7 @@ syscall_table.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

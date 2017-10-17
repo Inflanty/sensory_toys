@@ -27,7 +27,7 @@ ulp.o: /home/JG/Workspace/esp/esp-idf/components/ulp/./ulp.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -97,7 +97,7 @@ ulp.o: /home/JG/Workspace/esp/esp-idf/components/ulp/./ulp.c \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

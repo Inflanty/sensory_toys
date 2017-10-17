@@ -18,7 +18,7 @@ vfs.o: /home/JG/Workspace/esp/esp-idf/components/vfs/./vfs.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/string.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/string.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/errno.h \
  /home/JG/Workspace/esp/esp-idf/components/vfs/include/esp_vfs.h \
@@ -79,7 +79,7 @@ vfs.o: /home/JG/Workspace/esp/esp-idf/components/vfs/./vfs.c \
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

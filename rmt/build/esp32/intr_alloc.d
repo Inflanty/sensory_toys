@@ -1,6 +1,6 @@
 intr_alloc.o: \
  /home/JG/Workspace/esp/esp-idf/components/esp32/./intr_alloc.c \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/features.h \
@@ -82,7 +82,7 @@ intr_alloc.o: \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/JG/Workspace/esp/esp-idf/components/log/include/esp_log_internal.h
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h:
 

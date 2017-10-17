@@ -1,5 +1,5 @@
 infrared_nec_main.o: \
- /home/JG/Workspace/sensory_toys/rmt/main/./infrared_nec_main.c \
+ /home/JG/git/sensoty_toys/rmt/main/./infrared_nec_main.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/newlib.h \
@@ -24,7 +24,7 @@ infrared_nec_main.o: \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h \
+ /home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/JG/Workspace/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -141,7 +141,7 @@ infrared_nec_main.o: \
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/JG/Workspace/sensory_toys/rmt/build/include/sdkconfig.h:
+/home/JG/git/sensoty_toys/rmt/build/include/sdkconfig.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -276,4 +276,4 @@ infrared_nec_main.o: \
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/ringbuf.h:
 
 /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/periph_ctrl.h:
-/home/JG/Workspace/sensory_toys/rmt/main/./infrared_nec_main.c:
+/home/JG/git/sensoty_toys/rmt/main/./infrared_nec_main.c:
