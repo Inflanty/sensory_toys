@@ -24,6 +24,7 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
+ /home/JG/Workspace/esp/esp-idf/components/newlib/include/math.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
  /home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h \
@@ -122,7 +123,8 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_defs.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_defs.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h \
+ /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/ledc.h
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h:
 
@@ -173,6 +175,8 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h:
+
+/home/JG/Workspace/esp/esp-idf/components/newlib/include/math.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 
@@ -371,4 +375,6 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
+
+/home/JG/Workspace/esp/esp-idf/components/driver/include/driver/ledc.h:
 /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c:
