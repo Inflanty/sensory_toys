@@ -45,10 +45,7 @@
 #include "esp_bt_main.h"
 #include "esp_gatt_common_api.h"
 
-#include "freertos/xtensa_api.h"
-#include "driver/ledc.h"
-#include "esp_attr.h"
-#include "esp_err.h"
+#include "esp_task_wdt.h"
 
 
 #define GATTC_TAG "GATTC_DEMO"
@@ -138,7 +135,7 @@ static bool conn_device_a = false;
 static bool conn_device_b = false;
 static bool conn_device_c = false;
 static bool conn_device_d = false;
-static bool connected = false;
+static bool connecting = false;
 static bool scan_stop = false;
 
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
@@ -160,19 +157,17 @@ static void player_task(void* arg) {
 	uint8_t len_tx = 0;
 	uint8_t actualProfile = 0x00;
 	moduleState Qstat;
-	connected = true;
+	//connecting = true;
 
 	while (1) {
-		if ((conn_device_a == true) && (conn_device_b == true)
-				&& (conn_device_c == true) && (conn_device_d == true)) {
+		if (conn_device_a && conn_device_b &&
+				conn_device_c && conn_device_d) {
+			printf("/n-----------------------/n-------------------/n------------------/n-----------------/n--------------/n");
+			data_tx[0] = ALL_CONNECTED;
+			data_tx[1] = 0x00;
+			len_tx = 2;
 
-			if (connected == true){
-				data_tx[0] = ALL_CONNECTED;
-				data_tx[1] = 0x00;
-				len_tx = 2;
-
-				connected = false;
-			}
+			connecting = false;
 
 			if (xQueueReceive(player_queue, &Qstat, portMAX_DELAY)) {
 				if (Qstat.state != 0x00) {
@@ -191,8 +186,9 @@ static void player_task(void* arg) {
 						data_tx[0] = TRACK_STOP;
 						data_tx[1] = 0x00;
 						len_tx = 2;
+						actualProfile = 0x00;
 					} else {
-						;
+
 					}
 				}
 				actualProfile = Qstat.profile;
@@ -211,29 +207,39 @@ static void player_task(void* arg) {
 				//uart_write_bytes(EX_UART_NUM, (const char*)data, len);
 			}
 			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
-		} else if ((conn_device_a == false) || (conn_device_b == false)
-				|| (conn_device_c == false) || (conn_device_d == false)) {
+		} else if (!  (conn_device_a && conn_device_b &&
+				conn_device_c && conn_device_d)){
 			// DODAC ZMIENNA MOWIACA O LACZENIU Z INNYMI URZADZENIAMI
 
 			data_tx[0] = CONNECTING;
 			data_tx[1] = 0x00;
-			//len_tx = 2;
+			len_tx = 2;
 
-			connected = true;
+			//connecting = true;
 
 		}
 
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
 
-		;
+
 		if (len_tx > 0) {
 			printf("\nTO PLAYER:\ncommand:  %d\ndata: %d\nactual profile: %d\n",
 			data_tx[0], data_tx[1], actualProfile);
 			uart_write_bytes(EX_UART_NUM, (const char*) data_tx, len_tx);
 			len_tx = 0;
-			connected = true;
+			//connecting = true;
+			if(data_tx[0] == CONNECTING){
+				vTaskDelay (7000 / portTICK_PERIOD_MS);
+			}
+
 		}
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
+		vTaskDelay(10 / portTICK_PERIOD_MS);
+		// ZEROWANIE WATCHDOGA ----------- -----------------------------------------------
+		//esp_task_wdt_feed();
+		// ZEROWANIE WATCHDOGA ----------- -----------------------------------------------
+
+
 
 	}
 }
@@ -817,14 +823,14 @@ void app_main() {
 	player_queue = xQueueCreate(10, sizeof(uint32_t));
 	xTaskCreate(player_task, "player_task", 2048, NULL, 10, NULL);
 
-	/*uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
+	uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
 	 do {
 	 int len = uart_read_bytes(EX_UART_NUM, data, BUF_SIZE, 100 / portTICK_RATE_MS);
 	 if(len > 0) {
-	 ESP_LOGI(TAG, "uart read : %d", len);
+	 ESP_LOGI(TAG_UART, "uart read : %d", len);
 	 uart_write_bytes(EX_UART_NUM, (const char*)data, len);
 	 }
-	 } while(1);*/
+	 } while(1);
 
 /*
 	while (1) {

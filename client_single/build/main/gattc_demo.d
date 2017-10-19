@@ -124,7 +124,7 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_defs.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h \
- /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/ledc.h
+ /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_task_wdt.h
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h:
 
@@ -376,5 +376,5 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
 
-/home/JG/Workspace/esp/esp-idf/components/driver/include/driver/ledc.h:
+/home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_task_wdt.h:
 /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c:
