@@ -47,7 +47,6 @@
 
 #include "esp_task_wdt.h"
 
-
 #define GATTC_TAG "GATTC_DEMO"
 #define REMOTE_SERVICE_UUID        0x00FF
 #define REMOTE_NOTIFY_CHAR_UUID    0xFF01
@@ -58,7 +57,7 @@
 // ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
 #define EX_UART_NUM UART_NUM_2
 #define BUF_SIZE (1024)
-#define TRACK_STOP 0x00
+#define TRACK_STOP 0x11
 #define TRACK_START 0x0F
 #define TRACK_FINAL 0xF0
 #define NO_EXT 0x00
@@ -70,7 +69,7 @@
 #define UART1_rx 16
 #define CONNECTING 0xAA
 #define ALL_CONNECTED 0xFF
-
+#define CONNECTION_TIMEOUT 0xEE
 
 // ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
 static const char remote_device_name[] = "ESP_GATTS_DEMO";
@@ -89,7 +88,6 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 //static void uart_handler();
 void UART_SendByte(const int uartNumber, uint8_t data);
-
 
 static esp_bt_uuid_t remote_filter_service_uuid = { .len = ESP_UUID_LEN_16,
 		.uuid = { .uuid16 = REMOTE_SERVICE_UUID, }, };
@@ -160,14 +158,15 @@ static void player_task(void* arg) {
 	//connecting = true;
 
 	while (1) {
-		if (conn_device_a && conn_device_b &&
-				conn_device_c && conn_device_d) {
-			printf("/n-----------------------/n-------------------/n------------------/n-----------------/n--------------/n");
-			data_tx[0] = ALL_CONNECTED;
-			data_tx[1] = 0x00;
-			len_tx = 2;
+		if (conn_device_a && conn_device_b && conn_device_c && conn_device_d) {
+			printf("/n ----------------------- /n ------------------- /n ");
+			if (connecting == true) {
+				data_tx[0] = ALL_CONNECTED;
+				data_tx[1] = 0x00;
+				len_tx = 2;
 
-			connecting = false;
+				connecting = false;
+			}
 
 			if (xQueueReceive(player_queue, &Qstat, portMAX_DELAY)) {
 				if (Qstat.state != 0x00) {
@@ -207,29 +206,28 @@ static void player_task(void* arg) {
 				//uart_write_bytes(EX_UART_NUM, (const char*)data, len);
 			}
 			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
-		} else if (!  (conn_device_a && conn_device_b &&
-				conn_device_c && conn_device_d)){
+		} else if (!(conn_device_a && conn_device_b && conn_device_c
+				&& conn_device_d)) {
 			// DODAC ZMIENNA MOWIACA O LACZENIU Z INNYMI URZADZENIAMI
 
 			data_tx[0] = CONNECTING;
 			data_tx[1] = 0x00;
 			len_tx = 2;
 
-			//connecting = true;
+			connecting = true;
 
 		}
 
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
 
-
 		if (len_tx > 0) {
 			printf("\nTO PLAYER:\ncommand:  %d\ndata: %d\nactual profile: %d\n",
-			data_tx[0], data_tx[1], actualProfile);
+					data_tx[0], data_tx[1], actualProfile);
 			uart_write_bytes(EX_UART_NUM, (const char*) data_tx, len_tx);
 			len_tx = 0;
 			//connecting = true;
-			if(data_tx[0] == CONNECTING){
-				vTaskDelay (7000 / portTICK_PERIOD_MS);
+			if (data_tx[0] == CONNECTING) {
+				vTaskDelay(3000 / portTICK_PERIOD_MS);
 			}
 
 		}
@@ -238,8 +236,6 @@ static void player_task(void* arg) {
 		// ZEROWANIE WATCHDOGA ----------- -----------------------------------------------
 		//esp_task_wdt_feed();
 		// ZEROWANIE WATCHDOGA ----------- -----------------------------------------------
-
-
 
 	}
 }
@@ -315,7 +311,7 @@ static void uart_event_task(void *pvParameters) {
 }
 
 static void uart_init(void) {
-	uart_config_t uart_config = { .baud_rate = 115200, .data_bits =
+	uart_config_t uart_config = { .baud_rate = 9600, .data_bits =
 			UART_DATA_8_BITS, .parity = UART_PARITY_DISABLE, .stop_bits =
 			UART_STOP_BITS_1, .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
 			.rx_flow_ctrl_thresh = 122, };
@@ -569,7 +565,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		/* *************************************************************************** */
 
 		break;
-	case ESP_GATTC_WRITE_DESCR_EVT:
+	case ESP_GATTC_WRITE_DESCR_EVT: /* CLIENT TO SERVER COMMUNICATION */
 		if (p_data->write.status != ESP_GATT_OK) {
 			ESP_LOGE(GATTC_TAG, "write descr failed, error status = %x",
 					p_data->write.status);
@@ -577,7 +573,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		}
 		ESP_LOGI(GATTC_TAG, "write descr success ")
 		;
-		uint8_t write_char_data[35];
+		uint8_t write_char_data[4];
 		for (int i = 0; i < sizeof(write_char_data); ++i) {
 			write_char_data[i] = i % 256;
 		}
@@ -760,7 +756,6 @@ void app_main() {
 	}
 	ESP_ERROR_CHECK(ret);
 
-
 	esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT()
 	;
 	ret = esp_bt_controller_init(&bt_cfg);
@@ -824,34 +819,34 @@ void app_main() {
 	xTaskCreate(player_task, "player_task", 2048, NULL, 10, NULL);
 
 	uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
-	 do {
-	 int len = uart_read_bytes(EX_UART_NUM, data, BUF_SIZE, 100 / portTICK_RATE_MS);
-	 if(len > 0) {
-	 ESP_LOGI(TAG_UART, "uart read : %d", len);
-	 uart_write_bytes(EX_UART_NUM, (const char*)data, len);
+	do {
+		int len = uart_read_bytes(EX_UART_NUM, data, BUF_SIZE,
+				100 / portTICK_RATE_MS);
+		if (len > 0) {
+			ESP_LOGI(TAG_UART, "uart read : %d", len);
+			uart_write_bytes(EX_UART_NUM, (const char*) data, len);
+		}
+	} while (1);
+
+	/*
+	 while (1) {
+	 for (int i = 0; i <= 501; i++) {
+	 ledc_set_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL, i * 2);
+	 ledc_update_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL);
+	 vTaskDelay(1 / portTICK_PERIOD_MS);
 	 }
-	 } while(1);
+	 for (int i = 501; i > 0; i--) {
+	 ledc_set_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL, i * 2);
+	 ledc_update_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL);
+	 vTaskDelay(1 / portTICK_PERIOD_MS);
+	 }
 
-/*
-	while (1) {
-		for (int i = 0; i <= 501; i++) {
-			ledc_set_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL, i * 2);
-			ledc_update_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL);
-			vTaskDelay(1 / portTICK_PERIOD_MS);
-		}
-		for (int i = 501; i > 0; i--) {
-			ledc_set_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL, i * 2);
-			ledc_update_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL);
-			vTaskDelay(1 / portTICK_PERIOD_MS);
-		}
+	 }
+	 ledc_set_duty(LEDC_HS_MODE, LEDC_HS_CH1_CHANNEL, 950);
+	 ledc_update_duty(LEDC_HS_MODE, LEDC_HS_CH1_CHANNEL);
 
-	}
-	ledc_set_duty(LEDC_HS_MODE, LEDC_HS_CH1_CHANNEL, 950);
-	ledc_update_duty(LEDC_HS_MODE, LEDC_HS_CH1_CHANNEL);
-
-	ledc_set_duty(LEDC_HS_MODE, LEDC_HS_CH0_CHANNEL, 800);
-	ledc_update_duty(LEDC_HS_MODE, LEDC_HS_CH0_CHANNEL);*/
-
+	 ledc_set_duty(LEDC_HS_MODE, LEDC_HS_CH0_CHANNEL, 800);
+	 ledc_update_duty(LEDC_HS_MODE, LEDC_HS_CH0_CHANNEL);*/
 
 }
 
