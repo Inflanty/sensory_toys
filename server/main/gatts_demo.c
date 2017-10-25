@@ -745,7 +745,7 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 		esp_ble_gap_update_conn_params(&conn_params);
 
 		printf(
-				"***************** \n ***************** \n ***************** \n		CONNECTION	A	\n ***************** \n ***************** \n ***************** \n ");
+				"*****************\n*****************\n*****************\n		CONNECTION		\n*****************\n*****************\n*****************\n");
 
 		break;
 	}
@@ -933,9 +933,6 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 				param->connect.remote_bda[5], param->connect.is_connected)
 		;
 		gl_profile_tab[PROFILE_B_APP_ID].conn_id = param->connect.conn_id;
-
-		printf(
-						"***************** \n ***************** \n ***************** \n		CONNECTION	B	\n ***************** \n ***************** \n ***************** \n ");
 		break;
 	case ESP_GATTS_DISCONNECT_EVT:
 	case ESP_GATTS_OPEN_EVT:
