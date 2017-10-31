@@ -25,6 +25,8 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
  /home/JG/Workspace/esp/esp-idf/components/newlib/include/math.h \
+ /home/JG/Workspace/esp/esp-idf/components/newlib/include/time.h \
+ /home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/time.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
  /home/JG/git/sensoty_toys/client_single/build/include/sdkconfig.h \
@@ -124,7 +126,12 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_defs.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h \
- /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_task_wdt.h
+ /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_task_wdt.h \
+ /home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/time.h \
+ /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/rtc_io.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/rtc_gpio_channel.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/rtc_cntl_reg.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/rtc.h
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdint.h:
 
@@ -177,6 +184,10 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/alloca.h:
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/math.h:
+
+/home/JG/Workspace/esp/esp-idf/components/newlib/include/time.h:
+
+/home/JG/Workspace/esp/esp-idf/components/newlib/include/machine/time.h:
 
 /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 
@@ -377,4 +388,14 @@ gattc_demo.o: /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c \
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
 
 /home/JG/Workspace/esp/esp-idf/components/esp32/include/esp_task_wdt.h:
+
+/home/JG/Workspace/esp/esp-idf/components/newlib/include/sys/time.h:
+
+/home/JG/Workspace/esp/esp-idf/components/driver/include/driver/rtc_io.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/rtc_gpio_channel.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/rtc_cntl_reg.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/rtc.h:
 /home/JG/git/sensoty_toys/client_single/main/./gattc_demo.c:

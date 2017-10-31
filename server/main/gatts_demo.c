@@ -23,7 +23,11 @@
 #include "esp_gatt_common_api.h"
 #include "sdkconfig.h"
 
-#define GATTS_TAG "GATTS_DEMO" /* Nzawa urzadzenia w komunikacji monitor*/
+#include "driver/uart.h"
+#include "soc/uart_struct.h"
+
+#define GATTS_TAG "GATTS_DEMO" /* Nazwa urzadzenia w komunikacji monitor*/
+static const char *TAG = "uart_events";
 
 /*Declare the static function*/
 static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
@@ -43,7 +47,6 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 #define GATTS_DESCR_UUID_TEST_B     0x2222
 #define GATTS_NUM_HANDLE_TEST_B     4
 
-#define TEST_DEVICE_NAME            "ESP_GATTS_DEMO"
 #define TEST_MANUFACTURER_DATA_LEN  17
 
 #define GATTS_DEMO_CHAR_VAL_LEN_MAX 0x40
@@ -76,7 +79,24 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 #define TEST_WITHOUT_RELOAD   0   /*!< example of auto-reload mode */
 #define TEST_WITH_RELOAD   1      /*!< example without auto-reload mode */
 
+#define EX_UART_NUM UART_NUM_0
+
+#define BUF_SIZE (1024)
+
+#define EXT_WORK 0x10
+#define EXT_ENERGY 0x20
+
+#define WATER 	0x30
+#define AIR 	0x40
+#define WOOD	0x50
+#define STONE	0x60
+
 // ----------------------------------------- DEFINES ------------------------------------------------------------------------------------ */
+
+// ----------------------------------------- DEV INFO ------------------------------------------------------------------------------------ */
+#define MY_ELEMENT 			0x30
+#define TEST_DEVICE_NAME	"ESP_GATTS_DEMO"
+// ----------------------------------------- DEV INFO ------------------------------------------------------------------------------------ */
 
 // ----------------------------------------- BLE DATA ----------------------------------------------------------------------------------- */
 
@@ -201,6 +221,7 @@ conn_params connection;
 volatile int timer_int = 0;
 
 volatile int motion_status = 1;
+
 //
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
@@ -210,8 +231,10 @@ void example_write_event_env(esp_gatt_if_t gatts_if,
 		prepare_type_env_t *prepare_write_env, esp_ble_gatts_cb_param_t *param);
 void example_exec_write_event_env(prepare_type_env_t *prepare_write_env,
 		esp_ble_gatts_cb_param_t *param);
-void notify_data(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
+void xuNotifyData(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
 		uint8_t *value, uint8_t length);
+void xuTimerStart(timer_group_t group_num, timer_idx_t timer_num,
+		uint64_t load_val, uint64_t counter_val);
 
 // ----------------------------------------- FUNCTION DEF ------------------------------------------------------------------------------- */
 
@@ -223,8 +246,97 @@ void notify_data(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
  }
  */
 
+static QueueHandle_t uart0_queue;
 static xQueueHandle gpio_evt_queue = NULL;
 xQueueHandle timer_queue;
+
+static void exp_task(void *pvParameters) {
+	uart_event_t event;
+	size_t buffered_size;
+	uint8_t* dtmp = (uint8_t*) malloc(BUF_SIZE);
+
+	for (;;) {
+		//Waiting for UART event.
+		if (xQueueReceive(uart0_queue, (void * )&event,
+				(portTickType)portMAX_DELAY)) {
+			ESP_LOGI(TAG, "uart[%d] event:", EX_UART_NUM);
+			switch (event.type) {
+			//Event of UART receving data
+			/*We'd better handler data event fast, there would be much more data events than
+			 other types of events. If we take too much time on data event, the queue might
+			 be full.
+			 in this example, we don't process data in event, but read data outside.*/
+			case UART_DATA:
+				uart_get_buffered_data_len(EX_UART_NUM, &buffered_size);
+				ESP_LOGI(TAG, "data, len: %d; buffered len: %d", event.size,
+						buffered_size)
+				;
+
+				int len = uart_read_bytes(EX_UART_NUM, dtmp, BUF_SIZE,
+						100 / portTICK_RATE_MS);
+				if (len == 1) {
+					if (dtmp[0] != MY_ELEMENT) {
+						module.evt = true;
+						module.level = dtmp[0];
+						xuTimerStart(TIMER_GROUP_0, TIMER_1, 0, 0);
+					} else if (dtmp[0] == MY_ELEMENT) {
+						module.level = EXP_DISCONNECT;
+						module.evt = false;
+					}
+
+				} else if (len != 1) {
+					module.level = EXP_DISCONNECT;
+					module.evt = false;
+				}
+				break;
+				//Event of HW FIFO overflow detected
+			case UART_FIFO_OVF:
+				ESP_LOGI(TAG, "hw fifo overflow\n")
+				;
+				//If fifo overflow happened, you should consider adding flow control for your application.
+				//We can read data out out the buffer, or directly flush the rx buffer.
+				uart_flush(EX_UART_NUM);
+				break;
+				//Event of UART ring buffer full
+			case UART_BUFFER_FULL:
+				ESP_LOGI(TAG, "ring buffer full\n")
+				;
+				//If buffer full happened, you should consider encreasing your buffer size
+				//We can read data out out the buffer, or directly flush the rx buffer.
+				uart_flush(EX_UART_NUM);
+				break;
+				//Event of UART RX break detected
+			case UART_BREAK:
+				ESP_LOGI(TAG, "uart rx break\n")
+				;
+				break;
+				//Event of UART parity check error
+			case UART_PARITY_ERR:
+				ESP_LOGI(TAG, "uart parity error\n")
+				;
+				break;
+				//Event of UART frame error
+			case UART_FRAME_ERR:
+				ESP_LOGI(TAG, "uart frame error\n")
+				;
+				break;
+				//UART_PATTERN_DET
+			case UART_PATTERN_DET:
+				ESP_LOGI(TAG, "uart pattern detected\n")
+				;
+				break;
+				//Others
+			default:
+				ESP_LOGI(TAG, "uart event type: %d\n", event.type)
+				;
+				break;
+			}
+		}
+	}
+	free(dtmp);
+	dtmp = NULL;
+	vTaskDelete(NULL);
+}
 
 static void vibro_task(void* arg) {
 	uint32_t io_num;
@@ -243,45 +355,12 @@ static void vibro_task(void* arg) {
 			printf("GPIO[%d] intr, val: %d\n", io_num, gpio_get_level(io_num));
 			if (io_num == GPIO_INPUT_IO_0) {
 				module.evt = true;
-				timer_get_counter_value(group_num, timer_num, &counter_val);
-				if (counter_val != 0x00000000ULL) {
-					timer_pause(group_num, timer_num);
-					if (timer_set_counter_value(group_num, timer_num,
-							load_val) == ESP_OK) {
-						if (timer_start(group_num, timer_num) == ESP_OK) {
-							module.state = MOTION;
-							printf("Timer_start find motion\n");
-							if (TIMERG0.hw_timer[timer_num].config.alarm_en
-									== 1) {
-
-							} else {
-								TIMERG0.hw_timer[timer_num].config.alarm_en = 1;
-							}
-						}
-					}
-				} else if (timer_start(group_num, timer_num) == ESP_OK) {
-					module.state = MOTION;
-					printf("Timer_start find motion\n");
-					if (TIMERG0.hw_timer[timer_num].config.alarm_en == 1) {
-
-					} else {
-						TIMERG0.hw_timer[timer_num].config.alarm_en = 1;
-					}
-				}
+				module.state = MOTION;
+				xuTimerStart(TIMER_GROUP_0, TIMER_1, 0, 0);
+			} else if (io_num == GPIO_INPUT_IO_1) {
+				/* mozna ustawic polaczenie z rozszezeniem */
 			}
-		} else if (io_num == GPIO_INPUT_IO_1) {
-			/* mozna ustawic polaczenie z rozszezeniem */
 		}
-
-		/*if (timer_int == 1) {
-
-		 module.evt = true;
-		 if (module.state == MOTION) {
-		 module.state = IMMOBILITY;
-		 }
-		 timer_int = 0;
-
-		 }*/
 
 		if ((module.evt == true) && (motion_status == 1)) {
 
@@ -297,6 +376,7 @@ static void vibro_task(void* arg) {
 					false);
 
 			module.evt = false;
+			module.level = EXP_DISCONNECT;
 			motion_status = 0;
 
 			printf(
@@ -367,11 +447,8 @@ static void timer_example_evt_task(void *arg) {
 							notify_tab[3]);
 
 				}
-
 			}
-
 		}
-
 	}
 }
 
@@ -935,7 +1012,7 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 		gl_profile_tab[PROFILE_B_APP_ID].conn_id = param->connect.conn_id;
 
 		printf(
-						"***************** \n ***************** \n ***************** \n		CONNECTION	B	\n ***************** \n ***************** \n ***************** \n ");
+				"***************** \n ***************** \n ***************** \n		CONNECTION	B	\n ***************** \n ***************** \n ***************** \n ");
 		break;
 	case ESP_GATTS_DISCONNECT_EVT:
 	case ESP_GATTS_OPEN_EVT:
@@ -1072,7 +1149,7 @@ static void example_tg0_timer1_init() {
 	/*timer_start(timer_group, timer_idx);*/
 }
 
-void notify_data(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
+void xuNotifyData(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
 		uint8_t *value, uint8_t length) {
 	/* notify_data(connection.gatt_if, connection.character_attr, notify_tab, sizeof(notify_tab));*/
 
@@ -1096,9 +1173,55 @@ void notify_data(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
 
 		esp_ble_gatts_send_indicate(gatt_server_if, 0, attr_handle,
 				rsp.attr_value.len, rsp.attr_value.value, false);
-
 	}
+}
 
+void xuTimerStart(timer_group_t group_num, timer_idx_t timer_num,
+		uint64_t load_val, uint64_t counter_val) {
+	timer_get_counter_value(group_num, timer_num, &counter_val);
+	if (counter_val != 0x00000000ULL) {
+		timer_pause(group_num, timer_num);
+		if (timer_set_counter_value(group_num, timer_num, load_val) == ESP_OK) {
+			if (timer_start(group_num, timer_num) == ESP_OK) {
+				printf("Timer_start find motion\n");
+				if (TIMERG0.hw_timer[timer_num].config.alarm_en == 1) {
+
+				} else {
+					TIMERG0.hw_timer[timer_num].config.alarm_en = 1;
+				}
+			}
+		}
+	} else if (timer_start(group_num, timer_num) == ESP_OK) {
+		printf("Timer_start find motion\n");
+		if (TIMERG0.hw_timer[timer_num].config.alarm_en == 1) {
+
+		} else {
+			TIMERG0.hw_timer[timer_num].config.alarm_en = 1;
+		}
+	}
+}
+
+static void uart_init() {
+	uart_config_t uart_config = { .baud_rate = 115200, .data_bits =
+			UART_DATA_8_BITS, .parity = UART_PARITY_DISABLE, .stop_bits =
+			UART_STOP_BITS_1, .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+			.rx_flow_ctrl_thresh = 122, };
+	//Set UART parameters
+	uart_param_config(EX_UART_NUM, &uart_config);
+	//Set UART log level
+	esp_log_level_set(TAG, ESP_LOG_INFO);
+	//Install UART driver, and get the queue.
+	uart_driver_install(EX_UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10,
+			&uart0_queue, 0);
+
+	//Set UART pins (using UART0 default pins ie no changes.)
+	uart_set_pin(EX_UART_NUM, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE,
+	UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+
+	//Set uart pattern detect function.
+	uart_enable_pattern_det_intr(EX_UART_NUM, '+', 3, 10000, 10, 10);
+	//Create a task to handler UART event from ISR
+	xTaskCreate(exp_task, "exp_task", 2048, NULL, 12, NULL);
 }
 
 // ----------------------------------------- FUNCTIONS ---------------------------------------------------------------------------------- */
@@ -1172,6 +1295,7 @@ void app_main() {
 	example_gpio_init();
 	example_tg0_timer0_init();
 	example_tg0_timer1_init();
+	uart_init();
 
 	xTaskCreate(vibro_task, "vibro_task", 4096, NULL, 10, NULL);
 	xTaskCreate(timer_example_evt_task, "timer_evt_task", 2048, NULL, 5, NULL);

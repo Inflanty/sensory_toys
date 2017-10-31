@@ -101,7 +101,14 @@ gatts_demo.o: /home/JG/git/sensoty_toys/server/main/./gatts_demo.c \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_defs.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_defs.h \
  /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h \
- /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h
+ /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h \
+ /home/JG/Workspace/esp/esp-idf/components/driver/include/driver/uart.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_reg.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_struct.h \
+ /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/semphr.h \
+ /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h \
+ /home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/ringbuf.h \
+ /home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_channel.h
 
 /home/JG/Workspace/esp/esp-idf/components/newlib/include/stdio.h:
 
@@ -308,4 +315,18 @@ gatts_demo.o: /home/JG/git/sensoty_toys/server/main/./gatts_demo.c \
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h:
 
 /home/JG/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
+
+/home/JG/Workspace/esp/esp-idf/components/driver/include/driver/uart.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_reg.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_struct.h:
+
+/home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/semphr.h:
+
+/home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/queue.h:
+
+/home/JG/Workspace/esp/esp-idf/components/freertos/include/freertos/ringbuf.h:
+
+/home/JG/Workspace/esp/esp-idf/components/soc/esp32/include/soc/uart_channel.h:
 /home/JG/git/sensoty_toys/server/main/./gatts_demo.c:

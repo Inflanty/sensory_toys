@@ -27,6 +27,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_system.h"
@@ -46,6 +48,12 @@
 #include "esp_gatt_common_api.h"
 
 #include "esp_task_wdt.h"
+
+#include <sys/time.h>
+#include "esp_sleep.h"
+#include "driver/rtc_io.h"
+#include "soc/rtc_cntl_reg.h"
+#include "soc/rtc.h"
 
 #define GATTC_TAG "GATTC_DEMO"
 #define REMOTE_SERVICE_UUID        0x00FF
@@ -70,8 +78,8 @@
 #define CONNECTING 0xAA
 #define ALL_CONNECTED 0xFF
 #define CONNECTION_TIMEOUT 0xEE
-
 // ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
+
 static const char remote_device_name[] = "ESP_GATTS_DEMO";
 
 static bool connect = false;
@@ -87,7 +95,6 @@ static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if,
 static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 //static void uart_handler();
-void UART_SendByte(const int uartNumber, uint8_t data);
 
 static esp_bt_uuid_t remote_filter_service_uuid = { .len = ESP_UUID_LEN_16,
 		.uuid = { .uuid16 = REMOTE_SERVICE_UUID, }, };
@@ -119,12 +126,18 @@ typedef struct {
 	uint8_t profile;
 	uint8_t state;
 	uint8_t level;
-	uint16_t batt_level;
-	bool charger;
+	uint8_t batt_level;
+	uint8_t batt_stat;
 	bool evt;
 } moduleState;
 
+typedef struct {
+	esp_gatt_if_t gatt_if;
+	uint16_t character_attr;
+} conn_params;
+
 moduleState state;
+conn_params connection;
 
 static QueueHandle_t uart0_queue;
 static QueueHandle_t player_queue;
@@ -135,6 +148,7 @@ static bool conn_device_c = false;
 static bool conn_device_d = false;
 static bool connecting = false;
 static bool scan_stop = false;
+struct timeval start_scanning, now;
 
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
@@ -155,14 +169,36 @@ static void player_task(void* arg) {
 	uint8_t len_tx = 0;
 	uint8_t actualProfile = 0x00;
 	moduleState Qstat;
+	bool restart = false;
+
 	//connecting = true;
 
 	while (1) {
 		if (conn_device_a && conn_device_b && conn_device_c && conn_device_d) {
-			printf("/n ----------------------- /n ------------------- /n ");
+
+			printf("\n ----------------------- \n ------------------- \n ");
+
+			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
+			int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE,
+					100 / portTICK_RATE_MS);
+			if (len == 2) {
+				ESP_LOGI(TAG_UART, "uart read : %d", len);
+				if (data_rx[0] == TRACK_FINAL) {
+					if (connecting == true) {
+						data_tx[0] = TRACK_START;
+						data_tx[1] = CONNECTING;
+					} else {
+						data_tx[0] = TRACK_START;
+						data_tx[1] = data_rx[1];
+					}
+					len_tx = 2;
+				}
+			}
+			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
+
 			if (connecting == true) {
-				data_tx[0] = ALL_CONNECTED;
-				data_tx[1] = 0x00;
+				data_tx[0] = TRACK_START;
+				data_tx[1] = ALL_CONNECTED;
 				len_tx = 2;
 
 				connecting = false;
@@ -191,30 +227,50 @@ static void player_task(void* arg) {
 					}
 				}
 				actualProfile = Qstat.profile;
+
+				if (Qstat.batt_stat == 0xFF){
+					/* ----- TUTAJ WYMUSZANIE STANU UŚPIENIA ----- */
+				}
 			}
 
-			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
-			int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE,
-					100 / portTICK_RATE_MS);
-			if (len == 2) {
-				ESP_LOGI(TAG_UART, "uart read : %d", len);
-				if (data_rx[0] == TRACK_FINAL) {
-					data_tx[0] = TRACK_START;
-					data_tx[1] = data_rx[1];
-					len_tx = 2;
-				}
-				//uart_write_bytes(EX_UART_NUM, (const char*)data, len);
-			}
-			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
 		} else if (!(conn_device_a && conn_device_b && conn_device_c
 				&& conn_device_d)) {
 			// DODAC ZMIENNA MOWIACA O LACZENIU Z INNYMI URZADZENIAMI
 
-			data_tx[0] = CONNECTING;
-			data_tx[1] = 0x00;
-			len_tx = 2;
+			if (scan_stop == false) {
+				int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE,
+						100 / portTICK_RATE_MS);
+				if (len == 2) {
+					ESP_LOGI(TAG_UART, "uart read : %d", len);
+					if (data_rx[0] == TRACK_FINAL) {
+						if (connecting == true) {
+							data_tx[0] = TRACK_START;
+							data_tx[1] = CONNECTING;
+						} else {
+							data_tx[0] = TRACK_START;
+							data_tx[1] = data_rx[1];
+						}
+						len_tx = 2;
+					}
 
-			connecting = true;
+				}
+
+				if (data_tx[1] != CONNECTING) {
+					data_tx[0] = TRACK_START;
+					data_tx[1] = CONNECTING;
+					len_tx = 2;
+
+					connecting = true;
+				}
+			}
+
+			gettimeofday(&now, NULL);
+			if((now.tv_sec - start_scanning.tv_sec) > 30){
+				data_tx[0] = TRACK_START;
+				data_tx[1] = CONNECTION_TIMEOUT;
+				len_tx = 2;
+				restart = true;
+			}
 
 		}
 
@@ -226,11 +282,37 @@ static void player_task(void* arg) {
 			uart_write_bytes(EX_UART_NUM, (const char*) data_tx, len_tx);
 			len_tx = 0;
 			//connecting = true;
-			if (data_tx[0] == CONNECTING) {
-				vTaskDelay(3000 / portTICK_PERIOD_MS);
-			}
+			/*if (data_tx[0] == CONNECTING) {
+			 vTaskDelay(3000 / portTICK_PERIOD_MS);
+			 }*/
 
 		}
+
+		if (restart == true) {
+			vTaskDelay(10000 / portTICK_PERIOD_MS);
+			printf("ESP Restart now\n");
+			restart = false;
+			esp_restart();
+		}
+
+		/*
+		 int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE,
+		 100 / portTICK_RATE_MS);
+		 if (len == 2) {
+		 ESP_LOGI(TAG_UART, "uart read : %d", len);
+		 if (data_rx[0] == TRACK_FINAL) {
+		 if (connecting == true) {
+		 data_tx[0] = CONNECTING;
+		 data_tx[1] = 0xAA;
+		 } else {
+		 data_tx[0] = TRACK_START;
+		 data_tx[1] = data_rx[1];
+		 }
+		 len_tx = 2;
+		 }
+
+		 }*/
+
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
 		vTaskDelay(10 / portTICK_PERIOD_MS);
 		// ZEROWANIE WATCHDOGA ----------- -----------------------------------------------
@@ -332,14 +414,9 @@ static void uart_init(void) {
 
 	uart_enable_rx_intr(EX_UART_NUM);
 
-	xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 12, NULL);
+	//xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 12, NULL);
 
 	//uart_isr_register(EX_UART_NUM, uart_handler, void * arg, int intr_alloc_flags,  uart_isr_handle_t *handle);
-}
-
-void UART_SendByte(const int uartNumber, uint8_t data) {
-	char toSend[2] = { data };
-	uart_write_bytes(uartNumber, (char *) toSend, 2);
 }
 
 // ----------------------------------------- USER FNC  ---------------------------------------------------------------------------------- */
@@ -379,6 +456,9 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		if (mtu_ret) {
 			ESP_LOGE(GATTC_TAG, "config MTU error, error code = %x", mtu_ret);
 		}
+
+		connection.gatt_if = gattc_if;
+
 		break;
 	}
 	case ESP_GATTC_OPEN_EVT:
@@ -535,32 +615,13 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
 
 		/* *************************************************************************** */
-
-		/*printf("\nCharacteristic handle: %d\n", gl_profile_tab[PROFILE_A_APP_ID].char_handle);
-		 if(p_data->notify.value_len == 4){
-		 state.state = p_data->notify.value[0];
-		 state.level = p_data->notify.value[1];
-		 }
-		 switch(state.state){
-		 case 0x00:
-		 printf("-----------------TRACK STOP-----------------\n");
-		 break;
-		 case 0x01:
-		 printf("Track001.mp3\n");
-		 break;
-		 case 0x11:
-		 printf("Track011.mp3\n");
-		 break;
-		 default:
-
-		 break;
-		 }*/
 		state.profile = ESP_SERVER_NUMBER; //0x01 DLA PROFILU A
 		state.state = p_data->notify.value[0];
 		state.level = p_data->notify.value[1];
-		state.batt_level = (((0x0000 | (p_data->notify.value[2])) << 8)
-				| (p_data->notify.value[3]));
-
+		//state.batt_level = (((0x0000 | (p_data->notify.value[2])) << 8)
+		//		| (p_data->notify.value[3]));
+		state.batt_level = 0x00;
+		state.batt_stat = 0x00;
 		xQueueSendFromISR(player_queue, &state, NULL);
 		/* *************************************************************************** */
 
@@ -573,10 +634,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		}
 		ESP_LOGI(GATTC_TAG, "write descr success ")
 		;
-		uint8_t write_char_data[4];
-		for (int i = 0; i < sizeof(write_char_data); ++i) {
-			write_char_data[i] = i % 256;
-		}
+		uint8_t write_char_data[] = {0x01, 0x0F, 0xF0, 0x10};
 		esp_ble_gattc_write_char(gattc_if,
 				gl_profile_tab[PROFILE_A_APP_ID].conn_id,
 				gl_profile_tab[PROFILE_A_APP_ID].char_handle,
@@ -607,6 +665,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		;
 		ESP_LOGI(GATTC_TAG, "ESP_RESTART")
 		;
+		/* -------------------------------------- RESTART ESP  -------------------------------------- */
 		esp_restart();
 		break;
 	default:
@@ -621,6 +680,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event,
 	switch (event) {
 	case ESP_GAP_BLE_SCAN_PARAM_SET_COMPLETE_EVT: {
 		//the unit of the duration is second
+		gettimeofday(&start_scanning, NULL);
 		uint32_t duration = 30;
 		esp_ble_gap_start_scanning(duration);
 		break;
@@ -667,6 +727,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event,
 						conn_device_d = true;
 						ESP_LOGI(GATTC_TAG, "connect to the remote device.");
 						esp_ble_gap_stop_scanning();
+						scan_stop = true;
 						esp_ble_gattc_open(
 								gl_profile_tab[PROFILE_A_APP_ID].gattc_if,
 								scan_result->scan_rst.bda, true);
@@ -690,7 +751,6 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event,
 		}
 		ESP_LOGI(GATTC_TAG, "stop scan successfully")
 		;
-
 		scan_stop = true;
 		break;
 
@@ -818,35 +878,19 @@ void app_main() {
 	player_queue = xQueueCreate(10, sizeof(uint32_t));
 	xTaskCreate(player_task, "player_task", 2048, NULL, 10, NULL);
 
-	uint8_t* data = (uint8_t*) malloc(BUF_SIZE);
-	do {
-		int len = uart_read_bytes(EX_UART_NUM, data, BUF_SIZE,
-				100 / portTICK_RATE_MS);
-		if (len > 0) {
-			ESP_LOGI(TAG_UART, "uart read : %d", len);
-			uart_write_bytes(EX_UART_NUM, (const char*) data, len);
+
+	do{
+		if(conn_device_a == true){
+					vTaskDelay(10000 / portTICK_RATE_MS);
+		uint8_t write_char_data[] = {0x01, 0x0F, 0xF0, 0x10};
+		esp_ble_gattc_write_char(connection.gatt_if,
+				gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+				gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+				sizeof(write_char_data), write_char_data,
+				ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+		vTaskDelay(10000 / portTICK_RATE_MS);
 		}
+
 	} while (1);
-
-	/*
-	 while (1) {
-	 for (int i = 0; i <= 501; i++) {
-	 ledc_set_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL, i * 2);
-	 ledc_update_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL);
-	 vTaskDelay(1 / portTICK_PERIOD_MS);
-	 }
-	 for (int i = 501; i > 0; i--) {
-	 ledc_set_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL, i * 2);
-	 ledc_update_duty(LEDC_HS_MODE, LEDC_LS_CH3_CHANNEL);
-	 vTaskDelay(1 / portTICK_PERIOD_MS);
-	 }
-
-	 }
-	 ledc_set_duty(LEDC_HS_MODE, LEDC_HS_CH1_CHANNEL, 950);
-	 ledc_update_duty(LEDC_HS_MODE, LEDC_HS_CH1_CHANNEL);
-
-	 ledc_set_duty(LEDC_HS_MODE, LEDC_HS_CH0_CHANNEL, 800);
-	 ledc_update_duty(LEDC_HS_MODE, LEDC_HS_CH0_CHANNEL);*/
-
 }
 

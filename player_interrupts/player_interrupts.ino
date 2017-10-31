@@ -183,7 +183,7 @@ void loop() {
   Serial.print("\nTEMP_FLAG!");
 
   if ((isConnecting == false) && (isConnected == false)) {
-    musicPlayer.playFullFile("NOCONN.mp3");
+    musicPlayer.playFullFile("XSTART.mp3");
     delay(1000);
   }
 
@@ -228,9 +228,6 @@ void loop() {
       Serial.print("\nargument : ");
       Serial.print(argument);
 
-
-      char *track[11];
-
       if (operate_flag == true) {
         if (command == TRACK_STOP) {
           for (int i = 20; i > 0; i--) {
@@ -239,7 +236,7 @@ void loop() {
           }
           musicPlayer.stopPlaying();
           musicPlayer.setVolume(20, 20);
-        } else if (command == NO_CONNECTION) {
+        }/* else if (command == NO_CONNECTION) {
           Serial.print("Connecting");
           isConnecting = true;
           actualTrack = 0xAA;
@@ -255,7 +252,7 @@ void loop() {
         } else if (command == CONNECTION_TIMEOUT) {
           Serial.print("Connection timeout");
           musicPlayer.playFullFile("FAIL.mp3");
-        } else if (command == TRACK_START) {
+        } */else if (command == TRACK_START) {
           switch (argument) {
             case 0x01:
               actualTrack = 0x01;
