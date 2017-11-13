@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -25,6 +26,12 @@
 
 #include "driver/uart.h"
 #include "soc/uart_struct.h"
+
+#include <sys/time.h>
+#include "esp_sleep.h"
+#include "driver/rtc_io.h"
+#include "soc/rtc_cntl_reg.h"
+#include "soc/rtc.h"
 
 #define GATTS_TAG "GATTS_DEMO" /* Nazwa urzadzenia w komunikacji monitor*/
 static const char *TAG = "uart_events";
@@ -90,6 +97,10 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 #define AIR 	0x40
 #define WOOD	0x50
 #define STONE	0x60
+
+#define MASTER_COMMAND	0xFF
+#define STBY 			0xAA
+#define INACTION_TIME   10
 
 // ----------------------------------------- DEFINES ------------------------------------------------------------------------------------ */
 
@@ -222,6 +233,9 @@ volatile int timer_int = 0;
 
 volatile int motion_status = 1;
 
+struct timeval stby_counting, now;
+
+bool inaction = false;
 //
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
@@ -697,6 +711,23 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 				}
 
 			}
+			if (param->write.len == 4) {
+				printf("\nODEBRANO 4 BAJTOWA WIADOMOSC\n");
+				switch (param->write.value[0]) {
+				case MASTER_COMMAND:
+					if ((param->write.value[3]) == STBY) {
+						if (inaction == false) {
+							printf("Za 5 min nastapi uspienie\n");
+							inaction = true;
+							gettimeofday(&stby_counting, NULL);
+						}
+					}
+					break;
+				default:
+
+					break;
+				}
+			}
 		}
 		example_write_event_env(gatts_if, &a_prepare_write_env, param);
 		break;
@@ -1162,17 +1193,21 @@ void xuNotifyData(esp_gatt_if_t gatt_server_if, uint16_t attr_handle,
 		esp_gatt_rsp_t rsp;
 		memset(&rsp, 0, sizeof(esp_gatt_rsp_t));
 
-		rsp.attr_value.len = 4;
-		rsp.attr_value.value[0] = *value;
+		uint8_t notify_tab[length];
+		notify_tab[0] = *value;
 		value++;
-		rsp.attr_value.value[1] = *value;
+		notify_tab[1] = *value;
 		value++;
-		rsp.attr_value.value[2] = *value;
+		notify_tab[2] = *value;
 		value++;
-		rsp.attr_value.value[3] = *value;
+		notify_tab[3] = *value;
 
-		esp_ble_gatts_send_indicate(gatt_server_if, 0, attr_handle,
-				rsp.attr_value.len, rsp.attr_value.value, false);
+		printf("SENDING NOTIFICANTION\n");
+
+		//the size of notify_data[] need less than MTU size
+		esp_ble_gatts_send_indicate(connection.gatt_if, 0,
+				connection.character_attr, length, notify_tab,
+				false);
 	}
 }
 
@@ -1201,26 +1236,63 @@ void xuTimerStart(timer_group_t group_num, timer_idx_t timer_num,
 	}
 }
 
+/* ************************* */
+void xvStbyAction() {
+	uint8_t confirm[4] = { 0 };
+	confirm[0] = MASTER_COMMAND;
+	confirm[1] = 0x00;
+	confirm[2] = 0x00;
+	confirm[4] = STBY;
+	xuNotifyData(connection.gatt_if, connection.character_attr, confirm, 4);
+	vTaskDelay(5000 / portTICK_PERIOD_MS);
+	/* STANDBY MODE ON */
+	const int ext_wakeup_pin_1 = 4;
+	const uint64_t ext_wakeup_pin_1_mask = 1ULL << ext_wakeup_pin_1;
+
+	printf("Enabling EXT1 wakeup on pin GPIO%d\n", ext_wakeup_pin_1);
+	int lev = rtc_gpio_get_level(4);
+	if (lev == 1) {
+		esp_sleep_enable_ext1_wakeup(ext_wakeup_pin_1_mask,
+				ESP_EXT1_WAKEUP_ALL_LOW);
+	} else {
+		esp_sleep_enable_ext1_wakeup(ext_wakeup_pin_1_mask,
+				ESP_EXT1_WAKEUP_ANY_HIGH);
+	}
+	printf("STARTING DEEP SLEEP\nWAKEUP PIN LEVEL : %d\n", lev);
+
+	if (esp_bluedroid_disable() == ESP_OK) {
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		printf("BLUEDROID DISABLE\n");
+		if (esp_bt_controller_disable() == ESP_OK) {
+			printf("BT CONTROLLER DISABLE\n");
+			printf("DEEP SLEEP START NOW\n");
+			vTaskDelay(100 / portTICK_PERIOD_MS);
+			esp_deep_sleep_start();
+		}
+	}
+}
+/* ************************* */
+
 static void uart_init() {
 	uart_config_t uart_config = { .baud_rate = 115200, .data_bits =
 			UART_DATA_8_BITS, .parity = UART_PARITY_DISABLE, .stop_bits =
 			UART_STOP_BITS_1, .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
 			.rx_flow_ctrl_thresh = 122, };
-	//Set UART parameters
+//Set UART parameters
 	uart_param_config(EX_UART_NUM, &uart_config);
-	//Set UART log level
+//Set UART log level
 	esp_log_level_set(TAG, ESP_LOG_INFO);
-	//Install UART driver, and get the queue.
+//Install UART driver, and get the queue.
 	uart_driver_install(EX_UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10,
 			&uart0_queue, 0);
 
-	//Set UART pins (using UART0 default pins ie no changes.)
+//Set UART pins (using UART0 default pins ie no changes.)
 	uart_set_pin(EX_UART_NUM, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE,
 	UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 
-	//Set uart pattern detect function.
+//Set uart pattern detect function.
 	uart_enable_pattern_det_intr(EX_UART_NUM, '+', 3, 10000, 10, 10);
-	//Create a task to handler UART event from ISR
+//Create a task to handler UART event from ISR
 	xTaskCreate(exp_task, "exp_task", 2048, NULL, 12, NULL);
 }
 
@@ -1300,11 +1372,14 @@ void app_main() {
 	xTaskCreate(vibro_task, "vibro_task", 4096, NULL, 10, NULL);
 	xTaskCreate(timer_example_evt_task, "timer_evt_task", 2048, NULL, 5, NULL);
 
-	int cnt = 0;
 	while (1) {
-		printf("cnt: %d\n", cnt++);
-		vTaskDelay(1000 / portTICK_RATE_MS);
-		gpio_set_level(GPIO_OUTPUT_IO_0, cnt % 2);
+		if (inaction == true) {
+			gettimeofday(&now, NULL);
+			if ((now.tv_sec - stby_counting.tv_sec) > (INACTION_TIME)) {
+				inaction = false;
+				xvStbyAction();
+			}
+		}
 	}
 
 	return;
