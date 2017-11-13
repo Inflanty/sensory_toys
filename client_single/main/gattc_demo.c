@@ -78,6 +78,9 @@
 #define CONNECTING 0xAA
 #define ALL_CONNECTED 0xFF
 #define CONNECTION_TIMEOUT 0xEE
+
+#define MASTER_COMMAND	0xFF
+#define STBY 			0xAA
 // ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
 
 static const char remote_device_name[] = "ESP_GATTS_DEMO";
@@ -148,7 +151,8 @@ static bool conn_device_c = false;
 static bool conn_device_d = false;
 static bool connecting = false;
 static bool scan_stop = false;
-struct timeval start_scanning, now;
+static bool sleep_req = false;
+struct timeval start_scanning, now, receive;
 
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
@@ -228,7 +232,7 @@ static void player_task(void* arg) {
 				}
 				actualProfile = Qstat.profile;
 
-				if (Qstat.batt_stat == 0xFF){
+				if (Qstat.batt_stat == 0xFF) {
 					/* ----- TUTAJ WYMUSZANIE STANU UŚPIENIA ----- */
 				}
 			}
@@ -265,7 +269,7 @@ static void player_task(void* arg) {
 			}
 
 			gettimeofday(&now, NULL);
-			if((now.tv_sec - start_scanning.tv_sec) > 30){
+			if ((now.tv_sec - start_scanning.tv_sec) > 30) {
 				data_tx[0] = TRACK_START;
 				data_tx[1] = CONNECTION_TIMEOUT;
 				len_tx = 2;
@@ -622,6 +626,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		//		| (p_data->notify.value[3]));
 		state.batt_level = 0x00;
 		state.batt_stat = 0x00;
+		gettimeofday(&receive, NULL);
 		xQueueSendFromISR(player_queue, &state, NULL);
 		/* *************************************************************************** */
 
@@ -634,7 +639,7 @@ static void gattc_profile_event_handler(esp_gattc_cb_event_t event,
 		}
 		ESP_LOGI(GATTC_TAG, "write descr success ")
 		;
-		uint8_t write_char_data[] = {0x01, 0x0F, 0xF0, 0x10};
+		uint8_t write_char_data[] = { 0x01, 0x0F, 0xF0, 0x10 };
 		esp_ble_gattc_write_char(gattc_if,
 				gl_profile_tab[PROFILE_A_APP_ID].conn_id,
 				gl_profile_tab[PROFILE_A_APP_ID].char_handle,
@@ -725,6 +730,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event,
 						conn_device_b = true;
 						conn_device_c = true;
 						conn_device_d = true;
+						sleep_req = false;
 						ESP_LOGI(GATTC_TAG, "connect to the remote device.");
 						esp_ble_gap_stop_scanning();
 						scan_stop = true;
@@ -878,17 +884,17 @@ void app_main() {
 	player_queue = xQueueCreate(10, sizeof(uint32_t));
 	xTaskCreate(player_task, "player_task", 2048, NULL, 10, NULL);
 
-
-	do{
-		if(conn_device_a == true){
-					vTaskDelay(10000 / portTICK_RATE_MS);
-		uint8_t write_char_data[] = {0x01, 0x0F, 0xF0, 0x10};
-		esp_ble_gattc_write_char(connection.gatt_if,
-				gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-				gl_profile_tab[PROFILE_A_APP_ID].char_handle,
-				sizeof(write_char_data), write_char_data,
-				ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
-		vTaskDelay(10000 / portTICK_RATE_MS);
+	do {
+		gettimeofday(&now, NULL);
+		if (conn_device_a == true && ((now.tv_sec - receive.tv_sec) > 10)
+				&& (sleep_req == false)) {
+			uint8_t write_char_data[] = { MASTER_COMMAND, 0x0F, 0xF0, STBY };
+			esp_ble_gattc_write_char(connection.gatt_if,
+					gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+					gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+					sizeof(write_char_data), write_char_data,
+					ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+			sleep_req = true;
 		}
 
 	} while (1);
