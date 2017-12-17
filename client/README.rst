@@ -1,4 +1,4 @@
-#GATT MULTIPLE CLIENT
+GATT MULTIPLE CLIENT
 ========================
 
 This is client full version,
