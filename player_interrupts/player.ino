@@ -1,15 +1,5 @@
 /***************************************************
-  This is an example for the Adafruit VS1053 Codec Breakout
-
-  Designed specifically to work with the Adafruit VS1053 Codec Breakout
-  ----> https://www.adafruit.com/products/1381
-
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing
-  products from Adafruit!
-
-  Written by Limor Fried/Ladyada for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
+*PLAYER
  ****************************************************/
 
 // include SPI, MP3 and SD libraries
@@ -28,7 +18,6 @@
 
 // These are common pins between breakout and shield
 #define CARDCS 4     // Card chip select pin
-// DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
 #define PLAYER_READY (0xFF)
@@ -87,16 +76,8 @@ void setup() {
   musicPlayer.setVolume(20, 20);
 
   /***** Two interrupt options! *******/
-  // This option uses timer0, this means timer1 & t2 are not required
-  // (so you can use 'em for Servos, etc) BUT millis() can lose time
-  // since we're hitchhiking on top of the millis() tracker
   //musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT);
 
-  // This option uses a pin interrupt. No timers required! But DREQ
-  // must be on an interrupt pin. For Uno/Duemilanove/Diecimilla
-  // that's Digital #2 or #3
-  // See http://arduino.cc/en/Reference/attachInterrupt for other pins
-  // *** This method is preferred
   if (! musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT))
     Serial.println(F("DREQ pin is not an interrupt pin"));
 
@@ -105,12 +86,6 @@ void setup() {
 void loop() {
 
   Serial1.begin(9600);
-  // Alternately, we can just play an entire file at once
-  // This doesn't happen in the background, instead, the entire
-  // file is played and the program will continue when it's done!
-  //musicPlayer.playFullFile("DREWNO.MP3");
-  // Start playing a file, then we can do stuff while waiting for it to finish
-
 
   
   Serial.print("\nPLAYER LOOP STARTING");

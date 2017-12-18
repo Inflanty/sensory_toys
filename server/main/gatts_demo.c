@@ -1,3 +1,9 @@
+/*
+*
+* GATT SERVER
+*
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -106,7 +112,7 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event,
 
 // ----------------------------------------- DEV INFO ------------------------------------------------------------------------------------ */
 #define MY_ELEMENT 			0x30
-#define TEST_DEVICE_NAME	"ESP_GATTS_DEMO"
+#define TEST_DEVICE_NAME	"ESP_GATTS_DEMO_a"
 // ----------------------------------------- DEV INFO ------------------------------------------------------------------------------------ */
 
 // ----------------------------------------- BLE DATA ----------------------------------------------------------------------------------- */
@@ -1361,6 +1367,8 @@ void app_main() {
 				local_mtu_ret);
 	}
 
+	vTaskDelay (5000 / portTICK_PERIOD_MS);
+
 	gpio_evt_queue = xQueueCreate(10, sizeof(uint32_t));
 	timer_queue = xQueueCreate(10, sizeof(timer_event_t));
 
@@ -1380,6 +1388,7 @@ void app_main() {
 				xvStbyAction();
 			}
 		}
+		vTaskDelay (18 / portTICK_PERIOD_MS);
 	}
 
 	return;
