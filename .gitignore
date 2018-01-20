@@ -1,1 +1,9 @@
 /.metadata/
+/.led/
+/.rmt/
+/.uart/
+
+
+#SERVER
+/server/.settings/
+/server/build/
