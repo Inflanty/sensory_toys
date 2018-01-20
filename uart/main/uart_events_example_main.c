@@ -19,7 +19,7 @@
 #include "soc/uart_struct.h"
 
 static const char *TAG = "uart_events";
-
+//Check gitignore changes
 /**
  * This example shows how to use the UART driver to handle special UART events.
  *
