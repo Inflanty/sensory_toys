@@ -1,7 +1,7 @@
 /.metadata/
-/.led/
-/.rmt/
-/.uart/
+/led/
+/rmt/
+/uart/
 
 
 #SERVER
