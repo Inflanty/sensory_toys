@@ -10,20 +10,39 @@
  * Add systems variables for additional profile, add "gattc_profile_d_event_handler" based on profile_b
  * */
 
-#include <stdint.h>
-#include <string.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include "nvs.h"
-#include "nvs_flash.h"
-#include "controller.h"
+ #include <stdint.h>
+ #include <string.h>
+ #include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <math.h>
+ #include <time.h>
 
-#include "esp_bt.h"
-#include "esp_gap_ble_api.h"
-#include "esp_gattc_api.h"
-#include "esp_gatt_defs.h"
-#include "esp_bt_main.h"
-#include "esp_gatt_common_api.h"
+ #include "freertos/FreeRTOS.h"
+ #include "freertos/task.h"
+ #include "esp_system.h"
+ #include "driver/uart.h"
+ #include "freertos/queue.h"
+ #include "esp_log.h"
+ #include "soc/uart_struct.h"
+ #include "nvs.h"
+ #include "nvs_flash.h"
+ #include "controller.h"
+
+ #include "esp_bt.h"
+ #include "esp_gap_ble_api.h"
+ #include "esp_gattc_api.h"
+ #include "esp_gatt_defs.h"
+ #include "esp_bt_main.h"
+ #include "esp_gatt_common_api.h"
+
+ #include "esp_task_wdt.h"
+
+ #include <sys/time.h>
+ #include "esp_sleep.h"
+ #include "driver/rtc_io.h"
+ #include "soc/rtc_cntl_reg.h"
+ #include "soc/rtc.h"
 
 #define GATTC_TAG "GATTC_MULTIPLE_DEMO"
 #define REMOTE_SERVICE_UUID        0x00FF
@@ -38,7 +57,43 @@
 #define PROFILE_D_APP_ID 3
 #define INVALID_HANDLE   0
 
+// ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
+#define EX_UART_NUM UART_NUM_2
+#define BUF_SIZE (1024)
+#define TRACK_STOP 0x11
+#define TRACK_START 0x0F
+#define TRACK_FINAL 0xF0
+#define NO_EXT 0x00
+#define EXT_WORK 0x10
+#define EXT_ENERGY 0x20
+#define TAG_UART "uart_events"
+#define ESP_SERVER_NUMBER_A 0x01
+#define ESP_SERVER_NUMBER_B 0x02
+#define ESP_SERVER_NUMBER_C 0x03
+#define ESP_SERVER_NUMBER_D 0x04
+#define UART1_tx 17
+#define UART1_rx 16
+#define CONNECTING 0xAA
+#define ALL_CONNECTED 0xFF
+#define CONNECTION_TIMEOUT 0xEE
+
+#define MASTER_COMMAND	0xFF
+#define STBY 			0xAA
+#define INACTION_TIME   10
+
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define MAG   "\x1B[35m"
+#define CYN   "\x1B[36m"
+#define WHT   "\x1B[37m"
+#define RESET "\x1B[0m"
+// ----------------------------------------- USER DEFINE---------------------------------------------------------------------------------- */
+
+
 /* Declare static functions */
+static void LOGU(char *text_log, char *text);
 static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
 static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
@@ -104,6 +159,38 @@ struct gattc_profile_inst {
     esp_bd_addr_t remote_bda;
 };
 
+// ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
+typedef struct {
+	uint8_t profile;
+	uint8_t state;
+	uint8_t level;
+	uint8_t batt_level;
+	uint8_t batt_stat;
+	bool evt;
+} moduleState;
+
+typedef struct {
+	esp_gatt_if_t gatt_if;
+	uint16_t character_attr;
+} conn_params;
+
+moduleState state;
+conn_params connection_a, connection_b, connection_c, connection_d;
+
+static QueueHandle_t uart0_queue;
+static QueueHandle_t player_queue;
+
+static bool connecting = false;
+static bool scan_stop = false;
+static bool last_message = false;
+struct timeval start_scanning, scaning_time, now, receive;
+char *MY_LOG = "LOG";
+
+static void LOGU(char *text_log, char *text);
+
+// ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
+
+
 /* One gatt-based profile one app_id and one gattc_if, this array will store the gattc_if returned by ESP_GATTS_REG_EVT */
 static struct gattc_profile_inst gl_profile_tab[PROFILE_NUM] = {
     [PROFILE_A_APP_ID] = {
@@ -144,10 +231,13 @@ static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
         if (scan_ret){
             ESP_LOGE(GATTC_TAG, "set scan params error, error code = %x", scan_ret);
         }
+        LOGU(MY_LOG, "Register complete from profile A :");
         break;
     /* one device connect successfully, all profiles callback function will get the ESP_GATTC_CONNECT_EVT,
      so must compare the mac address to check which device is connected, so it is a good choice to use ESP_GATTC_OPEN_EVT. */
     case ESP_GATTC_CONNECT_EVT:
+    connection_a.gatt_if = gattc_if;
+    LOGU(MY_LOG, "Connect Event from Profile A");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -290,6 +380,19 @@ static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     case ESP_GATTC_NOTIFY_EVT:
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, Receive notify value:");
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
+
+        LOGU(MY_LOG, "Notify event from Profile A :");
+        /* *************************************************************************** */
+        state.profile = ESP_SERVER_NUMBER_A; //0x01 DLA PROFILU A
+        state.state = p_data->notify.value[0];
+        state.level = p_data->notify.value[1];
+        //state.batt_level = (((0x0000 | (p_data->notify.value[2])) << 8)
+        //		| (p_data->notify.value[3]));
+        state.batt_level = 0x00;
+        state.batt_stat = 0x00;
+        //gettimeofday(&receive, NULL);
+        xQueueSendFromISR(player_queue, &state, NULL);
+        /* *************************************************************************** */
         break;
     case ESP_GATTC_WRITE_DESCR_EVT:
         if (p_data->write.status != ESP_GATT_OK){
@@ -333,6 +436,10 @@ static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             conn_device_a = false;
             get_service_a = false;
         }
+
+        LOGU(MY_LOG, "ESP_RESTART Device A Disconnect");
+        /* -------------------------------------- RESTART ESP  -------------------------------------- */
+        esp_restart();
         break;
     default:
         break;
@@ -346,8 +453,11 @@ static void gattc_profile_b_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     switch (event) {
     case ESP_GATTC_REG_EVT:
         ESP_LOGI(GATTC_TAG, "REG_EVT");
+        LOGU(MY_LOG, "Register complete from profile B :");
         break;
     case ESP_GATTC_CONNECT_EVT:
+    connection_b.gatt_if = gattc_if;
+    LOGU(MY_LOG, "Connect Event from Profile B");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -492,6 +602,19 @@ static void gattc_profile_b_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     case ESP_GATTC_NOTIFY_EVT:
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, Receive notify value:");
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
+
+        LOGU(MY_LOG, "Notify Event from Profile B :");
+        /* *************************************************************************** */
+        state.profile = ESP_SERVER_NUMBER_B; //0x01 DLA PROFILU A
+        state.state = p_data->notify.value[0];
+        state.level = p_data->notify.value[1];
+        //state.batt_level = (((0x0000 | (p_data->notify.value[2])) << 8)
+        //		| (p_data->notify.value[3]));
+        state.batt_level = 0x00;
+        state.batt_stat = 0x00;
+        //gettimeofday(&receive, NULL);
+        xQueueSendFromISR(player_queue, &state, NULL);
+        /* *************************************************************************** */
         break;
     case ESP_GATTC_WRITE_DESCR_EVT:
         if (p_data->write.status != ESP_GATT_OK){
@@ -533,6 +656,10 @@ static void gattc_profile_b_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             conn_device_b = false;
             get_service_b = false;
         }
+
+        LOGU(MY_LOG, "ESP_RESTART Device B Disconnected");
+        /* -------------------------------------- RESTART ESP  -------------------------------------- */
+        esp_restart();
         break;
     default:
         break;
@@ -546,8 +673,11 @@ static void gattc_profile_c_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     switch (event) {
     case ESP_GATTC_REG_EVT:
         ESP_LOGI(GATTC_TAG, "REG_EVT");
+        LOGU(MY_LOG, "Register Event from Profile C :");
         break;
     case ESP_GATTC_CONNECT_EVT:
+    connection_c.gatt_if = gattc_if;
+    LOGU(MY_LOG, "Connect Event from Profile C");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -731,6 +861,10 @@ static void gattc_profile_c_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             conn_device_c = false;
             get_service_c = false;
         }
+
+        LOGU(MY_LOG, "ESP_RESTART Device C Disconnected");
+  			/* -------------------------------------- RESTART ESP  -------------------------------------- */
+  			esp_restart();
         break;
     default:
         break;
@@ -744,8 +878,11 @@ static void gattc_profile_d_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     switch (event) {
     case ESP_GATTC_REG_EVT:
         ESP_LOGI(GATTC_TAG, "REG_EVT");
+        LOGU(MY_LOG, "Register Event from Profile D :");
         break;
     case ESP_GATTC_CONNECT_EVT:
+    connection_d.gatt_if = gattc_if;
+    LOGU(MY_LOG, "Connect Event from Profile D :");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -890,6 +1027,19 @@ static void gattc_profile_d_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     case ESP_GATTC_NOTIFY_EVT:
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, Receive notify value:");
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
+
+        LOGU(MY_LOG, "Notify from Profile D");
+        /* *************************************************************************** */
+        state.profile = ESP_SERVER_NUMBER_D; //0x01 DLA PROFILU A
+        state.state = p_data->notify.value[0];
+        state.level = p_data->notify.value[1];
+        //state.batt_level = (((0x0000 | (p_data->notify.value[2])) << 8)
+        //		| (p_data->notify.value[3]));
+        state.batt_level = 0x00;
+        state.batt_stat = 0x00;
+        //gettimeofday(&receive, NULL);
+        xQueueSendFromISR(player_queue, &state, NULL);
+        /* *************************************************************************** */
         break;
     case ESP_GATTC_WRITE_DESCR_EVT:
         if (p_data->write.status != ESP_GATT_OK){
@@ -931,6 +1081,10 @@ static void gattc_profile_d_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             conn_device_d = false;
             get_service_d = false;
         }
+
+        LOGU(MY_LOG, "ESP_RESTART Device D Disconnected");
+  			/* -------------------------------------- RESTART ESP  -------------------------------------- */
+  			esp_restart();
         break;
     default:
         break;
@@ -982,6 +1136,12 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
             }
             if (conn_device_a && conn_device_b && conn_device_c && conn_device_d && !stop_scan_done){
                 stop_scan_done = true;
+                scan_stop = true;
+                LOGU(MY_LOG, "");
+                LOGU(MY_LOG, "");
+                LOGU(MY_LOG, "Stop Scanning");
+                LOGU(MY_LOG, "");
+                LOGU(MY_LOG, "");
                 esp_ble_gap_stop_scanning();
                 ESP_LOGI(GATTC_TAG, "all devices are connected");
                 break;
@@ -1092,6 +1252,270 @@ static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp
     } while (0);
 }
 
+
+// ----------------------------------------- USER FNC  ---------------------------------------------------------------------------------- */
+
+/*
+ * moduleState Qstate;
+ *
+ * Zdefiniowac w obsludze notyfikacji
+ * Qstate.state = ...
+ * Qstate.level = ...
+ *
+ *
+ */
+static void player_task(void* arg) {
+	uint8_t* data_tx = (uint8_t*) malloc(BUF_SIZE);
+	uint8_t* data_rx = (uint8_t*) malloc(BUF_SIZE);
+	uint8_t len_tx = 0;
+	uint8_t actualProfile = 0x00;
+	moduleState Qstat;
+	bool restart = false;
+
+	//connecting = true;
+
+	while (1) {
+		if (conn_device_a && conn_device_b && conn_device_c && conn_device_d) {
+
+			printf("\n ----------------------- \n ------------------- \n ");
+
+			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
+			int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE,
+					100 / portTICK_RATE_MS);
+			if (len == 2) {
+				ESP_LOGI(TAG_UART, "uart read : %d", len);
+				if (data_rx[0] == TRACK_FINAL) {
+					if (connecting == true) {
+						data_tx[0] = TRACK_START;
+						data_tx[1] = CONNECTING;
+					} else {
+						data_tx[0] = TRACK_START;
+						data_tx[1] = data_rx[1];
+					}
+					len_tx = 2;
+				}
+			}
+			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
+
+			if (connecting == true) {
+				data_tx[0] = TRACK_START;
+				data_tx[1] = ALL_CONNECTED;
+				len_tx = 2;
+
+				connecting = false;
+			}
+
+			if (xQueueReceive(player_queue, &Qstat, portMAX_DELAY)) {
+				if (Qstat.state != 0x00) {
+					/*if(Qstat.level == NO_EXT){
+					 data[0] = TRACK_START;
+					 data[1] = Qstat.profile;
+					 }else if((Qstat.level == EXT_WORK) || (Qstat.level == EXT_ENERGY)){
+					 data[0] = TRACK_START;
+					 data[1] = ((Qstat.level) || (Qstat.profile));
+					 }*/
+					data_tx[0] = TRACK_START;
+					data_tx[1] = ((Qstat.level) || (Qstat.profile));
+					len_tx = 2;
+				} else if (Qstat.state == 0x00) {
+					if (Qstat.profile == actualProfile) {
+						data_tx[0] = TRACK_STOP;
+						data_tx[1] = 0x00;
+						len_tx = 2;
+						actualProfile = 0x00;
+						last_message = true;
+						gettimeofday(&receive, NULL);
+					} else {
+
+					}
+				}
+				actualProfile = Qstat.profile;
+
+				if (Qstat.batt_stat == 0xFF) {
+					/* ----- TUTAJ WYMUSZANIE STANU UŚPIENIA ----- */
+				}
+			}
+
+		} else if (!(conn_device_a && conn_device_b && conn_device_c
+				&& conn_device_d)) {
+			// DODAC ZMIENNA MOWIACA O LACZENIU Z INNYMI URZADZENIAMI
+
+			if (scan_stop == false) {
+				int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE,
+						100 / portTICK_RATE_MS);
+				if (len == 2) {
+					ESP_LOGI(TAG_UART, "uart read : %d", len);
+					if (data_rx[0] == TRACK_FINAL) {
+						if (connecting == true) {
+							data_tx[0] = TRACK_START;
+							data_tx[1] = CONNECTING;
+						} else {
+							data_tx[0] = TRACK_START;
+							data_tx[1] = data_rx[1];
+						}
+						len_tx = 2;
+					}
+
+				}
+
+				if (data_tx[1] != CONNECTING) {
+					data_tx[0] = TRACK_START;
+					data_tx[1] = CONNECTING;
+					len_tx = 2;
+
+					connecting = true;
+				}
+			}
+
+			gettimeofday(&scaning_time, NULL);
+			if ((scaning_time.tv_sec - start_scanning.tv_sec) > 30) {
+				data_tx[0] = TRACK_START;
+				data_tx[1] = CONNECTION_TIMEOUT;
+				len_tx = 2;
+				restart = true;
+			}
+
+		}
+
+		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
+
+		if (len_tx > 0) {
+			printf("TO PLAYER:\ncommand:  %d\ndata: %d\nactual profile: %d\n",
+					data_tx[0], data_tx[1], actualProfile);
+			uart_write_bytes(EX_UART_NUM, (const char*) data_tx, len_tx);
+			len_tx = 0;
+			//connecting = true;
+			/*if (data_tx[0] == CONNECTING) {
+			 vTaskDelay(3000 / portTICK_PERIOD_MS);
+			 }*/
+
+		}
+
+		if (restart == true) {
+			vTaskDelay(10000 / portTICK_PERIOD_MS);
+      LOGU(MY_LOG, "");
+      LOGU(MY_LOG, "");
+			LOGU(MY_LOG, "ESP Restart now");
+      LOGU(MY_LOG, "");
+      LOGU(MY_LOG, "");
+			restart = false;
+			//esp_restart();
+		}
+
+		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
+		vTaskDelay(10 / portTICK_PERIOD_MS);
+		// ZEROWANIE WATCHDOGA ----------- -----------------------------------------------
+		//esp_task_wdt_feed();
+		// ZEROWANIE WATCHDOGA ----------- -----------------------------------------------
+
+	}
+}
+
+static void uart_event_task(void *pvParameters) {
+	uart_event_t event;
+	size_t buffered_size;
+	uint8_t* dtmp = (uint8_t*) malloc(BUF_SIZE);
+	for (;;) {
+		//Waiting for UART event.
+		if (xQueueReceive(uart0_queue, (void * )&event,
+				(portTickType)portMAX_DELAY)) {
+			ESP_LOGI(TAG_UART, "uart[%d] event:", EX_UART_NUM);
+			switch (event.type) {
+			//Event of UART receving data
+			/*We'd better handler data event fast, there would be much more data events than
+			 other types of events. If we take too much time on data event, the queue might
+			 be full.
+			 in this example, we don't process data in event, but read data outside.*/
+			case UART_DATA:
+				uart_get_buffered_data_len(EX_UART_NUM, &buffered_size);
+				ESP_LOGI(TAG_UART, "data, len: %d; buffered len: %d",
+						event.size, buffered_size)
+				;
+				break;
+				//Event of HW FIFO overflow detected
+			case UART_FIFO_OVF:
+				ESP_LOGI(TAG_UART, "hw fifo overflow\n")
+				;
+				//If fifo overflow happened, you should consider adding flow control for your application.
+				//We can read data out out the buffer, or directly flush the rx buffer.
+				uart_flush(EX_UART_NUM);
+				break;
+				//Event of UART ring buffer full
+			case UART_BUFFER_FULL:
+				ESP_LOGI(TAG_UART, "ring buffer full\n")
+				;
+				//If buffer full happened, you should consider encreasing your buffer size
+				//We can read data out out the buffer, or directly flush the rx buffer.
+				uart_flush(EX_UART_NUM);
+				break;
+				//Event of UART RX break detected
+			case UART_BREAK:
+				ESP_LOGI(TAG_UART, "uart rx break\n")
+				;
+				break;
+				//Event of UART parity check error
+			case UART_PARITY_ERR:
+				ESP_LOGI(TAG_UART, "uart parity error\n")
+				;
+				break;
+				//Event of UART frame error
+			case UART_FRAME_ERR:
+				ESP_LOGI(TAG_UART, "uart frame error\n")
+				;
+				break;
+				//UART_PATTERN_DET
+			case UART_PATTERN_DET:
+				ESP_LOGI(TAG_UART, "uart pattern detected\n")
+				;
+				break;
+				//Others
+			default:
+				ESP_LOGI(TAG_UART, "uart event type: %d\n", event.type)
+				;
+				break;
+			}
+		}
+	}
+	free(dtmp);
+	dtmp = NULL;
+	vTaskDelete(NULL);
+}
+
+static void uart_init(void) {
+	uart_config_t uart_config = { .baud_rate = 9600, .data_bits =
+			UART_DATA_8_BITS, .parity = UART_PARITY_DISABLE, .stop_bits =
+			UART_STOP_BITS_1, .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+			.rx_flow_ctrl_thresh = 122, };
+	//Set UART parameters
+	uart_param_config(EX_UART_NUM, &uart_config);
+	//Set UART log level
+	esp_log_level_set(TAG_UART, ESP_LOG_INFO);
+	//Install UART driver, and get the queue.
+	uart_driver_install(EX_UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10,
+			&uart0_queue, 0);
+
+	//Set UART pins (using UART0 default pins ie no changes.)
+	uart_set_pin(EX_UART_NUM, UART1_tx, UART1_rx, UART_PIN_NO_CHANGE,
+	UART_PIN_NO_CHANGE);
+
+	//Set uart pattern detect function.
+	uart_enable_pattern_det_intr(EX_UART_NUM, '+', 3, 10000, 10, 10);
+
+	uart_enable_rx_intr(EX_UART_NUM);
+
+	xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 12, NULL);
+
+	//uart_isr_register(EX_UART_NUM, uart_handler, void * arg, int intr_alloc_flags,  uart_isr_handle_t *handle);
+}
+
+static void LOGU(char *text_log, char *text){
+	printf(CYN"%s : "RESET, text_log);
+	printf("%s\n", text);
+}
+// ----------------------------------------- USER FNC  ---------------------------------------------------------------------------------- */
+
+
+
 void app_main()
 {
     esp_err_t ret = nvs_flash_init();
@@ -1169,5 +1593,55 @@ void app_main()
     if (ret){
         ESP_LOGE(GATTC_TAG, "set local  MTU failed, error code = %x", ret);
     }
-}
+    uart_init();
 
+    player_queue = xQueueCreate(10, sizeof(uint32_t));
+    xTaskCreate(player_task, "player_task", 2048, NULL, 10, NULL);
+
+    do {
+      vTaskDelay(10 / portTICK_PERIOD_MS);
+      if ((last_message == true) && (conn_device_a == true) && (conn_device_b == true) && (conn_device_c == true) && (conn_device_d == true)) {
+        //printf("\nlast message");
+        gettimeofday(&now, NULL);
+        if ((now.tv_sec - receive.tv_sec) > INACTION_TIME) {
+          uint8_t write_char_data[] = { MASTER_COMMAND, 0x0F, 0xF0, STBY };
+
+          /* STANDBY REQUEST TO DEVICE A */
+          esp_ble_gattc_write_char(connection_a.gatt_if,
+              gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+              gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+              sizeof(write_char_data), write_char_data,
+              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+          printf("\nSEND STANDBY REQUEST TO DEVICE A");
+
+          /* STANDBY REQUEST TO DEVICE B */
+          esp_ble_gattc_write_char(connection_b.gatt_if,
+              gl_profile_tab[PROFILE_B_APP_ID].conn_id,
+              gl_profile_tab[PROFILE_B_APP_ID].char_handle,
+              sizeof(write_char_data), write_char_data,
+              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+          printf("\nSEND STANDBY REQUEST TO DEVICE B");
+
+          /* STANDBY REQUEST TO DEVICE C */
+          esp_ble_gattc_write_char(connection_c.gatt_if,
+              gl_profile_tab[PROFILE_C_APP_ID].conn_id,
+              gl_profile_tab[PROFILE_C_APP_ID].char_handle,
+              sizeof(write_char_data), write_char_data,
+              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+          printf("\nSEND STANDBY REQUEST TO DEVICE C");
+
+          /* STANDBY REQUEST TO DEVICE B */
+          esp_ble_gattc_write_char(connection_d.gatt_if,
+              gl_profile_tab[PROFILE_D_APP_ID].conn_id,
+              gl_profile_tab[PROFILE_D_APP_ID].char_handle,
+              sizeof(write_char_data), write_char_data,
+              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+          printf("\nSEND STANDBY REQUEST TO DEVICE D");
+          last_message = false;
+        }
+      }
+    } while (1);
+
+    return;
+
+}
