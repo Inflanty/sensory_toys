@@ -741,5 +741,6 @@ void app_main()
         ESP_LOGE(GATTS_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
     }
 
+
     return;
 }
