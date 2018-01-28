@@ -4,21 +4,21 @@ Sensory game for delayed children.
 
 ## Getting Started
 
-Project is directed to delayed childrens (in this case cerebral palsy) it developed prioprioception. This repository include software for 
+Project is directed to delayed childrens (in this case cerebral palsy) it developed prioprioception. This repository include software for
 BLE modules & Arduino. Project consist of following parts:
 
-* Docking Station - which include ESP 32 (BLE Client - central), Arduino (Player), MP3 Decoder, Inductive Charges Modules, LEDs, Speaker, Power Supplier. 
+* Docking Station - which include ESP 32 (BLE Client - central), Arduino (Player), MP3 Decoder, Inductive Charges Modules, LEDs, Speaker, Power Supplier.
 * 4 Main toys - each of them include ESP 32 (BLE Server - peripheral), IrDA Module, Inclinometers, Supply part (Battery, Charger, DCDC converter, Inductive Charger module).
 * 2 Extension toys - each include Arduino, IrDA Module, Supply part (the same as in the Main toy).
 
 ### Main toy - BLE Server
 
-![](docImg/serv.jpg) 
+![](docImg/serv.jpg)
 
 ## How it works
-### System initialization 
+### System initialization
 
-Configuration whole system, no toys connected yet. 
+Configuration whole system, no toys connected yet.
 
 ### Connecting...
 
@@ -50,15 +50,19 @@ The central unit (BLE Client) reacts to notifications from the BLE Servers. We h
 
 Project based on FreeRT Operation System write in C. The code combines own ideas and espressif support.
 
+### Version control
+
+Project provide 2 version of the software, the reason is that old lib (v1) don't support upper than 3 server connection. Newest library for esp32 provide support for up than 3 server to one client. Third version of the software (probably there will be some third version) will be mix Python and C language. 
+
 ## Hardware
 
 ### ESP 32
 
 Wifi/Bluetooth module based on Xtensa® single-/dual-core 32-bit microprocessor. In this case used ESP32-DevKitC.
 
->ESP32 can perform as a complete standalone system or as a slave device to a host MCU, 
->reducing communication stack overhead on the main application processor. 
->ESP32 can interface with other systems to provide Wi-Fi and Bluetooth functionality 
+>ESP32 can perform as a complete standalone system or as a slave device to a host MCU,
+>reducing communication stack overhead on the main application processor.
+>ESP32 can interface with other systems to provide Wi-Fi and Bluetooth functionality
 >through its SPI / SDIO or I2C / UART interfaces.
 
 -note from Espressif site.
@@ -68,7 +72,7 @@ Wifi/Bluetooth module based on Xtensa® single-/dual-core 32-bit microprocessor.
 Arduino Micro, used for uart communication in extension toys (mainly because of compact layout).
 Arduino Leonardo for music player implementation.
 
-### Supply part 
+### Supply part
 
 * Battery - Lip-Pol 470mAh.
 * Charger - for safety battery charging.
@@ -86,7 +90,7 @@ Complete integrated IrDA module for infrared conncting, require UART communicati
 
 ## Overview
 
-The Game based on Sensory Game model discovered from the 1970s, the game affected on prefrontal cortex acivity. 
+The Game based on Sensory Game model discovered from the 1970s, the game affected on prefrontal cortex acivity.
 
 All intrested on the subject, I refer to articles:
 
