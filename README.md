@@ -52,7 +52,7 @@ Project based on FreeRT Operation System write in C. The code combines own ideas
 
 ### Version control
 
-Project provide 2 version of the software, the reason is that old lib (v1) don't support upper than 3 server connection. Newest library for esp32 provide support for up than 3 server to one client. Third version of the software (probably there will be some third version) will be mix Python and C language. 
+Project provide 2 version of the software, the reason is that old lib (v1) don't support upper than 3 server connection. Newest library for esp32 provide support for up than 3 server to one client. Third version of the software (probably there will be some third version) will be mix Python and C language. The point is that developer refactoring whole project by upgrading and do new versions. 
 
 ## Hardware
 
