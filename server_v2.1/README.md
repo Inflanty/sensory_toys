@@ -1,4 +1,4 @@
-ESP-IDF GATT SERVER demo
+#GATT SERVER
 
 
 This is the demo for user to use ESP_APIs to create a GATT Server.The demo can send adv data,

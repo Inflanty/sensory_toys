@@ -1,4 +1,4 @@
-#ESP-IDF GATT MULTIPLE CLIENT demo
+#GATT MULTIPLE CLIENT
 
 
 This is First stage of the secon version of client app.
