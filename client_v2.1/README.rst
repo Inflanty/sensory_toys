@@ -1,5 +1,5 @@
 #ESP-IDF GATT MULTIPLE CLIENT demo
-========================
+
 
 This is First stage of the secon version of client app.
 This is the demo for user to use ESP_APIs to create a GATT Multi-connection Client.
