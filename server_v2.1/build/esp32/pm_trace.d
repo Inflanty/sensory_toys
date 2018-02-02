@@ -1,6 +1,6 @@
 pm_trace.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./pm_trace.c \
  /home/jan/Workspace/esp/esp-idf/components/esp32/./pm_trace.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/driver/include/driver/gpio.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
@@ -42,7 +42,7 @@ pm_trace.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./pm_trace.c \
 
 /home/jan/Workspace/esp/esp-idf/components/esp32/./pm_trace.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/driver/include/driver/gpio.h:
 

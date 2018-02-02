@@ -19,7 +19,7 @@ heap_trace.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/syslimits.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/endian.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/param.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/heap/include/esp_heap_trace.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
@@ -126,7 +126,7 @@ heap_trace.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/param.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/heap/include/esp_heap_trace.h:
 

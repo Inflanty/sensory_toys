@@ -20,7 +20,7 @@ clk.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./clk.c \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/syslimits.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/endian.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/param.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h \
  /home/jan/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -102,7 +102,7 @@ clk.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./clk.c \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/param.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_attr.h:
 

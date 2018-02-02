@@ -21,7 +21,7 @@ heap_caps_init.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -128,7 +128,7 @@ heap_caps_init.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 

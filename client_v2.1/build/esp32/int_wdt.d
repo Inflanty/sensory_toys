@@ -1,5 +1,5 @@
 int_wdt.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./int_wdt.c \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/features.h \
@@ -87,7 +87,7 @@ int_wdt.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./int_wdt.c \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_dport_access.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_int_wdt.h
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h:
 

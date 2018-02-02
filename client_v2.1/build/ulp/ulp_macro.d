@@ -27,7 +27,7 @@ ulp_macro.o: /home/jan/Workspace/esp/esp-idf/components/ulp/./ulp_macro.c \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/jan/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -95,7 +95,7 @@ ulp_macro.o: /home/jan/Workspace/esp/esp-idf/components/ulp/./ulp_macro.c \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

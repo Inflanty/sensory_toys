@@ -11,7 +11,7 @@ library/ssl_cert.o: \
  /home/jan/Workspace/esp/esp-idf/components/openssl/include/internal/ssl_stack.h \
  /home/jan/Workspace/esp/esp-idf/components/openssl/include/internal/ssl_dbg.h \
  /home/jan/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_opt.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_port.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_types.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/cdefs.h \
@@ -67,7 +67,7 @@ library/ssl_cert.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_opt.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/openssl/include/platform/ssl_port.h:
 

@@ -1,4 +1,4 @@
-ESP-IDF GATT MULTIPLE CLIENT demo
+#ESP-IDF GATT MULTIPLE CLIENT demo
 ========================
 
 This is First stage of the secon version of client app.
@@ -8,3 +8,11 @@ Modify the name of gatt_server demo named ESP_GATTS_DEMO_a, ESP_GATTS_DEMO_b and
 the gattc_multi_connect demo will connect the three gatt_server demos, and then exchange data.
 Of course you can also modify the code to connect more devices, we default to connect up to 4 devices, more than 4 you need to modify menuconfig.
 
+
+
+## TASK :
+
+#### 2.02.2018 TO_DO: 
+>
+>Check notify AFTER change in SERVER_V2.1
+>

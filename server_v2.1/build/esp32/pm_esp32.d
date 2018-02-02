@@ -31,7 +31,7 @@ pm_esp32.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./pm_esp32.c \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_pm.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp32/pm.h \
@@ -158,7 +158,7 @@ pm_esp32.o: /home/jan/Workspace/esp/esp-idf/components/esp32/./pm_esp32.c \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

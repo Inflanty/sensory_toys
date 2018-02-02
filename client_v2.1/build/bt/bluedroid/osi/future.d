@@ -1,7 +1,7 @@
 bluedroid/osi/future.o: \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/osi/future.c \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdio.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/newlib.h \
@@ -92,7 +92,7 @@ bluedroid/osi/future.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdio.h:
 

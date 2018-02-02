@@ -29,7 +29,7 @@ port/freertos/sys_arch.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/errno.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/errno.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
@@ -170,7 +170,7 @@ port/freertos/sys_arch.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdlib.h:
 

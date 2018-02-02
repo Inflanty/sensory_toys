@@ -27,7 +27,7 @@ bt.o: /home/jan/Workspace/esp/esp-idf/components/bt/./bt.c \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/jan/Workspace/esp/esp-idf/components/heap/include/esp_heap_caps.h \
  /home/jan/Workspace/esp/esp-idf/components/heap/include/multi_heap.h \
@@ -155,7 +155,7 @@ bt.o: /home/jan/Workspace/esp/esp-idf/components/bt/./bt.c \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

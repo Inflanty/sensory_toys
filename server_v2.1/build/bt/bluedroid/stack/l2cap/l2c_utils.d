@@ -19,7 +19,7 @@ bluedroid/stack/l2cap/l2c_utils.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/string.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/string.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/allocator.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/device/include/controller.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
@@ -168,7 +168,7 @@ bluedroid/stack/l2cap/l2c_utils.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/osi/include/allocator.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/device/include/controller.h:
 

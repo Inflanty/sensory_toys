@@ -57,7 +57,7 @@
 #include "soc/rtc_cntl_reg.h"
 #include "soc/rtc.h"
 
-#define GATTS_TAG "GATTS_DEMO"
+#define GATTS_TAG "SERVER"
 
 ///Declare the static function
 static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param);
@@ -73,13 +73,15 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
 #define GATTS_DESCR_UUID_TEST_B     0x2222
 #define GATTS_NUM_HANDLE_TEST_B     4
 
-#define TEST_DEVICE_NAME            "ESP_GATTS_DEMO_a"
-#define MY_ELEMENT 			0x30
+#define TEST_DEVICE_NAME            "ESP_GATTS_DEMO_d"
+#define MY_ELEMENT 			0x30 //Only for IrDA use
 #define TEST_MANUFACTURER_DATA_LEN  17
 
 #define GATTS_DEMO_CHAR_VAL_LEN_MAX 0x40
 
 #define PREPARE_BUF_MAX_SIZE 1024
+
+// ----------------------------------------- USER DEFINE ---------------------------------------------------------------------------------- */
 
 #define GPIO_OUTPUT_IO_0    	18
 #define GPIO_OUTPUT_PIN_SEL  	(1<<GPIO_OUTPUT_IO_0)
@@ -118,6 +120,17 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
 #define MASTER_COMMAND	0xFF
 #define STBY 			0xAA
 #define INACTION_TIME   10
+
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define MAG   "\x1B[35m"
+#define CYN   "\x1B[36m"
+#define WHT   "\x1B[37m"
+#define RESET "\x1B[0m"
+
+// ----------------------------------------- USER DEFINE ---------------------------------------------------------------------------------- */
 
 uint8_t char1_str[] = {0x11,0x22,0x33};
 esp_gatt_char_prop_t a_property = 0;
@@ -273,6 +286,10 @@ struct timeval stby_counting, now;
 
 bool inaction = false;
 static const char *TAG = "uart_events";
+
+static char* MY_LOG = "USER_LOG";
+
+static void LOGU(char *text_log, char *text);
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
 // ----------------------------------------- FUNCTION DEF ------------------------------------------------------------------------------- */
@@ -909,10 +926,10 @@ static void ut_vibroTask(void* arg) {
 	module.level = EXP_DISCONNECT;
 	module.evt = false;
 
-	timer_group_t group_num = TIMER_GROUP_0;
-	timer_idx_t timer_num = TIMER_1;
-	uint64_t load_val = 0x00000000ULL;
-	uint64_t counter_val = 0;
+	//timer_group_t group_num = TIMER_GROUP_0;
+	//timer_idx_t timer_num = TIMER_1;
+	//uint64_t load_val = 0x00000000ULL;
+	//uint64_t counter_val = 0;
 
 	for (;;) {
 		if (xQueueReceive(gpio_evt_queue, &io_num, portMAX_DELAY)) {
@@ -1179,8 +1196,8 @@ void uv_stbyAction() {
 	/* STANDBY MODE ON */
 	const int ext_wakeup_pin_1 = 4;
 	const uint64_t ext_wakeup_pin_1_mask = 1ULL << ext_wakeup_pin_1;
-
-	printf("Enabling EXT1 wakeup on pin GPIO%d\n", ext_wakeup_pin_1);
+	LOGU(MY_LOG, "Enabling EXT1 wakeup on pin GPIO : ");
+	printf("%d\n", ext_wakeup_pin_1);
 	int lev = rtc_gpio_get_level(4);
 	if (lev == 1) {
 		esp_sleep_enable_ext1_wakeup(ext_wakeup_pin_1_mask,
@@ -1193,16 +1210,20 @@ void uv_stbyAction() {
 
 	if (esp_bluedroid_disable() == ESP_OK) {
 		vTaskDelay(100 / portTICK_PERIOD_MS);
-		printf("BLUEDROID DISABLE\n");
+		LOGU(MY_LOG,"BLUEDROID DISABLE");
 		if (esp_bt_controller_disable() == ESP_OK) {
-			printf("BT CONTROLLER DISABLE\n");
-			printf("DEEP SLEEP START NOW\n");
+			LOGU(MY_LOG,"BT CONTROLLER DISABLE");
+			LOGU(MY_LOG,"DEEP SLEEP START NOW");
 			vTaskDelay(100 / portTICK_PERIOD_MS);
 			esp_deep_sleep_start();
 		}
 	}
 }
 
+static void LOGU(char *text_log, char *text){
+	printf(CYN"%s : "RESET, text_log);
+	printf("%s\n", text);
+}
 // ----------------------------------------- FUNCTION DEF ------------------------------------------------------------------------------- */
 
 
@@ -1270,6 +1291,8 @@ void app_main()
 
     vTaskDelay (5000 / portTICK_PERIOD_MS);
 
+    LOGU(MY_LOG, "System initialize :");
+
   	gpio_evt_queue = xQueueCreate(10, sizeof(uint32_t));
   	timer_queue = xQueueCreate(10, sizeof(timer_event_t));
 
@@ -1277,6 +1300,8 @@ void app_main()
   	uv_timer0_init();
   	uv_timer1_init();
   	uv_uart_init();
+
+  	LOGU(MY_LOG, "Task Creating :");
 
   	xTaskCreate(ut_vibroTask, "vibro_task", 4096, NULL, 10, NULL);
   	xTaskCreate(ut_timerTask, "timer_evt_task", 2048, NULL, 5, NULL);
@@ -1286,6 +1311,7 @@ void app_main()
   			gettimeofday(&now, NULL);
   			if ((now.tv_sec - stby_counting.tv_sec) > (INACTION_TIME)) {
   				inaction = false;
+
   				uv_stbyAction();
   			}
   		}

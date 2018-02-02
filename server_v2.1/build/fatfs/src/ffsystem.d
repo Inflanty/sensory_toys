@@ -11,7 +11,7 @@ src/ffsystem.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/syslimits.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/endian.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/param.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/reent.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -107,7 +107,7 @@ src/ffsystem.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/param.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 

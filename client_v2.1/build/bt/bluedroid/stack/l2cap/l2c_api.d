@@ -21,7 +21,7 @@ bluedroid/stack/l2cap/l2c_api.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
@@ -98,7 +98,7 @@ bluedroid/stack/l2cap/l2c_api.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
 

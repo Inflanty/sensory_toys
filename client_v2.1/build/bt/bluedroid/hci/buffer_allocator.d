@@ -18,7 +18,7 @@ bluedroid/hci/buffer_allocator.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/cdefs.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/hci/include/buffer_allocator.h:
 
@@ -56,5 +56,5 @@ bluedroid/hci/buffer_allocator.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/alloca.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/hci/buffer_allocator.c:

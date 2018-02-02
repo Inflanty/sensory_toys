@@ -1,6 +1,6 @@
 src/secure_boot_signatures.o: \
  /home/jan/Workspace/esp/esp-idf/components/bootloader_support/src/secure_boot_signatures.c \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/bootloader/../include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/bootloader/../include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/bootloader_support/include_priv/bootloader_flash.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/jan/Workspace/esp/esp-idf/components/spi_flash/include/esp_spi_flash.h \
@@ -19,7 +19,7 @@ src/secure_boot_signatures.o: \
  /home/jan/Workspace/esp/esp-idf/components/micro-ecc/micro-ecc/uECC.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/rom/sha.h
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/bootloader/../include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/bootloader/../include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/bootloader_support/include_priv/bootloader_flash.h:
 

@@ -19,7 +19,7 @@ port/mbedtls_debug.o: \
  /home/jan/Workspace/esp/esp-idf/components/log/include/esp_log.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/jan/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -96,7 +96,7 @@ port/mbedtls_debug.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/_intsup.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

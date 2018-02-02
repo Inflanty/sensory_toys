@@ -1,7 +1,7 @@
 bluedroid/api/esp_avrc_api.o: \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/api/esp_avrc_api.c \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
@@ -121,7 +121,7 @@ bluedroid/api/esp_avrc_api.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
 

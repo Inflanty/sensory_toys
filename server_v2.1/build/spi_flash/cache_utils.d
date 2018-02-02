@@ -17,7 +17,7 @@ cache_utils.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/alloca.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/string.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/string.h \
@@ -128,7 +128,7 @@ cache_utils.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

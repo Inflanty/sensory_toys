@@ -15,7 +15,7 @@ dport_panic_highint_hdl.o: \
  /home/jan/Workspace/esp/esp-idf/components/freertos/include/freertos/xtensa_context.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/xtensa/xtruntime-frames.h \
  /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_panic.h \
- /home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/jan/Workspace/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
  /home/jan/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h
@@ -50,7 +50,7 @@ dport_panic_highint_hdl.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/esp32/include/esp_panic.h:
 
-/home/jan/Workspace/git/sensory_toys/server_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/server_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/soc/esp32/include/soc/soc.h:
 

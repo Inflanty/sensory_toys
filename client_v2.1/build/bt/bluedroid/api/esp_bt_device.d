@@ -28,7 +28,7 @@ bluedroid/api/esp_bt_device.o: \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_defs.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h \
@@ -171,7 +171,7 @@ bluedroid/api/esp_bt_device.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/newlib/include/assert.h:
 

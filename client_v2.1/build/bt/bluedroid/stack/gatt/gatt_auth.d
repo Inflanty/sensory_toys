@@ -1,7 +1,7 @@
 bluedroid/stack/gatt/gatt_auth.o: \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/stack/gatt/gatt_auth.c \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h \
+ /home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h \
  /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/stdint.h \
  /home/jan/Workspace/esp/esp-idf/components/newlib/include/machine/_default_types.h \
@@ -115,7 +115,7 @@ bluedroid/stack/gatt/gatt_auth.o: \
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/jan/Workspace/git/sensory_toys/client_v2.0/build/include/sdkconfig.h:
+/home/jan/Workspace/git/sensory_toys/client_v2.1/build/include/sdkconfig.h:
 
 /home/jan/Workspace/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
 
