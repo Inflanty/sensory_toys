@@ -1278,6 +1278,26 @@ static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp
  *
  *
  */
+
+static void ut_sleepTask(void* arg){
+
+
+  while(1){
+    if(conn_device_a && conn_device_b && conn_device_c && conn_device_d){
+      if(xQueueReceive(sleep_queue, &Qsleep, portMAX_DELAY)){
+        /*LAST MESSAGE RECEIVED*/
+
+      } else {
+
+        /*TICK FROM CLLBACK CHECK*/
+      }
+    }
+  }
+}
+/*
+timer create : xTimerCreate
+timer callback : uc_timerCallback(timer handle);
+*/
 static void ut_playerTask(void* arg) {
 	uint8_t* data_tx = (uint8_t*) malloc(BUF_SIZE);
 	uint8_t* data_rx = (uint8_t*) malloc(BUF_SIZE);
@@ -1285,7 +1305,6 @@ static void ut_playerTask(void* arg) {
 	uint8_t actualProfile = 0x00;
 	moduleState Qstat;
 	bool restart = false;
-
 	//connecting = true;
 
 	while (1) {
@@ -1599,6 +1618,7 @@ void app_main()
     uv_uart_init();
     player_queue = xQueueCreate(10, sizeof(uint32_t));
     xTaskCreate(ut_playerTask, "player_task", 2048, NULL, 10, NULL);
+    //xTaskCreate(ut_sleepTask, "sleep_task", 1024, NULL, 4, NULL);
 
     do{
     	LOGU(MY_LOG, "Waiting for all devices :");
