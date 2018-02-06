@@ -903,7 +903,7 @@ static void gattc_profile_d_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             //open failed, ignore the second device, connect the third device
             ESP_LOGE(GATTC_TAG, "connect device failed, status %d", p_data->open.status);
             conn_device_d = false;
-            //start_scan();
+            start_scan();
             break;
         }
         memcpy(gl_profile_tab[PROFILE_D_APP_ID].remote_bda, p_data->open.remote_bda, 6);
@@ -1290,9 +1290,6 @@ static void ut_playerTask(void* arg) {
 
 	while (1) {
 		if (conn_device_a && conn_device_b && conn_device_c && conn_device_d) {
-
-			printf("\n ----------------------- \n ------------------- \n ");
-
 			// ODBIOR WIADOMOSCI OD DEKODERA -------------------------------------------------
 			int len = uart_read_bytes(EX_UART_NUM, data_rx, BUF_SIZE,
 					100 / portTICK_RATE_MS);
@@ -1394,8 +1391,10 @@ static void ut_playerTask(void* arg) {
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
 
 		if (len_tx > 0) {
-			printf("TO PLAYER:\ncommand:  %d\ndata: %d\nactual profile: %d\n",
+			LOGU(MY_LOG, "PLAYER");
+			printf("\ncommand:  %d\ndata: %d\nactual profile: %d\n",
 					data_tx[0], data_tx[1], actualProfile);
+          LOGU(MY_LOG, "PLAYER");
 			uart_write_bytes(EX_UART_NUM, (const char*) data_tx, len_tx);
 			len_tx = 0;
 		}
@@ -1403,12 +1402,10 @@ static void ut_playerTask(void* arg) {
 		if (restart == true) {
 			vTaskDelay(10000 / portTICK_PERIOD_MS);
       LOGU(MY_LOG, "");
-      LOGU(MY_LOG, "");
-			LOGU(MY_LOG, "ESP Restart now");
-      LOGU(MY_LOG, "");
+      LOGU(MY_LOG, "ESP Restart now");
       LOGU(MY_LOG, "");
 			restart = false;
-			//esp_restart();
+			esp_restart();
 		}
 
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
@@ -1599,6 +1596,10 @@ void app_main()
         ESP_LOGE(GATTC_TAG, "set local  MTU failed, error code = %x", ret);
     }
 
+    uv_uart_init();
+    player_queue = xQueueCreate(10, sizeof(uint32_t));
+    xTaskCreate(ut_playerTask, "player_task", 2048, NULL, 10, NULL);
+
     do{
     	LOGU(MY_LOG, "Waiting for all devices :");
     	vTaskDelay(1000 / portTICK_PERIOD_MS);
@@ -1621,10 +1622,6 @@ void app_main()
     	}
     } while (!conn_device_a && !conn_device_b && !conn_device_c && !conn_device_d);
 
-    uv_uart_init();
-    player_queue = xQueueCreate(10, sizeof(uint32_t));
-    xTaskCreate(ut_playerTask, "player_task", 2048, NULL, 10, NULL);
-
     do {
       vTaskDelay(10 / portTICK_PERIOD_MS);
       if ((last_message == true) && (conn_device_a == true) && (conn_device_b == true) && (conn_device_c == true) && (conn_device_d == true)) {
@@ -1644,7 +1641,7 @@ void app_main()
           /* STANDBY REQUEST TO DEVICE B */
           esp_ble_gattc_write_char(connection_b.gatt_if,
               gl_profile_tab[PROFILE_B_APP_ID].conn_id,
-              gl_profile_tab[PROFILE_B_APP_ID].char_handle,
+			  gl_profile_tab[PROFILE_B_APP_ID].char_handle,
               sizeof(write_char_data), write_char_data,
               ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
           printf("\nSEND STANDBY REQUEST TO DEVICE B");
