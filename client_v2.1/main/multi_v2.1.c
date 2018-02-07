@@ -1278,22 +1278,21 @@ static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp
  *
  *
  */
-
+/*
 static void ut_sleepTask(void* arg){
-
-
   while(1){
     if(conn_device_a && conn_device_b && conn_device_c && conn_device_d){
       if(xQueueReceive(sleep_queue, &Qsleep, portMAX_DELAY)){
-        /*LAST MESSAGE RECEIVED*/
+        //LAST MESSAGE RECEIVED
 
       } else {
 
-        /*TICK FROM CLLBACK CHECK*/
+        //TICK FROM CLLBACK CHECK
       }
     }
   }
 }
+*/
 /*
 timer create : xTimerCreate
 timer callback : uc_timerCallback(timer handle);
