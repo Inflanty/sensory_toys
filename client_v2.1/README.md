@@ -11,15 +11,16 @@ Of course you can also modify the code to connect more devices, we default to co
 
 ### 2.02.2018
 TO_DO:
->Check notify AFTER change in SERVER_V2.1
+  *Check notify AFTER change in SERVER_V2.1
 
 ### 14.02.2018
+
 DONE:
->Connection work properly. Player Task work fine, improved reset.
->Added 2 functions :
->void uv_globalKill(void);
->void uv_restart(int restartDelayTime);
->Changed LOGU(...) name to uv_LOG(...)
+  *Connection work properly. Player Task work fine, improved reset.
+  *Added 2 functions :
+  *void uv_globalKill(void);
+  *void uv_restart(int restartDelayTime);
+  *Changed LOGU(...) name to uv_LOG(...)
 
 TO_DO:
->Check connectiong with all servers (connecting with 2 servers so far...)
+  *Check connectiong with all servers (connecting with 2 servers so far...)
