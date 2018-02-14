@@ -275,7 +275,7 @@ struct connData connDataA, connDataB;
  __NO_CONN,
  };
  */
-static void LOGU(char *text_log, char *text);
+static void uv_LOG(char *text_log, char *text);
 int ux_lengthCalculate(uint8_t *value_);
 void uv_notifyData(struct connData *Xparameter, uint8_t *value);
 void uv_timerStart(timer_group_t group_num, timer_idx_t timer_num,
@@ -541,12 +541,12 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 
 			}
 			if (param->write.len == 4) {
-				LOGU(MY_LOG, "Received 4 bit's message");
+				uv_LOG(MY_LOG, "Received 4 bit's message");
 				switch (param->write.value[0]) {
 				case MASTER_COMMAND:
 					if ((param->write.value[3]) == STBY) {
 						if (inaction == false) {
-							LOGU(MY_LOG,
+							uv_LOG(MY_LOG,
 									"For 5 minutes server is going to sleep");
 							inaction = true;
 							gettimeofday(&stby_counting, NULL);
@@ -1112,11 +1112,11 @@ static void ut_vibroTask(void* arg) {
 			module.level = EXP_DISCONNECT;
 			motion_status = 0;
 
-			LOGU(MY_LOG, "");
-			LOGU(MY_LOG, "");
-			LOGU(MY_LOG, "Send notify from vibro task");
-			LOGU(MY_LOG, "");
-			LOGU(MY_LOG, "");
+			uv_LOG(MY_LOG, "");
+			uv_LOG(MY_LOG, "");
+			uv_LOG(MY_LOG, "Send notify from vibro task");
+			uv_LOG(MY_LOG, "");
+			uv_LOG(MY_LOG, "");
 		}
 	}
 }
@@ -1153,11 +1153,11 @@ static void ut_timerTask(void *arg) {
 					timer_set_counter_value(TIMER_GROUP_0, TIMER_1,
 							0x00000000ULL);
 
-					LOGU(MY_LOG, "");
-					LOGU(MY_LOG, "");
-					LOGU(MY_LOG, "Send notify from timer task");
-					LOGU(MY_LOG, "");
-					LOGU(MY_LOG, "");
+					uv_LOG(MY_LOG, "");
+					uv_LOG(MY_LOG, "");
+					uv_LOG(MY_LOG, "Send notify from timer task");
+					uv_LOG(MY_LOG, "");
+					uv_LOG(MY_LOG, "");
 				}
 			}
 		}
@@ -1290,22 +1290,22 @@ void uv_notifyData(struct connData *Xparameter, uint8_t *value) {
 		memset(&rsp, 0, sizeof(esp_gatt_rsp_t));
 		int length = ux_lengthCalculate(value);
 
-		LOGU(MY_LOG, "");
-		LOGU(MY_LOG, "Sending notify !");
-		LOGU(MY_LOG, "");
+		uv_LOG(MY_LOG, "");
+		uv_LOG(MY_LOG, "Sending notify !");
+		uv_LOG(MY_LOG, "");
 		//the size of notify_data[] need less than MTU size
 		esp_ble_gatts_send_indicate(Xparameter->gatts_if, 0,
 				Xparameter->char_handle, sizeof(value), value, false);
 	} else if (Xparameter->noConnection) {
-		LOGU(MY_LOG,
+		uv_LOG(MY_LOG,
 				"Cannot send notify, there is no BLE connection between SERVER and CLIENT");
-		LOGU(MY_LOG, "You can restart SERVER to provide searching.");
+		uv_LOG(MY_LOG, "You can restart SERVER to provide searching.");
 	} else if (Xparameter->connecting) {
-		LOGU(MY_LOG,
+		uv_LOG(MY_LOG,
 				"Cannot send notify, there is no BLE connection between SERVER and CLIENT");
-		LOGU(MY_LOG, "Connecting in progress...");
+		uv_LOG(MY_LOG, "Connecting in progress...");
 	} else {
-		LOGU(MY_LOG, "Data error, please contact with Admin :P");
+		uv_LOG(MY_LOG, "Data error, please contact with Admin :P");
 	}
 }
 
@@ -1348,7 +1348,7 @@ void uv_stbyAction() {
 	/* STANDBY MODE ON */
 	const int ext_wakeup_pin_1 = 4;
 	const uint64_t ext_wakeup_pin_1_mask = 1ULL << ext_wakeup_pin_1;
-	LOGU(MY_LOG, "Enabling EXT1 wakeup on pin GPIO : ");
+	uv_LOG(MY_LOG, "Enabling EXT1 wakeup on pin GPIO : ");
 	printf("\b%d\n", ext_wakeup_pin_1);
 	int lev = rtc_gpio_get_level(4);
 	if (lev == 1) {
@@ -1359,9 +1359,9 @@ void uv_stbyAction() {
 				ESP_EXT1_WAKEUP_ANY_HIGH);
 	}
 
-	LOGU(MY_LOG, "WAKEUP PIN LEVEL : ");
+	uv_LOG(MY_LOG, "WAKEUP PIN LEVEL : ");
 	printf("\b%d\n", lev);
-	LOGU(MY_LOG, "DEEP SLEEP START NOW");
+	uv_LOG(MY_LOG, "DEEP SLEEP START NOW");
 	esp_deep_sleep_start();
 
 	/*
@@ -1384,7 +1384,7 @@ void uv_stbyAction() {
 	 }*/
 }
 
-static void LOGU(char *text_log, char *text) {
+static void uv_LOG(char *text_log, char *text) {
 	printf(CYN"%s : "RESET, text_log);
 	printf("%s\n", text);
 }
@@ -1465,7 +1465,7 @@ void app_main() {
 
 	vTaskDelay(5000 / portTICK_PERIOD_MS);
 
-	LOGU(MY_LOG, "System initialize :");
+	uv_LOG(MY_LOG, "System initialize :");
 
 	gpio_evt_queue = xQueueCreate(10, sizeof(uint32_t));
 	timer_queue = xQueueCreate(10, sizeof(timer_event_t));
@@ -1475,13 +1475,14 @@ void app_main() {
 	uv_timer1_init();
 	uv_uart_init();
 
-	LOGU(MY_LOG, "Task Creating :");
+	uv_LOG(MY_LOG, "Task Creating :");
 
 	xTaskCreate(ut_vibroTask, "vibro_task", 4096, NULL, 10, &vibroTaskHandle);
 	xTaskCreate(ut_timerTask, "timer_evt_task", 2048, NULL, 5,
 			&timerTaskHandle);
 
-	while (1) {
+	/* __________________________MAIN LOOP begin__________________________ */
+	do {
 		if (inaction == true) {
 			gettimeofday(&now, NULL);
 			if ((now.tv_sec - stby_counting.tv_sec) > (INACTION_TIME)) {
@@ -1491,7 +1492,8 @@ void app_main() {
 			}
 		}
 		vTaskDelay(20/portTICK_PERIOD_MS);
-	}
+	} while (1);
+	/* __________________________MAIN LOOP end__________________________ */
 
 	return;
 }

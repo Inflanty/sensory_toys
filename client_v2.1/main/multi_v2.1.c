@@ -48,8 +48,7 @@
 #define REMOTE_SERVICE_UUID        0x00FF
 #define REMOTE_NOTIFY_CHAR_UUID    0xFF01
 
-/* register three profiles, each profile corresponds to one connection,
-   which makes it easy to handle each connection event */
+
 #define PROFILE_NUM 4
 #define PROFILE_A_APP_ID 0
 #define PROFILE_B_APP_ID 1
@@ -79,7 +78,7 @@
 
 #define MASTER_COMMAND	0xFF
 #define STBY 			0xAA
-#define INACTION_TIME   10
+#define INACTION_TIME   1800 //30min
 
 #define RED   "\x1B[31m"
 #define GRN   "\x1B[32m"
@@ -93,7 +92,6 @@
 
 
 /* Declare static functions */
-static void LOGU(char *text_log, char *text);
 static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param);
 static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
 static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t *param);
@@ -184,10 +182,11 @@ static bool connecting = false;
 static bool scan_stop = false;
 static bool last_message = false;
 struct timeval start_scanning, scaning_time, now, receive;
-char *MY_LOG = "LOG";
+char *MY_LOG = "USER LOG";
 
-static void LOGU(char *text_log, char *text);
-
+static void   uv_LOG(char *text_log, char *text);
+void          uv_globalKill(void);
+void          uv_restart(int restartDelayTime);
 // ----------------------------------------- USER DATA ---------------------------------------------------------------------------------- */
 
 
@@ -231,13 +230,13 @@ static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
         if (scan_ret){
             ESP_LOGE(GATTC_TAG, "set scan params error, error code = %x", scan_ret);
         }
-        LOGU(MY_LOG, "Register complete from profile A");
+        uv_LOG(MY_LOG, "Register complete from profile A");
         break;
     /* one device connect successfully, all profiles callback function will get the ESP_GATTC_CONNECT_EVT,
      so must compare the mac address to check which device is connected, so it is a good choice to use ESP_GATTC_OPEN_EVT. */
     case ESP_GATTC_CONNECT_EVT:
     connection_a.gatt_if = gattc_if;
-    LOGU(MY_LOG, "Connect Event from Profile A");
+    uv_LOG(MY_LOG, "Connect Event from Profile A");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -381,7 +380,7 @@ static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, Receive notify value:");
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
 
-        LOGU(MY_LOG, "Notify event from Profile A :");
+        uv_LOG(MY_LOG, "Notify event from Profile A :");
         /* *************************************************************************** */
         state.profile = ESP_SERVER_NUMBER_A; //0x01 DLA PROFILU A
         state.state = p_data->notify.value[0];
@@ -437,9 +436,9 @@ static void gattc_profile_a_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             get_service_a = false;
         }
 
-        LOGU(MY_LOG, "ESP_RESTART Device A Disconnect");
+        uv_LOG(MY_LOG, "ESP_RESTART Device A Disconnect");
         /* -------------------------------------- RESTART ESP  -------------------------------------- */
-        esp_restart();
+        //esp_restart();
         break;
     default:
         break;
@@ -453,11 +452,11 @@ static void gattc_profile_b_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     switch (event) {
     case ESP_GATTC_REG_EVT:
         ESP_LOGI(GATTC_TAG, "REG_EVT");
-        LOGU(MY_LOG, "Register complete from profile B");
+        uv_LOG(MY_LOG, "Register complete from profile B");
         break;
     case ESP_GATTC_CONNECT_EVT:
     connection_b.gatt_if = gattc_if;
-    LOGU(MY_LOG, "Connect Event from Profile B");
+    uv_LOG(MY_LOG, "Connect Event from Profile B");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -603,7 +602,7 @@ static void gattc_profile_b_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, Receive notify value:");
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
 
-        LOGU(MY_LOG, "Notify Event from Profile B :");
+        uv_LOG(MY_LOG, "Notify Event from Profile B :");
         /* *************************************************************************** */
         state.profile = ESP_SERVER_NUMBER_B; //0x01 DLA PROFILU A
         state.state = p_data->notify.value[0];
@@ -657,9 +656,9 @@ static void gattc_profile_b_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             get_service_b = false;
         }
 
-        LOGU(MY_LOG, "ESP_RESTART Device B Disconnected");
+        uv_LOG(MY_LOG, "ESP_RESTART Device B Disconnected");
         /* -------------------------------------- RESTART ESP  -------------------------------------- */
-        esp_restart();
+        //esp_restart();
         break;
     default:
         break;
@@ -673,11 +672,11 @@ static void gattc_profile_c_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     switch (event) {
     case ESP_GATTC_REG_EVT:
         ESP_LOGI(GATTC_TAG, "REG_EVT");
-        LOGU(MY_LOG, "Register Event from Profile C");
+        uv_LOG(MY_LOG, "Register Event from Profile C");
         break;
     case ESP_GATTC_CONNECT_EVT:
     connection_c.gatt_if = gattc_if;
-    LOGU(MY_LOG, "Connect Event from Profile C");
+    uv_LOG(MY_LOG, "Connect Event from Profile C");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -822,7 +821,7 @@ static void gattc_profile_c_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
 
 
-        LOGU(MY_LOG, "Notify event from Profile C :");
+        uv_LOG(MY_LOG, "Notify event from Profile C :");
         /* *************************************************************************** */
         state.profile = ESP_SERVER_NUMBER_C; //0x01 DLA PROFILU A
         state.state = p_data->notify.value[0];
@@ -876,9 +875,9 @@ static void gattc_profile_c_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             get_service_c = false;
         }
 
-        LOGU(MY_LOG, "ESP_RESTART Device C Disconnected");
+        uv_LOG(MY_LOG, "ESP_RESTART Device C Disconnected");
   			/* -------------------------------------- RESTART ESP  -------------------------------------- */
-  			esp_restart();
+  			//esp_restart();
         break;
     default:
         break;
@@ -892,11 +891,11 @@ static void gattc_profile_d_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
     switch (event) {
     case ESP_GATTC_REG_EVT:
         ESP_LOGI(GATTC_TAG, "REG_EVT");
-        LOGU(MY_LOG, "Register Event from Profile D");
+        uv_LOG(MY_LOG, "Register Event from Profile D");
         break;
     case ESP_GATTC_CONNECT_EVT:
     connection_d.gatt_if = gattc_if;
-    LOGU(MY_LOG, "Connect Event from Profile D");
+    uv_LOG(MY_LOG, "Connect Event from Profile D");
         break;
     case ESP_GATTC_OPEN_EVT:
         if (p_data->open.status != ESP_GATT_OK){
@@ -1042,7 +1041,7 @@ static void gattc_profile_d_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
         ESP_LOGI(GATTC_TAG, "ESP_GATTC_NOTIFY_EVT, Receive notify value:");
         esp_log_buffer_hex(GATTC_TAG, p_data->notify.value, p_data->notify.value_len);
 
-        LOGU(MY_LOG, "Notify from Profile D");
+        uv_LOG(MY_LOG, "Notify from Profile D");
         /* *************************************************************************** */
         state.profile = ESP_SERVER_NUMBER_D; //0x01 DLA PROFILU A
         state.state = p_data->notify.value[0];
@@ -1096,9 +1095,9 @@ static void gattc_profile_d_event_handler(esp_gattc_cb_event_t event, esp_gatt_i
             get_service_d = false;
         }
 
-        LOGU(MY_LOG, "ESP_RESTART Device D Disconnected");
+        uv_LOG(MY_LOG, "ESP_RESTART Device D Disconnected");
   			/* -------------------------------------- RESTART ESP  -------------------------------------- */
-  			esp_restart();
+  			//esp_restart();
         break;
     default:
         break;
@@ -1122,6 +1121,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
         break;
     case ESP_GAP_BLE_SCAN_PARAM_SET_COMPLETE_EVT: {
         //the unit of the duration is second
+        gettimeofday(&start_scanning, NULL);
         uint32_t duration = 30;
         esp_ble_gap_start_scanning(duration);
         break;
@@ -1151,11 +1151,11 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
             if (conn_device_a && conn_device_b && conn_device_c && conn_device_d && !stop_scan_done){
                 stop_scan_done = true;
                 scan_stop = true;
-                LOGU(MY_LOG, "");
-                LOGU(MY_LOG, "");
-                LOGU(MY_LOG, "Stop Scanning");
-                LOGU(MY_LOG, "");
-                LOGU(MY_LOG, "");
+                uv_LOG(MY_LOG, "");
+                uv_LOG(MY_LOG, "");
+                uv_LOG(MY_LOG, "Stop Scanning");
+                uv_LOG(MY_LOG, "");
+                uv_LOG(MY_LOG, "");
                 esp_ble_gap_stop_scanning();
                 ESP_LOGI(GATTC_TAG, "all devices are connected");
                 break;
@@ -1402,6 +1402,11 @@ static void ut_playerTask(void* arg) {
 				data_tx[1] = CONNECTION_TIMEOUT;
 				len_tx = 2;
 				restart = true;
+				printf("SCANNING TIME : %ld\n",scaning_time.tv_sec);
+				printf("START SCANNING TIME : %ld\n",start_scanning.tv_sec);
+				printf("SCANNING PERIOD : %ld\n",(scaning_time.tv_sec - start_scanning.tv_sec)	);
+				scaning_time.tv_sec = 0;
+				start_scanning.tv_sec = 0;
 			}
 
 		}
@@ -1409,21 +1414,17 @@ static void ut_playerTask(void* arg) {
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
 
 		if (len_tx > 0) {
-			LOGU(MY_LOG, "PLAYER");
+			uv_LOG(MY_LOG, "PLAYER");
 			printf("\ncommand:  %d\ndata: %d\nactual profile: %d\n",
 					data_tx[0], data_tx[1], actualProfile);
-          LOGU(MY_LOG, "PLAYER");
+          uv_LOG(MY_LOG, "PLAYER");
 			uart_write_bytes(EX_UART_NUM, (const char*) data_tx, len_tx);
 			len_tx = 0;
 		}
 
 		if (restart == true) {
-			vTaskDelay(10000 / portTICK_PERIOD_MS);
-      LOGU(MY_LOG, "");
-      LOGU(MY_LOG, "ESP Restart now");
-      LOGU(MY_LOG, "");
-			restart = false;
-			esp_restart();
+      restart = false;
+      uv_restart(5000);
 		}
 
 		// WYSLANIE WIADOMOSCI DO DEKODERA -----------------------------------------------
@@ -1528,7 +1529,80 @@ static void uv_uart_init(void) {
 	//uart_isr_register(EX_UART_NUM, uart_handler, void * arg, int intr_alloc_flags,  uart_isr_handle_t *handle);
 }
 
-static void LOGU(char *text_log, char *text){
+static void uv_stbyRequest (void){
+  gettimeofday(&now, NULL);
+  if ((now.tv_sec - receive.tv_sec) > INACTION_TIME) {
+    uint8_t write_char_data[] = { MASTER_COMMAND, 0x0F, 0xF0, STBY };
+
+    // STANDBY REQUEST TO DEVICE A
+    esp_ble_gattc_write_char(connection_a.gatt_if,
+        gl_profile_tab[PROFILE_A_APP_ID].conn_id,
+        gl_profile_tab[PROFILE_A_APP_ID].char_handle,
+        sizeof(write_char_data), write_char_data,
+        ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+    printf("\nSEND STANDBY REQUEST TO DEVICE A");
+
+    // STANDBY REQUEST TO DEVICE B
+    esp_ble_gattc_write_char(connection_b.gatt_if,
+        gl_profile_tab[PROFILE_B_APP_ID].conn_id,
+  gl_profile_tab[PROFILE_B_APP_ID].char_handle,
+        sizeof(write_char_data), write_char_data,
+        ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+    printf("\nSEND STANDBY REQUEST TO DEVICE B");
+
+    //STANDBY REQUEST TO DEVICE C
+    esp_ble_gattc_write_char(connection_c.gatt_if,
+        gl_profile_tab[PROFILE_C_APP_ID].conn_id,
+        gl_profile_tab[PROFILE_C_APP_ID].char_handle,
+        sizeof(write_char_data), write_char_data,
+        ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+    printf("\nSEND STANDBY REQUEST TO DEVICE C");
+
+    // STANDBY REQUEST TO DEVICE B
+    esp_ble_gattc_write_char(connection_d.gatt_if,
+        gl_profile_tab[PROFILE_D_APP_ID].conn_id,
+        gl_profile_tab[PROFILE_D_APP_ID].char_handle,
+        sizeof(write_char_data), write_char_data,
+        ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
+    printf("\nSEND STANDBY REQUEST TO DEVICE D");
+    last_message = false;
+  }
+}
+
+void uv_globalKill(void){
+  printf(CYN"%s : "RESET, MY_LOG);
+  printf(RED"! ! ! ALL GLOBAL KILLING NOW ! ! !\n"RESET);
+  connecting = false;
+  scan_stop = false;
+  last_message = false;
+
+  conn_device_a   = false;
+  conn_device_b   = false;
+  conn_device_c   = false;
+  conn_device_d   = false;
+
+  get_service_a   = false;
+  get_service_b   = false;
+  get_service_c   = false;
+  get_service_d   = false;
+
+  Isconnecting    = false;
+  stop_scan_done  = false;
+}
+
+void uv_restart(int restartDelayTime){
+  vTaskDelay(restartDelayTime / portTICK_PERIOD_MS);
+  uv_LOG(MY_LOG, "! ! !");
+  printf(CYN"%s : "RESET, MY_LOG);
+  printf(RED"RESET procedure starting ...\n"RESET);
+  uv_globalKill();
+  printf(CYN"%s : "RESET, MY_LOG);
+  printf(RED"RESET procedure leaving ...\n"RESET);
+  uv_LOG(MY_LOG, "! ! !");
+  esp_restart();
+}
+
+static void uv_LOG(char *text_log, char *text){
 	printf(CYN"%s : "RESET, text_log);
 	printf("%s\n", text);
 }
@@ -1620,70 +1694,39 @@ void app_main()
     //xTaskCreate(ut_sleepTask, "sleep_task", 1024, NULL, 4, NULL);
 
     do{
-    	LOGU(MY_LOG, "Waiting for all devices :");
+    	uv_LOG(MY_LOG, "Waiting for all devices :");
     	vTaskDelay(1000 / portTICK_PERIOD_MS);
     	if(conn_device_a || conn_device_b || conn_device_c || conn_device_d){
-    		LOGU(MY_LOG, "Established connection with :");
+    		uv_LOG(MY_LOG, "Established connection with :");
     		if(conn_device_a){
-    			LOGU(MY_LOG, "Device _A_");
+    			uv_LOG(MY_LOG, "Device _A_");
     		};
     		if(conn_device_b){
-    			LOGU(MY_LOG, "Device _B_");
+    			uv_LOG(MY_LOG, "Device _B_");
     		};
     		if(conn_device_c){
-    			LOGU(MY_LOG, "Device _C_");
+    			uv_LOG(MY_LOG, "Device _C_");
     		};
     		if(conn_device_d){
-    			LOGU(MY_LOG, "Device _D_");
+    			uv_LOG(MY_LOG, "Device _D_");
     		};
     	} else {
-    		LOGU(MY_LOG, "No device :");;
+    		uv_LOG(MY_LOG, "No device :");;
     	}
     } while (!conn_device_a && !conn_device_b && !conn_device_c && !conn_device_d);
 
+    /* __________________________MAIN LOOP begin__________________________ */
     do {
       vTaskDelay(10 / portTICK_PERIOD_MS);
+
+
+
+
       if ((last_message == true) && (conn_device_a == true) && (conn_device_b == true) && (conn_device_c == true) && (conn_device_d == true)) {
-        //printf("\nlast message");
-        gettimeofday(&now, NULL);
-        if ((now.tv_sec - receive.tv_sec) > INACTION_TIME) {
-          uint8_t write_char_data[] = { MASTER_COMMAND, 0x0F, 0xF0, STBY };
-
-          /* STANDBY REQUEST TO DEVICE A */
-          esp_ble_gattc_write_char(connection_a.gatt_if,
-              gl_profile_tab[PROFILE_A_APP_ID].conn_id,
-              gl_profile_tab[PROFILE_A_APP_ID].char_handle,
-              sizeof(write_char_data), write_char_data,
-              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
-          printf("\nSEND STANDBY REQUEST TO DEVICE A");
-
-          /* STANDBY REQUEST TO DEVICE B */
-          esp_ble_gattc_write_char(connection_b.gatt_if,
-              gl_profile_tab[PROFILE_B_APP_ID].conn_id,
-			  gl_profile_tab[PROFILE_B_APP_ID].char_handle,
-              sizeof(write_char_data), write_char_data,
-              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
-          printf("\nSEND STANDBY REQUEST TO DEVICE B");
-
-          /* STANDBY REQUEST TO DEVICE C */
-          esp_ble_gattc_write_char(connection_c.gatt_if,
-              gl_profile_tab[PROFILE_C_APP_ID].conn_id,
-              gl_profile_tab[PROFILE_C_APP_ID].char_handle,
-              sizeof(write_char_data), write_char_data,
-              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
-          printf("\nSEND STANDBY REQUEST TO DEVICE C");
-
-          /* STANDBY REQUEST TO DEVICE B */
-          esp_ble_gattc_write_char(connection_d.gatt_if,
-              gl_profile_tab[PROFILE_D_APP_ID].conn_id,
-              gl_profile_tab[PROFILE_D_APP_ID].char_handle,
-              sizeof(write_char_data), write_char_data,
-              ESP_GATT_WRITE_TYPE_RSP, ESP_GATT_AUTH_REQ_NONE);
-          printf("\nSEND STANDBY REQUEST TO DEVICE D");
-          last_message = false;
-        }
+        uv_stbyRequest();
       }
     } while (1);
+    /* __________________________MAIN LOOP end__________________________ */
 
     return;
 

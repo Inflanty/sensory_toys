@@ -1,7 +1,5 @@
-//#include <Adafruit_VS1053.h>
-
 /***************************************************
-*PLAYER
+//PLAYER
  ****************************************************/
 
 // include SPI, MP3 and SD libraries
@@ -17,11 +15,11 @@
 #define SHIELD_RESET  -1      // VS1053 reset pin (unused!)
 #define SHIELD_CS     7      // VS1053 chip select pin (output)
 #define SHIELD_DCS    6      // VS1053 Data/command select pin (output)
-
+#define LED 13
 // These are common pins between breakout and shield
 #define CARDCS 4     // Card chip select pin
+// DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
-#define led 13
 
 #define PLAYER_READY (0xFF)
 #define PLAYER_LISNING (0xEE)
@@ -34,6 +32,8 @@
 #define ALL_CONNECTED (0xFF)
 #define NO_CONNECTION (0xAA)
 #define CONNECTION_TIMEOUT (0xEE)
+
+#define VOLUME (20)
 
 uint8_t actualTrack = 0xFF;
 bool operate_flag = true;
@@ -76,11 +76,19 @@ void setup() {
   printDirectory(SD.open("/"), 0);
 
   // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(20, 20);
+  musicPlayer.setVolume(VOLUME, VOLUME);
 
   /***** Two interrupt options! *******/
+  // This option uses timer0, this means timer1 & t2 are not required
+  // (so you can use 'em for Servos, etc) BUT millis() can lose time
+  // since we're hitchhiking on top of the millis() tracker
   //musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT);
 
+  // This option uses a pin interrupt. No timers required! But DREQ
+  // must be on an interrupt pin. For Uno/Duemilanove/Diecimilla
+  // that's Digital #2 or #3
+  // See http://arduino.cc/en/Reference/attachInterrupt for other pins
+  // *** This method is preferred
   if (! musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT))
     Serial.println(F("DREQ pin is not an interrupt pin"));
 
@@ -89,6 +97,12 @@ void setup() {
 void loop() {
 
   Serial1.begin(9600);
+  // Alternately, we can just play an entire file at once
+  // This doesn't happen in the background, instead, the entire
+  // file is played and the program will continue when it's done!
+  //musicPlayer.playFullFile("DREWNO.MP3");
+  // Start playing a file, then we can do stuff while waiting for it to finish
+
 
   
   Serial.print("\nPLAYER LOOP STARTING");
@@ -99,12 +113,12 @@ void loop() {
     ; // wait for serial port to connect. Needed for native USB
     Serial.print("PLAYER LOOP STARTING");
     delay(1000);
-    digitalWrite(led, HIGH);
   }
+
+  digitalWrite(LED, HIGH);
     
   if ((isConnecting == false) && (isConnected == false)) {
     musicPlayer.playFullFile("XSTART.mp3");
-    digitalWrite(led, HIGH);
     delay(1000);
   }
 
@@ -132,8 +146,7 @@ void loop() {
       Serial.print(argument);
 
       if (operate_flag == true) {
-          if (/*player() == true*/1){
-              
+          if (player(command, argument) == true){
           } else {
               Serial.print("\n Nie mozna odtworzyc utworu !\n");
           }
@@ -170,11 +183,11 @@ void printDirectory(File dir, int numTabs) {
 
 /* FUNCKJE DO PROGRAMU */
 
-uint8_t* trackPlayUntilRX (uint8_t track){
-    uint8_t rx[2], faul_tab[] = {0x00, 0x00};
+bool trackPlayUntilRX (uint8_t track, uint8_t* rx){
+    uint8_t faul_tab[] = {0x00, 0x00};
     int len = 2;
-    bool faul = false;
-    while (((Serial1.readBytes(rx, len)) == 0) && (faul == false)) {
+    bool faul = false, stop = false;
+    while (((Serial1.readBytes(rx, len)) == 0) && (faul == false) && (stop == false)) {
         if (musicPlayer.playingMusic == false) {
             switch (track){
             case 0x01:
@@ -243,14 +256,18 @@ uint8_t* trackPlayUntilRX (uint8_t track){
                 }
               break;
             case ALL_CONNECTED:
-                if (! musicPlayer.startPlayingFile("XCONND.mp3")) {
+                if (! musicPlayer.playFullFile("XCONND.mp3")) {
                     faul = true;
                 }
+                stop = true;
+                rx[0] = TRACK_STOP;    
               break;
             case CONNECTION_TIMEOUT:
-                if (! musicPlayer.startPlayingFile("XNOCONN.mp3")) {
+                if (! musicPlayer.playFullFile("XNOCONN.mp3")) {
                     faul = true;
                 }
+                stop = true;
+                rx[0] = TRACK_STOP;
               break;
             default:
                     faul = true;
@@ -262,46 +279,53 @@ uint8_t* trackPlayUntilRX (uint8_t track){
     delay(1);
     /* ODEBRANE DANE */
     if (faul == true){
-    return faul_tab;
+    return false;
     }
-    return rx;
+    return true;
 }
 
-void trackStopDelay (int delay_time){
-    for (int i = 20; i > 0; i--) {
-        musicPlayer.setVolume(i, i);
-        delay(delay_time/20);
+void trackStopDelay (){
+    for (int i = 0; i < (255 - VOLUME) ; i++) {
+        musicPlayer.setVolume((VOLUME + i), (VOLUME + i));
+        delay(10);
     }
+   
     musicPlayer.stopPlaying();
-    musicPlayer.setVolume(20, 20);
-}
-
-void trackNext (uint8_t nexttrack){
-    musicPlayer.stopPlaying();
-    trackPlay(nexttrack);
+    delay(56);
+    musicPlayer.setVolume(VOLUME, VOLUME);
+    
 }
 
 bool player (uint8_t fc_command, uint8_t fc_argument){
-    uint8_t* rxdata[2];
+    uint8_t rxdata[2];
     
-    if (fc_command == TRACK_PLAY){
-        rxdata = trackPlayUntilRX(fc_argument);
-        fc_command = rxdata[0];
-        fc_argument = rxdata[1];
+    while(1){
+        if (fc_command == TRACK_START){
+            if (trackPlayUntilRX(fc_argument, rxdata) == true){
+                fc_command = rxdata[0];
+                fc_argument = rxdata[1];
+                Serial.print(fc_command);
+                Serial.print(fc_argument);
+            }
+        }
+        if (fc_command == NEXT_TRACK){
+            musicPlayer.stopPlaying();
+            if (trackPlayUntilRX(fc_argument, rxdata) == true){
+                fc_command = rxdata[0];
+                fc_argument = rxdata[1];
+                Serial.print(fc_command);
+                Serial.print(fc_argument);
+            }
+        }
+        if (fc_command == TRACK_STOP){
+            trackStopDelay();
+            Serial.print("Stop playing");
+            return true;
+        }
+        if ((fc_command == 0x00) && (fc_argument == 0x00)){
+            Serial.print("\n PLAYER FALSE");
+            return false;
+        }
     }
-    if (fc_command == NEXT_TRACK){
-        rxdata = trackPlayUntilRX(fc_argument);
-        fc_command = rxdata[0];
-        fc_argument = rxdata[1];
-    }
-    if (fc_command == TRACK_STOP){
-        trackStop(400);
-    }
-    if ((fc_command == 0x00) && (fc_argument == 0x00)){
-        Serial.print("\n PLAYER FALSE");
-        return false;
-    }
-    
-    return true;
 }
 
