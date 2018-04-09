@@ -1363,7 +1363,6 @@ void uv_stbyAction() {
 	printf("\b%d\n", lev);
 	uv_LOG(MY_LOG, "DEEP SLEEP START NOW");
 	esp_deep_sleep_start();
-
 	/*
 	 if (esp_bluedroid_disable() == ESP_OK) {
 	 vTaskDelay(100 / portTICK_PERIOD_MS);
@@ -1379,7 +1378,6 @@ void uv_stbyAction() {
 	 LOGU(MY_LOG, "DEEP SLEEP START NOW");
 	 vTaskDelay(5000 / portTICK_PERIOD_MS);
 	 esp_deep_sleep_start();
-
 	 }
 	 }*/
 }
@@ -1481,6 +1479,8 @@ void app_main() {
 	xTaskCreate(ut_timerTask, "timer_evt_task", 2048, NULL, 5,
 			&timerTaskHandle);
 
+	uv_LOG(MY_LOG, TEST_DEVICE_NAME);
+
 	/* __________________________MAIN LOOP begin__________________________ */
 	do {
 		if (inaction == true) {
@@ -1497,3 +1497,12 @@ void app_main() {
 
 	return;
 }
+
+/*
+TASKS :																		Ready:											Working:
+Send notification after motion 						1														1
+Send notification stop motion							1														1
+Sleep after inaction Receive							1														1
+Receive info about EXP via IrDA						1														?
+Sending info via IrDA											0														0
+*/

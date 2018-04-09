@@ -1693,37 +1693,46 @@ void app_main()
     xTaskCreate(ut_playerTask, "player_task", 2048, NULL, 10, NULL);
     //xTaskCreate(ut_sleepTask, "sleep_task", 1024, NULL, 4, NULL);
 
-    do{
-    	uv_LOG(MY_LOG, "Waiting for all devices :");
-    	vTaskDelay(1000 / portTICK_PERIOD_MS);
-    	if(conn_device_a || conn_device_b || conn_device_c || conn_device_d){
-    		uv_LOG(MY_LOG, "Established connection with :");
-    		if(conn_device_a){
-    			uv_LOG(MY_LOG, "Device _A_");
-    		};
-    		if(conn_device_b){
-    			uv_LOG(MY_LOG, "Device _B_");
-    		};
-    		if(conn_device_c){
-    			uv_LOG(MY_LOG, "Device _C_");
-    		};
-    		if(conn_device_d){
-    			uv_LOG(MY_LOG, "Device _D_");
-    		};
-    	} else {
-    		uv_LOG(MY_LOG, "No device :");;
-    	}
-    } while (!conn_device_a && !conn_device_b && !conn_device_c && !conn_device_d);
-
     /* __________________________MAIN LOOP begin__________________________ */
     do {
       vTaskDelay(10 / portTICK_PERIOD_MS);
+      if (!conn_device_a && !conn_device_b && !conn_device_c && !conn_device_d){
+        uv_LOG(MY_LOG, "Waiting for all devices :");
+      	vTaskDelay(1000 / portTICK_PERIOD_MS);
+      }
 
+      if (!conn_device_a || !conn_device_b || !conn_device_c || !conn_device_d){
+        uv_LOG(MY_LOG, "Established connection with :");
+    		if(conn_device_a){
+    			uv_LOG(MY_LOG, "server A : PRESENT");
+    		} else{
+          uv_LOG(MY_LOG, "server A : ABSENT");
+        };
+        if(conn_device_b){
+    			uv_LOG(MY_LOG, "server B : PRESENT");
+    		} else{
+          uv_LOG(MY_LOG, "server B : ABSENT");
+        };
+        if(conn_device_c){
+    			uv_LOG(MY_LOG, "server C : PRESENT");
+    		} else{
+          uv_LOG(MY_LOG, "server C : ABSENT");
+        };
+        if(conn_device_d){
+    			uv_LOG(MY_LOG, "server D : PRESENT");
+    		} else{
+          uv_LOG(MY_LOG, "server D : ABSENT");
+        };
+      	vTaskDelay(1000 / portTICK_PERIOD_MS);
+      }
 
-
-
-      if ((last_message == true) && (conn_device_a == true) && (conn_device_b == true) && (conn_device_c == true) && (conn_device_d == true)) {
-        uv_stbyRequest();
+      if (conn_device_a && conn_device_b && conn_device_c && conn_device_d) {
+        do{
+          if(last_message && 1){
+            uv_stbyRequest();
+          }
+          vTaskDelay(50 / portTICK_PERIOD_MS);
+        }while(conn_device_a && conn_device_b && conn_device_c && conn_device_d);
       }
     } while (1);
     /* __________________________MAIN LOOP end__________________________ */
