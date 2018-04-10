@@ -24,17 +24,22 @@
 
 #define PLAYER_READY    (0xFF)
 #define PLAYER_LISNING  (0xEE)
-/*
+
 #define TRACK_STOP      (0x11)
 #define TRACK_START     (0x0F)
 #define TRACK_FIN       (0xF0)
 #define NEXT_TRACK      (0x1F)
-*/
+
 #define ALL_CONNECTED   (0xFF)
 #define NO_CONNECTION   (0xAA)
 #define CONNECTION_TIMEOUT (0xEE)
 
 #define VOLUME          (20)
+#define USEINTERRUPTS
+//#define PLAYCONTINUOUS
+//#define PLAYWITHSTOP
+//#define PRINTLOG
+#define PRINT_LOG(a) Serial.print(a);
 
 uint8_t actualTrack = 0xFF;
 bool operate_flag = true;
@@ -101,9 +106,11 @@ void setup() {
   // For Player Purpose :   DREQ
   // For Host Puspose   :   HOSTINTERRUPT
 
+  #ifdef USEINTERRUPTS
   // HOSTINTERRUPT - if pin change the value and then controller send 2bytes value via Serial1
   // interrupt will generate an event
   attachInterrupt(digitalPinToInterrupt(HOSTINTERRUPT), intHandlerHost, CHANGE);
+  #endif
 }
 
 void loop() {
@@ -132,7 +139,9 @@ void loop() {
 
   while (1) {
 
+  }
 }
+
 
 void printDirectory(File dir, int numTabs) {
   while (true) {
@@ -159,108 +168,7 @@ void printDirectory(File dir, int numTabs) {
   }
 }
 
-/* FUNCKJE DO PROGRAMU */
-
-bool trackPlayUntilRX (uint8_t track, uint8_t* rx){
-    uint8_t faul_tab[] = {0x00, 0x00};
-    int len = 2;
-    bool faul = false, stop = false;
-    while (((Serial1.readBytes(rx, len)) == 0) && (faul == false) && (stop == false)) {
-        if (musicPlayer.playingMusic == false) {
-            switch (track){
-            case 0x01:
-                if (! musicPlayer.startPlayingFile("WODA.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x02:
-                if (! musicPlayer.startPlayingFile("KAMIEN.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x03:
-                if (! musicPlayer.startPlayingFile("DREWNO.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x04:
-                if (! musicPlayer.startPlayingFile("WIATR.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x11:
-                if (! musicPlayer.startPlayingFile("WODA_1.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x21:
-                if (! musicPlayer.startPlayingFile("KAMIEN_1.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x12:
-                if (! musicPlayer.startPlayingFile("DREWNO_1.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x22:
-                if (! musicPlayer.startPlayingFile("WIATR_1.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x13:
-                if (! musicPlayer.startPlayingFile("WODA_2.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x23:
-                if (! musicPlayer.startPlayingFile("KAMIEN_2.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x14:
-                if (! musicPlayer.startPlayingFile("DREWNO_2.mp3")) {
-                    faul = true;
-                }
-                break;
-            case 0x24:
-                if (! musicPlayer.startPlayingFile("WIATR_2.mp3")) {
-                    faul = true;
-                }
-              break;
-            case NO_CONNECTION:
-                if (! musicPlayer.startPlayingFile("XCONN.mp3")) {
-                    faul = true;
-                }
-              break;
-            case ALL_CONNECTED:
-                if (! musicPlayer.playFullFile("XCONND.mp3")) {
-                    faul = true;
-                }
-                stop = true;
-                rx[0] = TRACK_STOP;
-              break;
-            case CONNECTION_TIMEOUT:
-                if (! musicPlayer.playFullFile("XNOCONN.mp3")) {
-                    faul = true;
-                }
-                stop = true;
-                rx[0] = TRACK_STOP;
-              break;
-            default:
-                    faul = true;
-              break;
-            }
-            actualTrack = track;
-        }
-    }
-    delay(1);
-    /* ODEBRANE DANE */
-    if (faul == true){
-    return false;
-    }
-    return true;
-}
+/* *********************** FUNCTION *********************** */
 
 void trackStopDelay (){
     for (int i = 0; i < (255 - VOLUME) ; i++) {
@@ -272,6 +180,130 @@ void trackStopDelay (){
     delay(56);
     musicPlayer.setVolume(VOLUME, VOLUME);
 
+}
+
+bool trackSelect(uint8_t track){
+  switch (track){
+  case 0x01:
+      if (! musicPlayer.startPlayingFile("WODA.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x02:
+      if (! musicPlayer.startPlayingFile("KAMIEN.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x03:
+      if (! musicPlayer.startPlayingFile("DREWNO.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x04:
+      if (! musicPlayer.startPlayingFile("WIATR.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x11:
+      if (! musicPlayer.startPlayingFile("WODA_1.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x21:
+      if (! musicPlayer.startPlayingFile("KAMIEN_1.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x12:
+      if (! musicPlayer.startPlayingFile("DREWNO_1.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x22:
+      if (! musicPlayer.startPlayingFile("WIATR_1.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x13:
+      if (! musicPlayer.startPlayingFile("WODA_2.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x23:
+      if (! musicPlayer.startPlayingFile("KAMIEN_2.mp3")) {
+        return FALSE;
+      }
+      break;
+  case 0x14:
+      }
+      if (! musicPlayer.startPlayingFile("DREWNO_2.mp3")) {
+        return FALSE;
+      break;
+  case 0x24:
+      if (! musicPlayer.startPlayingFile("WIATR_2.mp3")) {
+        return FALSE;
+      }
+    break;
+  case NO_CONNECTION:
+      if (! musicPlayer.startPlayingFile("XCONN.mp3")) {
+        return FALSE;
+      }
+    break;
+  case ALL_CONNECTED:
+      if (! musicPlayer.playFullFile("XCONND.mp3")) {
+        return FALSE;
+      }
+    break;
+  case CONNECTION_TIMEOUT:
+      if (! musicPlayer.playFullFile("XNOCONN.mp3")) {
+        return FALSE;
+      }
+    break;
+    default:
+      return FALSE;
+    break;
+  }
+  return TRUE;
+}
+
+bool trackPlay(uint8_t track){
+  #ifdef PLAYCONTINUOUS
+  if(!musicPlayer.playingMusic){
+    if(trackSelect(track)){
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }else{
+    return FALSE;
+  }
+  #elif PLAYWITHSTOP
+  if(!musicPlayer.playingMusic){
+    if(trackSelect(track)){
+      return TRUE;
+    }
+  }else{
+    trackStopDelay();
+    if(trackSelect(track)){
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
+  #else
+  if(!musicPlayer.playingMusic){
+    if(trackSelect(track)){
+      return TRUE;
+    }
+  }else{
+    musicPlayer.stopPlaying();
+    if(trackSelect(track)){
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
+  #endif
 }
 
 bool player (uint8_t fc_command, uint8_t fc_argument){
@@ -317,24 +349,25 @@ void intCallback(bool detection){
   if(detection){
     switch(commandInt){
       case TRACK_STOP :
-
+        trackStopDelay();
       break;
       case TRACK_START :
-
+        trackPlay(argumentInt);
       break;
       case TRACK_FIN :
-
+        musicPlayer.stopPlaying();
       break;
       case NEXT_TRACK :
-
+        trackPlay(argumentInt);
       break;
-      default : ; break;
+      default : Serial.print("Can't recognize !"); break;
     }
   }else{
     ;
   }
 }
 
+#ifdef USEINTERRUPTS
 void intHandlerHost(void){
   uint8_t rx[2], len = 2;
   if((Serial1.readBytes(rx, len)) == 2){ //Received command and the argumet
@@ -344,8 +377,8 @@ void intHandlerHost(void){
   }else{
     detectedInt = FALSE;                //Interrupt FALSE
   }
-
 }
+#endif
 
 /*
 into main loop (after while)
