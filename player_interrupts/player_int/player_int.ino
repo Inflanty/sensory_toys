@@ -40,6 +40,8 @@
 //#define PLAYWITHSTOP
 //#define PRINTLOG
 #define PRINT_LOG(a) Serial.print(a);
+#define FALSE           (0)
+#define TRUE            (1)
 
 uint8_t actualTrack = 0xFF;
 bool operate_flag = true;
@@ -52,6 +54,7 @@ uint8_t argument = 0;
 volatile bool detectedInt = FALSE;
 volatile uint8_t commandInt = 0;
 volatile uint8_t argumentInt = 0;
+void intHandlerHost(void);
 
 
 Adafruit_VS1053_FilePlayer musicPlayer =
@@ -62,25 +65,25 @@ Adafruit_VS1053_FilePlayer musicPlayer =
 
 
 void setup() {
-  delay(9000);
+
   Serial.begin(9600);
-  Serial.println("Adafruit VS1053 Library Test");
+  PRINT_LOG("Adafruit VS1053 Library Test");
 
 
   // initialise the music player
   if (! musicPlayer.begin()) { // initialise the music player
-    Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
+    PRINT_LOG(F("Couldn't find VS1053, do you have the right pins defined?"));
     while (1);
   }
-  Serial.println(F("VS1053 found"));
+  PRINT_LOG(F("VS1053 found"));
 
   musicPlayer.sineTest(0x44, 500);    // Make a tone to indicate VS1053 is working
 
   if (!SD.begin(CARDCS)) {
-    Serial.println(F("SD failed, or not present"));
+    PRINT_LOG(F("SD failed, or not present"));
     while (1);  // don't do anything more
   }
-  Serial.println("SD OK!");
+  PRINT_LOG("SD OK!");
 
   // list files
   printDirectory(SD.open("/"), 0);
@@ -235,7 +238,7 @@ bool trackSelect(uint8_t track){
       }
       break;
   case 0x14:
-      }
+
       if (! musicPlayer.startPlayingFile("DREWNO_2.mp3")) {
         return FALSE;
       break;
@@ -264,6 +267,7 @@ bool trackSelect(uint8_t track){
     break;
   }
   return TRUE;
+}
 }
 
 bool trackPlay(uint8_t track){
@@ -302,41 +306,10 @@ bool trackPlay(uint8_t track){
     }else{
       return FALSE;
     }
+    
   }
   #endif
-}
-
-bool player (uint8_t fc_command, uint8_t fc_argument){
-    uint8_t rxdata[2];
-
-    while(1){
-        if (fc_command == TRACK_START){
-            if (trackPlayUntilRX(fc_argument, rxdata) == true){
-                fc_command = rxdata[0];
-                fc_argument = rxdata[1];
-                Serial.print(fc_command);
-                Serial.print(fc_argument);
-            }
-        }
-        if (fc_command == NEXT_TRACK){
-            musicPlayer.stopPlaying();
-            if (trackPlayUntilRX(fc_argument, rxdata) == true){
-                fc_command = rxdata[0];
-                fc_argument = rxdata[1];
-                Serial.print(fc_command);
-                Serial.print(fc_argument);
-            }
-        }
-        if (fc_command == TRACK_STOP){
-            trackStopDelay();
-            Serial.print("Stop playing");
-            return true;
-        }
-        if ((fc_command == 0x00) && (fc_argument == 0x00)){
-            Serial.print("\n PLAYER FALSE");
-            return false;
-        }
-    }
+  return FALSE;
 }
 
 void intCallback(bool detection){
@@ -360,7 +333,7 @@ void intCallback(bool detection){
       case NEXT_TRACK :
         trackPlay(argumentInt);
       break;
-      default : Serial.print("Can't recognize !"); break;
+      default : PRINT_LOG("Can't recognize !"); break;
     }
   }else{
     ;
