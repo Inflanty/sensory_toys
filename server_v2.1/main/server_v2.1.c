@@ -43,7 +43,8 @@
 #include "soc/rtc.h"
 
 #define GATTS_TAG "SERVER"
-
+//#define NO_LOG
+//#define NO_USER_LOG
 ///Declare the static function
 static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event,
 		esp_gatt_if_t gatts_if, esp_ble_gatts_cb_param_t *param);
@@ -1072,7 +1073,7 @@ static void ut_expTask(void *pvParameters) {
 
 static void ut_vibroTask(void* arg) {
 	uint32_t io_num;
-	struct connData *connDataAPointer = &connDataA;
+	//struct connData *connDataAPointer = &connDataA;
 	module.state = IMMOBILITY;
 	module.level = EXP_DISCONNECT;
 	module.evt = false;
@@ -1084,7 +1085,7 @@ static void ut_vibroTask(void* arg) {
 
 	for (;;) {
 		if (xQueueReceive(gpio_evt_queue, &io_num, portMAX_DELAY)) {
-			printf("GPIO[%d] intr, val: %d\n", io_num, gpio_get_level(io_num));
+			//printf("GPIO[%d] intr, val: %d\n", io_num, gpio_get_level(io_num));
 			if (io_num == GPIO_INPUT_IO_0) {
 				module.evt = true;
 				module.state = MOTION;
@@ -1125,7 +1126,7 @@ static void ut_timerTask(void *arg) {
 	while (1) {
 		timer_event_t evt;
 		xQueueReceive(timer_queue, &evt, portMAX_DELAY);
-		struct connData *connDataAPointer = &connDataA;
+		//struct connData *connDataAPointer = &connDataA;
 		if (evt.idx == TIMER_0) {
 
 		} else if (evt.idx == TIMER_1) {
@@ -1165,7 +1166,6 @@ static void ut_timerTask(void *arg) {
 }
 
 static void uv_gpio_init() {
-
 	gpio_config_t io_conf;
 //disable interrupt
 	io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
@@ -1288,7 +1288,7 @@ void uv_notifyData(struct connData *Xparameter, uint8_t *value) {
 	if (Xparameter->isConnected) {
 		esp_gatt_rsp_t rsp;
 		memset(&rsp, 0, sizeof(esp_gatt_rsp_t));
-		int length = ux_lengthCalculate(value);
+		//int length = ux_lengthCalculate(value);
 
 		uv_LOG(MY_LOG, "");
 		uv_LOG(MY_LOG, "Sending notify !");
@@ -1335,7 +1335,7 @@ void uv_timerStart(timer_group_t group_num, timer_idx_t timer_num,
 }
 
 void uv_stbyAction() {
-	struct connData *connDataAPointer = &connDataA;
+	//struct connData *connDataAPointer = &connDataA;
 	uint8_t confirm[4] = { 0 };
 	confirm[0] = MASTER_COMMAND;
 	confirm[1] = 0x00;
@@ -1383,8 +1383,10 @@ void uv_stbyAction() {
 }
 
 static void uv_LOG(char *text_log, char *text) {
+	#ifndef NO_USER_LOG
 	printf(CYN"%s : "RESET, text_log);
 	printf("%s\n", text);
+	#endif
 }
 
 int ux_lengthCalculate(uint8_t *value_) {
@@ -1399,6 +1401,9 @@ int ux_lengthCalculate(uint8_t *value_) {
 // ----------------------------------------- FUNCTION DEF ------------------------------------------------------------------------------- */
 
 void app_main() {
+	#ifdef NO_LOG //NO LOGS FROM ESP
+	esp_log_level_set("*", ESP_LOG_NONE);
+	#endif
 	esp_err_t ret;
 
 	// Initialize NVS.

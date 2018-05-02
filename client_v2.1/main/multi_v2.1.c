@@ -1269,34 +1269,6 @@ static void esp_gattc_cb(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp
 
 // ----------------------------------------- USER FNC  ---------------------------------------------------------------------------------- */
 
-/*
- * moduleState Qstate;
- *
- * Zdefiniowac w obsludze notyfikacji
- * Qstate.state = ...
- * Qstate.level = ...
- *
- *
- */
-/*
-static void ut_sleepTask(void* arg){
-  while(1){
-    if(conn_device_a && conn_device_b && conn_device_c && conn_device_d){
-      if(xQueueReceive(sleep_queue, &Qsleep, portMAX_DELAY)){
-        //LAST MESSAGE RECEIVED
-
-      } else {
-
-        //TICK FROM CLLBACK CHECK
-      }
-    }
-  }
-}
-*/
-/*
-timer create : xTimerCreate
-timer callback : uc_timerCallback(timer handle);
-*/
 static void ut_playerTask(void* arg) {
 	uint8_t* data_tx = (uint8_t*) malloc(BUF_SIZE);
 	uint8_t* data_rx = (uint8_t*) malloc(BUF_SIZE);
